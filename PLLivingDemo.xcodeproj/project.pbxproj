@@ -20,6 +20,7 @@
 		D2F907A51D3CA066006C987F /* LDLobbyRoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907A41D3CA066006C987F /* LDLobbyRoomView.m */; };
 		D2F907AB1D3CB271006C987F /* LDAnchorRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907AA1D3CB271006C987F /* LDAnchorRoomViewController.m */; };
 		D2F907AE1D3CB363006C987F /* LDRoomInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907AD1D3CB363006C987F /* LDRoomInfoViewController.m */; };
+		D2F907B81D3CD82C006C987F /* LDBroadcastingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907B71D3CD82C006C987F /* LDBroadcastingManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,8 @@
 		D2F907AA1D3CB271006C987F /* LDAnchorRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAnchorRoomViewController.m; sourceTree = "<group>"; };
 		D2F907AC1D3CB363006C987F /* LDRoomInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDRoomInfoViewController.h; sourceTree = "<group>"; };
 		D2F907AD1D3CB363006C987F /* LDRoomInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDRoomInfoViewController.m; sourceTree = "<group>"; };
+		D2F907B61D3CD82C006C987F /* LDBroadcastingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBroadcastingManager.h; sourceTree = "<group>"; };
+		D2F907B71D3CD82C006C987F /* LDBroadcastingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDBroadcastingManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				D2F907A71D3CA662006C987F /* Globals */,
+				D2F907B21D3CD3C5006C987F /* PiliSDK */,
 				D2F907851D3C79EA006C987F /* Modules */,
 				D2F907861D3C79F7006C987F /* Views */,
 				D2F907871D3C79FD006C987F /* ViewControllers */,
@@ -191,6 +195,15 @@
 				D2F907AD1D3CB363006C987F /* LDRoomInfoViewController.m */,
 			);
 			name = Room;
+			sourceTree = "<group>";
+		};
+		D2F907B21D3CD3C5006C987F /* PiliSDK */ = {
+			isa = PBXGroup;
+			children = (
+				D2F907B61D3CD82C006C987F /* LDBroadcastingManager.h */,
+				D2F907B71D3CD82C006C987F /* LDBroadcastingManager.m */,
+			);
+			name = PiliSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2F907B81D3CD82C006C987F /* LDBroadcastingManager.m in Sources */,
 				D2F9076E1D3C705D006C987F /* AppDelegate.m in Sources */,
 				D2F907A21D3C9D5C006C987F /* LDRoomItem.m in Sources */,
 				D2F907A51D3CA066006C987F /* LDLobbyRoomView.m in Sources */,
