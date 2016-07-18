@@ -1,0 +1,44 @@
+PODS:
+  - GPUImage (0.1.7)
+  - HappyDNS (0.3.7)
+  - Masonry (1.0.1)
+  - pili-librtmp (1.0.3)
+  - PLCameraStreamingKit (1.8.0):
+    - GPUImage (= 0.1.7)
+    - PLCameraStreamingKit/precompiled (= 1.8.0)
+    - PLStreamingKit (~> 1.2.0)
+  - PLCameraStreamingKit/precompiled (1.8.0):
+    - GPUImage (= 0.1.7)
+    - PLStreamingKit (~> 1.2.0)
+  - PLPlayerKit (2.2.1):
+    - HappyDNS
+    - pili-librtmp
+    - PLPlayerKit/precompiled (= 2.2.1)
+  - PLPlayerKit/precompiled (2.2.1):
+    - HappyDNS
+    - pili-librtmp
+  - PLStreamingKit (1.2.4):
+    - HappyDNS
+    - pili-librtmp
+    - PLStreamingKit/precompiled (= 1.2.4)
+  - PLStreamingKit/precompiled (1.2.4):
+    - HappyDNS
+    - pili-librtmp
+
+DEPENDENCIES:
+  - Masonry
+  - PLCameraStreamingKit (~> 1.8)
+  - PLPlayerKit (~> 2.2)
+
+SPEC CHECKSUMS:
+  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  HappyDNS: ec476226e119bf4766b74975ec4873f6fa078cf2
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  pili-librtmp: 50faa17413c635cca5ceccb1a8f9f6acc6587a45
+  PLCameraStreamingKit: 03b4bce4218edeb18a0060d8849eb5d7b2af4a5d
+  PLPlayerKit: d0b902dccfbbc39519096b4f86e4e393c5f87bc3
+  PLStreamingKit: c8574decbacb981e36e5b95314c991a3b5d02125
+
+PODFILE CHECKSUM: f00d4d1f0ee91d3b5852bba037331dff46c800b0
+
+COCOAPODS: 1.1.0.beta.1
