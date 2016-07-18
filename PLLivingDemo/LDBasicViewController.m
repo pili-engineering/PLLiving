@@ -124,7 +124,7 @@
     }
     // 只有最上层的 view controller 可以被 touch 到。
     // 除此之外的其他 view controller 即便不小心漏一部分，那一部分也无法响应 touch。
-    UIViewController *viewControllerEnableTouch = self.basicViewController.viewControllers.firstObject;
+    UIViewController *viewControllerEnableTouch = self.basicViewController.viewControllers.lastObject;
     if (viewControllerEnableTouch) {
         CGPoint subPoint = [viewControllerEnableTouch.view convertPoint:point fromView:self];
         return [viewControllerEnableTouch.view hitTest:subPoint withEvent:event];
