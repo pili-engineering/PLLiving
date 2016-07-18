@@ -1,15 +1,11 @@
 //
-//  ViewController.h
+//  TaoWallet-Prefix.pch
 //  PLLivingDemo
 //
 //  Created by TaoZeyu on 16/7/18.
 //  Copyright © 2016年 com.pili-engineering. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#define LDString(str) NSLocalizedString(@str, @"")
 
-@interface ViewController : UIViewController
-
-
-@end
-
+#import <Masonry/Masonry.h>
