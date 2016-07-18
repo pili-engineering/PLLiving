@@ -132,6 +132,14 @@
     return nil;
 }
 
+- (void)layoutSubviews
+{
+    for (UIView *subview in self.subviews) {
+        subview.frame = self.bounds;
+    }
+    [super layoutSubviews];
+}
+
 @end
 
 @implementation UIViewController (LDBasicViewController)
