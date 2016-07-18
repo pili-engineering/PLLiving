@@ -25,7 +25,7 @@
     self.window = ({
         UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        window.rootViewController = [[LDLoginViewController alloc] init];
+        window.rootViewController = [[LDBasicViewController alloc] init];
         window.backgroundColor = [UIColor whiteColor];
         window.rootViewController.view.frame = self.window.bounds;
         window.rootViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth |
@@ -33,7 +33,8 @@
         window;
     });
     [self.window makeKeyAndVisible];
-    
+    [self.window.basicViewController popupViewController:[[LDLoginViewController alloc] init]
+                                                animated:NO completion:nil];
     return YES;
 }
 

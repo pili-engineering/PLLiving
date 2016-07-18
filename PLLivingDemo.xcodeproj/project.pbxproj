@@ -14,6 +14,8 @@
 		D2F907791D3C705D006C987F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2F907771D3C705D006C987F /* LaunchScreen.storyboard */; };
 		D2F9078B1D3C7A56006C987F /* LDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9078A1D3C7A56006C987F /* LDLoginViewController.m */; };
 		D2F9078E1D3C7BB4006C987F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D2F907901D3C7BB4006C987F /* Localizable.strings */; };
+		D2F9079C1D3C853B006C987F /* LDLobbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9079B1D3C853B006C987F /* LDLobbyViewController.m */; };
+		D2F9079F1D3C878F006C987F /* LDBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9079E1D3C878F006C987F /* LDBasicViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,10 @@
 		D2F9078A1D3C7A56006C987F /* LDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDLoginViewController.m; sourceTree = "<group>"; };
 		D2F907931D3C7C3A006C987F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D2F907941D3C7F04006C987F /* PLLivingDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PLLivingDemo-Prefix.pch"; sourceTree = "<group>"; };
+		D2F9079A1D3C853B006C987F /* LDLobbyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDLobbyViewController.h; sourceTree = "<group>"; };
+		D2F9079B1D3C853B006C987F /* LDLobbyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDLobbyViewController.m; sourceTree = "<group>"; };
+		D2F9079D1D3C878F006C987F /* LDBasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBasicViewController.h; sourceTree = "<group>"; };
+		D2F9079E1D3C878F006C987F /* LDBasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDBasicViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +129,10 @@
 		D2F907871D3C79FD006C987F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D2F907991D3C847F006C987F /* Lobby */,
 				D2F907881D3C7A18006C987F /* Login */,
+				D2F9079D1D3C878F006C987F /* LDBasicViewController.h */,
+				D2F9079E1D3C878F006C987F /* LDBasicViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -135,6 +144,15 @@
 				D2F9078A1D3C7A56006C987F /* LDLoginViewController.m */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		D2F907991D3C847F006C987F /* Lobby */ = {
+			isa = PBXGroup;
+			children = (
+				D2F9079A1D3C853B006C987F /* LDLobbyViewController.h */,
+				D2F9079B1D3C853B006C987F /* LDLobbyViewController.m */,
+			);
+			name = Lobby;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +278,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2F9076E1D3C705D006C987F /* AppDelegate.m in Sources */,
+				D2F9079F1D3C878F006C987F /* LDBasicViewController.m in Sources */,
+				D2F9079C1D3C853B006C987F /* LDLobbyViewController.m in Sources */,
 				D2F9078B1D3C7A56006C987F /* LDLoginViewController.m in Sources */,
 				D2F9076B1D3C705D006C987F /* main.m in Sources */,
 			);
