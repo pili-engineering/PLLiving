@@ -16,6 +16,8 @@
 		D2F9078E1D3C7BB4006C987F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D2F907901D3C7BB4006C987F /* Localizable.strings */; };
 		D2F9079C1D3C853B006C987F /* LDLobbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9079B1D3C853B006C987F /* LDLobbyViewController.m */; };
 		D2F9079F1D3C878F006C987F /* LDBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9079E1D3C878F006C987F /* LDBasicViewController.m */; };
+		D2F907A21D3C9D5C006C987F /* LDRoomItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907A11D3C9D5C006C987F /* LDRoomItem.m */; };
+		D2F907A51D3CA066006C987F /* LDLobbyRoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907A41D3CA066006C987F /* LDLobbyRoomView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,11 @@
 		D2F9079B1D3C853B006C987F /* LDLobbyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDLobbyViewController.m; sourceTree = "<group>"; };
 		D2F9079D1D3C878F006C987F /* LDBasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBasicViewController.h; sourceTree = "<group>"; };
 		D2F9079E1D3C878F006C987F /* LDBasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDBasicViewController.m; sourceTree = "<group>"; };
+		D2F907A01D3C9D5C006C987F /* LDRoomItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDRoomItem.h; sourceTree = "<group>"; };
+		D2F907A11D3C9D5C006C987F /* LDRoomItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDRoomItem.m; sourceTree = "<group>"; };
+		D2F907A31D3CA066006C987F /* LDLobbyRoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDLobbyRoomView.h; sourceTree = "<group>"; };
+		D2F907A41D3CA066006C987F /* LDLobbyRoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDLobbyRoomView.m; sourceTree = "<group>"; };
+		D2F907A61D3CA65D006C987F /* LDLayoutParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDLayoutParameter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +96,7 @@
 		D2F907681D3C705D006C987F /* PLLivingDemo */ = {
 			isa = PBXGroup;
 			children = (
+				D2F907A71D3CA662006C987F /* Globals */,
 				D2F907851D3C79EA006C987F /* Modules */,
 				D2F907861D3C79F7006C987F /* Views */,
 				D2F907871D3C79FD006C987F /* ViewControllers */,
@@ -115,6 +123,8 @@
 		D2F907851D3C79EA006C987F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D2F907A01D3C9D5C006C987F /* LDRoomItem.h */,
+				D2F907A11D3C9D5C006C987F /* LDRoomItem.m */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -122,6 +132,8 @@
 		D2F907861D3C79F7006C987F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D2F907A31D3CA066006C987F /* LDLobbyRoomView.h */,
+				D2F907A41D3CA066006C987F /* LDLobbyRoomView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -153,6 +165,14 @@
 				D2F9079B1D3C853B006C987F /* LDLobbyViewController.m */,
 			);
 			name = Lobby;
+			sourceTree = "<group>";
+		};
+		D2F907A71D3CA662006C987F /* Globals */ = {
+			isa = PBXGroup;
+			children = (
+				D2F907A61D3CA65D006C987F /* LDLayoutParameter.h */,
+			);
+			name = Globals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +298,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2F9076E1D3C705D006C987F /* AppDelegate.m in Sources */,
+				D2F907A21D3C9D5C006C987F /* LDRoomItem.m in Sources */,
+				D2F907A51D3CA066006C987F /* LDLobbyRoomView.m in Sources */,
 				D2F9079F1D3C878F006C987F /* LDBasicViewController.m in Sources */,
 				D2F9079C1D3C853B006C987F /* LDLobbyViewController.m in Sources */,
 				D2F9078B1D3C7A56006C987F /* LDLoginViewController.m in Sources */,

@@ -1,13 +1,13 @@
 //
-//  LDLobbyViewController.h
+//  PLRoomItem.m
 //  PLLivingDemo
 //
 //  Created by TaoZeyu on 16/7/18.
 //  Copyright © 2016年 com.pili-engineering. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "LDRoomItem.h"
 
-@interface LDLobbyViewController : UIViewController
+@implementation LDRoomItem
 
 @end
