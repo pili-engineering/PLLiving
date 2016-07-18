@@ -40,7 +40,6 @@
         [editor mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.left.and.right.equalTo(_container);
         }];
-        [editor becomeFirstResponder];
         editor;
     });
     _beginButton = ({
@@ -51,7 +50,7 @@
         [button setBackgroundColor:[UIColor redColor]];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(_container);
-            make.bottom.equalTo(_container).with.offset(kBeginBroadingButtonFloatHeight);
+            make.bottom.equalTo(_container).with.offset(-kBeginBroadingButtonFloatHeight);
         }];
         button;
     });
@@ -59,12 +58,20 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [_container addSubview:button];
         [button setTitle:@"Close" forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setBackgroundColor:[UIColor redColor]];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_container).with.offset(25);
             make.right.equalTo(_container).with.offset(-25);
         }];
         button;
     });
+    [self addNotifications];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.editor becomeFirstResponder];
 }
 
 - (void)viewWillLayoutSubviews
@@ -90,10 +97,27 @@
 
 - (void)_onFoundKeyboardWasShown:(NSNotification *)notification
 {
+    NSDictionary *userInfo = notification.userInfo;
+    CGRect keyboardFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSTimeInterval duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    self.presetKeyboardHeight = MIN(keyboardFrame.size.width, keyboardFrame.size.height);
+    [UIView animateWithDuration:duration animations:^{
+        [self.view setNeedsLayout];
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (void)_onFoundKeyboardWillBeHidden:(NSNotification *)notification
 {
+    NSDictionary *userInfo = notification.userInfo;
+    NSTimeInterval duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    self.presetKeyboardHeight = 0;
+    [UIView animateWithDuration:duration animations:^{
+        [self.view setNeedsLayout];
+        [self.view layoutIfNeeded];
+    }];
 }
 
 @end
