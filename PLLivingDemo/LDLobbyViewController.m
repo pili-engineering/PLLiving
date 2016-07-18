@@ -9,6 +9,7 @@
 #import "LDLobbyViewController.h"
 #import "LDLobbyRoomView.h"
 #import "LDRoomItem.h"
+#import "LDAnchorRoomViewController.h"
 
 @interface LDLobbyViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSArray<LDRoomItem *> *roomItems;
@@ -88,6 +89,8 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [self.view addSubview:button];
         [button setTitle:@"开始直播(+)" forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(_onPressedStartBroadcasting:)
+         forControlEvents:UIControlEventTouchUpInside];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view.mas_centerX);
             make.bottom.equalTo(self.view).with.offset(-klaystartBroadcastingButtonButtonFloatHeight);
@@ -117,7 +120,8 @@
 
 - (void)_onPressedStartBroadcasting:(UIButton *)button
 {
-    
+    [self.basicViewController popupViewController:[[LDAnchorRoomViewController alloc] init]
+                                         animated:NO completion:nil];
 }
 
 @end

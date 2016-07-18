@@ -18,6 +18,8 @@
 		D2F9079F1D3C878F006C987F /* LDBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9079E1D3C878F006C987F /* LDBasicViewController.m */; };
 		D2F907A21D3C9D5C006C987F /* LDRoomItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907A11D3C9D5C006C987F /* LDRoomItem.m */; };
 		D2F907A51D3CA066006C987F /* LDLobbyRoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907A41D3CA066006C987F /* LDLobbyRoomView.m */; };
+		D2F907AB1D3CB271006C987F /* LDAnchorRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907AA1D3CB271006C987F /* LDAnchorRoomViewController.m */; };
+		D2F907AE1D3CB363006C987F /* LDRoomInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907AD1D3CB363006C987F /* LDRoomInfoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,10 @@
 		D2F907A31D3CA066006C987F /* LDLobbyRoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDLobbyRoomView.h; sourceTree = "<group>"; };
 		D2F907A41D3CA066006C987F /* LDLobbyRoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDLobbyRoomView.m; sourceTree = "<group>"; };
 		D2F907A61D3CA65D006C987F /* LDLayoutParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDLayoutParameter.h; sourceTree = "<group>"; };
+		D2F907A91D3CB271006C987F /* LDAnchorRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAnchorRoomViewController.h; sourceTree = "<group>"; };
+		D2F907AA1D3CB271006C987F /* LDAnchorRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAnchorRoomViewController.m; sourceTree = "<group>"; };
+		D2F907AC1D3CB363006C987F /* LDRoomInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDRoomInfoViewController.h; sourceTree = "<group>"; };
+		D2F907AD1D3CB363006C987F /* LDRoomInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDRoomInfoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +147,7 @@
 		D2F907871D3C79FD006C987F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D2F907A81D3CB232006C987F /* Room */,
 				D2F907991D3C847F006C987F /* Lobby */,
 				D2F907881D3C7A18006C987F /* Login */,
 				D2F9079D1D3C878F006C987F /* LDBasicViewController.h */,
@@ -173,6 +180,17 @@
 				D2F907A61D3CA65D006C987F /* LDLayoutParameter.h */,
 			);
 			name = Globals;
+			sourceTree = "<group>";
+		};
+		D2F907A81D3CB232006C987F /* Room */ = {
+			isa = PBXGroup;
+			children = (
+				D2F907A91D3CB271006C987F /* LDAnchorRoomViewController.h */,
+				D2F907AA1D3CB271006C987F /* LDAnchorRoomViewController.m */,
+				D2F907AC1D3CB363006C987F /* LDRoomInfoViewController.h */,
+				D2F907AD1D3CB363006C987F /* LDRoomInfoViewController.m */,
+			);
+			name = Room;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,6 +321,8 @@
 				D2F9079F1D3C878F006C987F /* LDBasicViewController.m in Sources */,
 				D2F9079C1D3C853B006C987F /* LDLobbyViewController.m in Sources */,
 				D2F9078B1D3C7A56006C987F /* LDLoginViewController.m in Sources */,
+				D2F907AB1D3CB271006C987F /* LDAnchorRoomViewController.m in Sources */,
+				D2F907AE1D3CB363006C987F /* LDRoomInfoViewController.m in Sources */,
 				D2F9076B1D3C705D006C987F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
