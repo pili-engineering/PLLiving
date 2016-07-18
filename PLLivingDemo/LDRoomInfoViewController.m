@@ -48,6 +48,8 @@
         [button setTitle:@"Begin Broadcasting" forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button setBackgroundColor:[UIColor redColor]];
+        [button addTarget:self action:@selector(_onPressedBeginBroadcastingButton:)
+         forControlEvents:UIControlEventTouchUpInside];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(_container);
             make.bottom.equalTo(_container).with.offset(-kBeginBroadingButtonFloatHeight);
@@ -60,6 +62,8 @@
         [button setTitle:@"Close" forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button setBackgroundColor:[UIColor redColor]];
+        [button addTarget:self action:@selector(_onPressedCloseButton:)
+         forControlEvents:UIControlEventTouchUpInside];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_container).with.offset(25);
             make.right.equalTo(_container).with.offset(-25);
@@ -118,6 +122,43 @@
         [self.view setNeedsLayout];
         [self.view layoutIfNeeded];
     }];
+}
+
+- (void)_onPressedCloseButton:(UIButton *)button
+{
+    [self _responseTitle:nil];
+}
+
+- (void)_onPressedBeginBroadcastingButton:(UIButton *)button
+{
+    NSString *title = [self standardizeTitle:self.editor.text];
+    if ([self isTilteBlank:title]) {
+        [self.view makeToast:LDString("please-input-any-messages-as_broadcasting-title")
+                    duration:1.2 position:CSToastPositionTop];
+    } else {
+        [self _responseTitle:title];
+    }
+}
+
+- (void)_responseTitle:(NSString *)title
+{
+    if ([self.delegate respondsToSelector:@selector(onReciveRoomInfoWithTitle:)]) {
+        [self.delegate performSelector:@selector(onReciveRoomInfoWithTitle:) withObject:title];
+    }
+}
+
+- (NSString *)standardizeTitle:(NSString *)title
+{
+    if (title) {
+        title = [title stringByReplacingOccurrencesOfRegex:@"(^\\s+|\\s+$)" withString:@""];
+        title = [title stringByReplacingOccurrencesOfRegex:@"\\n+" withString:@" "];
+    }
+    return title;
+}
+
+- (BOOL)isTilteBlank:(NSString *)title
+{
+    return !title || [title isMatchedByRegex:@"^\\s*$"];
 }
 
 @end

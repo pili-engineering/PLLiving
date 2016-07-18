@@ -6,3 +6,4 @@
   Copyright © 2016年 com.pili-engineering. All rights reserved.
 */
 "login-by-wechat" = "微信登录";
+"please-input-any-messages-as_broadcasting-title" = "直播内容不能为空，随便说一点吧。";

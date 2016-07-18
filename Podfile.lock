@@ -24,11 +24,15 @@ PODS:
   - PLStreamingKit/precompiled (1.2.4):
     - HappyDNS
     - pili-librtmp
+  - RegexKitLite-NoWarning (1.1.0)
+  - Toast (3.0)
 
 DEPENDENCIES:
   - Masonry
   - PLCameraStreamingKit (~> 1.8)
   - PLPlayerKit (~> 2.2)
+  - RegexKitLite-NoWarning
+  - Toast
 
 SPEC CHECKSUMS:
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
@@ -38,7 +42,9 @@ SPEC CHECKSUMS:
   PLCameraStreamingKit: 03b4bce4218edeb18a0060d8849eb5d7b2af4a5d
   PLPlayerKit: d0b902dccfbbc39519096b4f86e4e393c5f87bc3
   PLStreamingKit: c8574decbacb981e36e5b95314c991a3b5d02125
+  RegexKitLite-NoWarning: 365d208f8187997e33d9de8baeddfc00728596d8
+  Toast: 32c59229abfcf41850162b83bb9259dc84372473
 
-PODFILE CHECKSUM: f00d4d1f0ee91d3b5852bba037331dff46c800b0
+PODFILE CHECKSUM: 14e55a7982d30ab233636587516ee712a1856f7f
 
 COCOAPODS: 1.1.0.beta.1
