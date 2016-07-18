@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8BC73B27C5C0A7EC2410CF25 /* libPods-PLLivingDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A4A305236244101D84161AC /* libPods-PLLivingDemo.a */; };
+		D23009DF1D3DC2BA004A649C /* LDDevicePermissionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009DE1D3DC2BA004A649C /* LDDevicePermissionManager.m */; };
 		D2F9076B1D3C705D006C987F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9076A1D3C705D006C987F /* main.m */; };
 		D2F9076E1D3C705D006C987F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9076D1D3C705D006C987F /* AppDelegate.m */; };
 		D2F907761D3C705D006C987F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2F907751D3C705D006C987F /* Assets.xcassets */; };
@@ -27,6 +28,8 @@
 		5A4A305236244101D84161AC /* libPods-PLLivingDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PLLivingDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AFCD06CD632ECCE56BC2242 /* Pods-PLLivingDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLLivingDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PLLivingDemo/Pods-PLLivingDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		CF0CF65ADD9F85E3E7F76D97 /* Pods-PLLivingDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLLivingDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PLLivingDemo/Pods-PLLivingDemo.release.xcconfig"; sourceTree = "<group>"; };
+		D23009DD1D3DC2BA004A649C /* LDDevicePermissionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDDevicePermissionManager.h; sourceTree = "<group>"; };
+		D23009DE1D3DC2BA004A649C /* LDDevicePermissionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDDevicePermissionManager.m; sourceTree = "<group>"; };
 		D2F907661D3C705D006C987F /* PLLivingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PLLivingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F9076A1D3C705D006C987F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D2F9076C1D3C705D006C987F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 			children = (
 				D2F907B61D3CD82C006C987F /* LDBroadcastingManager.h */,
 				D2F907B71D3CD82C006C987F /* LDBroadcastingManager.m */,
+				D23009DD1D3DC2BA004A649C /* LDDevicePermissionManager.h */,
+				D23009DE1D3DC2BA004A649C /* LDDevicePermissionManager.m */,
 			);
 			name = PiliSDK;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 				D2F907A51D3CA066006C987F /* LDLobbyRoomView.m in Sources */,
 				D2F9079F1D3C878F006C987F /* LDBasicViewController.m in Sources */,
 				D2F9079C1D3C853B006C987F /* LDLobbyViewController.m in Sources */,
+				D23009DF1D3DC2BA004A649C /* LDDevicePermissionManager.m in Sources */,
 				D2F9078B1D3C7A56006C987F /* LDLoginViewController.m in Sources */,
 				D2F907AB1D3CB271006C987F /* LDAnchorRoomViewController.m in Sources */,
 				D2F907AE1D3CB363006C987F /* LDRoomInfoViewController.m in Sources */,
