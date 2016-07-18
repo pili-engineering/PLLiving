@@ -6,8 +6,6 @@
 //  Copyright © 2016年 com.pili-engineering. All rights reserved.
 //
 
-#import <PLStreamingKit/PLStreamingKit.h>
-
 #import "AppDelegate.h"
 #import "LDLoginViewController.h"
 
