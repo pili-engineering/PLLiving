@@ -12,14 +12,16 @@
 #import "LDDevicePermissionManager.h"
 #import "LDAsyncSemaphore.h"
 
-@interface LDAnchorRoomViewController () <LDRoomInfoViewControllerDelegate>
+@interface LDAnchorRoomViewController () <LDRoomInfoViewControllerDelegate,
+                                          PLCameraStreamingSessionDelegate>
 
 @property (nonatomic, assign) BOOL didClosed;
+@property (nonatomic, assign) BOOL didShowAlertView;
+
 @property (nonatomic, strong) PLCameraStreamingSession *cameraStreamingSession;
 @property (nonatomic, strong) LDAsyncSemaphore *broadcastingSemaphore;
 @property (nonatomic, strong) LDBroadcastingManager *broadcastingManager;
 @property (nonatomic, strong) NSString *livingTitle;
-@property (nonatomic, strong) PLStream *streamObject;
 
 @property (nonatomic, strong) LDRoomInfoViewController *roomInfoViewController;
 @property (nonatomic, strong) UIView *previewContainer;
@@ -34,15 +36,20 @@
 - (instancetype)init
 {
     if (self = [super init]) {
+        
+        self.broadcastingManager = [[LDBroadcastingManager alloc] init];
+        
         // 需要等待 3 个信号后才能开始推流（信号都是异步的，先后完全不可预测）
         // 1. 主播输入完 title，构造好 subivews。
         // 2. 等待服务器返回 PLStream 对象。
         // 3. 等待服务器返回房间信息。
         NSInteger semaphoreValue = 2;
         self.broadcastingSemaphore = [[LDAsyncSemaphore alloc] initWithValue:semaphoreValue];
+        [self.broadcastingSemaphore waitWithTarget:self withAction:@selector(_beginBroadcasting)];
         
-        self.broadcastingManager = [[LDBroadcastingManager alloc] init];
         self.cameraStreamingSession = [self.broadcastingManager generateCameraStreamingSession];
+        self.cameraStreamingSession.delegate = self;
+        
     }
     return self;
 }
@@ -94,6 +101,9 @@
     }];
     
     // 异步获取 PLStream 对象。
+    // 我之所以要异步获取，是为了让主播在输入 title 的同时，也在等待服务器返回 PLStream 对象。
+    // 很可能主播输入完 title 之前，PLStream 就已经拿到了。
+    // 这样会减少主播等待的时间，体验会好一点。
     NSURL *streamCloudURL = [NSURL URLWithString:@"http://pili-demo.qiniu.com/api/stream"];
     __weak typeof(self) weakSelf = self;
     
@@ -101,14 +111,15 @@
         
         __strong typeof(self) strongSelf = weakSelf;
         // 在获取 PLStream 的过程中，self 随时可能被关闭，甚至 dealloc。
+        // 因为主播随时可以叉掉，然后返回上一级界面。
         // 在关闭之后，也没有必要对 PLStream 进行处理了。
         if (strongSelf && !strongSelf.didClosed) {
             
             if (error == LDBroadcastingStreamObjectError_NoError) {
-                self.streamObject = streamObject;
-                [self.broadcastingSemaphore signal]; //接收到了 PLStream 对象。
+                strongSelf.cameraStreamingSession.stream = streamObject;
+                [strongSelf.broadcastingSemaphore signal]; //接收到了 PLStream 对象。
             } else {
-                
+                // TODO
             }
         }
     }];
@@ -159,6 +170,64 @@
         }];
         button;
     });
+    
+    [self.transferCameraButton addTarget:self action:@selector(_onPressedTransferCameraButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.stopBroadcastingButton addTarget:self action:@selector(_onPressedStopBroadcastingButton:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+// 当允许推流开始的 3 个必要条件（对应 3 个信号）全部满足时，这个方法被回调。
+- (void)_beginBroadcasting
+{
+    if (!self.didClosed) {
+        [self.cameraStreamingSession startWithCompleted:^(BOOL success) {
+            // 这个回调方法不在 Main 线程中，如果涉及 UI 操作需转到 Main 线程中处理。
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) {
+                    [self.view makeToast:LDString("connected-and-is-broadcasting")
+                                duration:1.2 position:CSToastPositionCenter];
+                } else {
+                    [self _closeAndAlertErrorMessage:LDString("can-not-connect-to-server-when-begin-broadcasting")];
+                }
+            });
+        }];
+    }
+}
+
+- (void)_onPressedTransferCameraButton:(UIButton *)button
+{
+    [self.cameraStreamingSession toggleCamera];
+}
+
+- (void)_onPressedStopBroadcastingButton:(UIButton *)button
+{
+    if (!self.didClosed) {
+        if (self.cameraStreamingSession.isRunning) {
+            [self.cameraStreamingSession stop];
+        }
+        [self _close];
+    }
+}
+
+- (void)cameraStreamingSession:(PLCameraStreamingSession *)session didDisconnectWithError:(NSError *)error
+{
+    NSLog(@"-> %@", error);
+}
+
+- (void)_closeAndAlertErrorMessage:(NSString *)errorMessage
+{
+    if (!self.didShowAlertView) {
+        self.didShowAlertView = YES;
+        UIAlertController *av = [UIAlertController alertControllerWithTitle:errorMessage
+                                                                    message:LDString("found-error-while-broadcasting-and-have-to-close")
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+        [av addAction:[UIAlertAction actionWithTitle:LDString("I-see")
+                                               style:UIAlertActionStyleDestructive
+                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                 [self _close];
+                                                 self.didShowAlertView = NO;
+                                             }]];
+        [self presentViewController:av animated:true completion:nil];
+    }
 }
 
 - (void)_close

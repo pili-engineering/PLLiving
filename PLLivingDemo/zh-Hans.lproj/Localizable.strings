@@ -7,10 +7,10 @@
 */
 
 "login-by-wechat" = "微信登录";
+"I-see" = "知道了";
 
 // Permission Request
 "can-not-broadcasting" = "无法进行直播";
-"I-see" = "知道了";
 "camera-permission-denied" = "你没有同意 app 获取摄像头，请从 iOS 设置中允许 Living 获取摄像头权限，再重新开始直播。";
 "camera-permission-did-denied" = "请从 iOS 设置中允许 Living 获取摄像头权限，再重新开始直播。";
 "microphone-permission-denied" = "你没有同意 app 获取麦克风，请从 iOS 设置中允许 Living 获取麦克风权限，再重新开始直播。";
@@ -20,4 +20,7 @@
 
 // Broadcasting
 "please-input-any-messages-as_broadcasting-title" = "直播内容不能为空，随便说一点吧。";
+"connected-and-is-broadcasting" = "连接成功！直播中……";
+"found-error-while-broadcasting-and-have-to-close" = "直播中发生错误，即将关闭直播！";
+"can-not-connect-to-server-when-begin-broadcasting" = "开始直播失败";
 "stop-broadcasting" = "Stop Broadcasting";
