@@ -10,6 +10,7 @@
 #import "LDLobbyRoomView.h"
 #import "LDRoomItem.h"
 #import "LDAnchorRoomViewController.h"
+#import "LDSpectatorRoomViewController.h"
 
 @interface LDLobbyViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSArray<LDRoomItem *> *roomItems;
@@ -122,6 +123,11 @@
 {
     [self.basicViewController popupViewController:[[LDAnchorRoomViewController alloc] init]
                                          animated:NO completion:nil];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.basicViewController popupViewController:[[LDSpectatorRoomViewController alloc] initWithURL:[NSURL URLWithString:@"rtmp://live.hkstv.hk.lxdns.com/live/hks"]] animated:NO completion:nil];
 }
 
 @end
