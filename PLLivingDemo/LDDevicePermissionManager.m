@@ -59,26 +59,32 @@
 - (void)_requestCameraAuthorization
 {
     [PLCameraStreamingSession requestCameraAccessWithCompletionHandler:^(BOOL granted) {
-        self.cameraStatus = granted? PLAuthorizationStatusAuthorized: PLAuthorizationStatusDenied;
-        if (!granted) {
-            self.cameraDenied = YES;
-        }
-        if (granted && self.microphoneStatus == PLAuthorizationStatusNotDetermined) {
-            [self _requestMicrophonAuthorization];
-        } else {
-            [self _handleAuthorizationStatusResult];
-        }
+        // ［特别注意］这个回调并不在 Main 线程中，如果此回调存在 UI 操作，请务必转到 Main 线程中处理。
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.cameraStatus = granted? PLAuthorizationStatusAuthorized: PLAuthorizationStatusDenied;
+            if (!granted) {
+                self.cameraDenied = YES;
+            }
+            if (granted && self.microphoneStatus == PLAuthorizationStatusNotDetermined) {
+                [self _requestMicrophonAuthorization];
+            } else {
+                [self _handleAuthorizationStatusResult];
+            }
+        });
     }];
 }
 
 - (void)_requestMicrophonAuthorization
 {
     [PLCameraStreamingSession requestMicrophoneAccessWithCompletionHandler:^(BOOL granted) {
-        self.microphoneStatus = granted? PLAuthorizationStatusAuthorized: PLAuthorizationStatusDenied;
-        if (!granted) {
-            self.microphoneDenied = YES;
-        }
-        [self _handleAuthorizationStatusResult];
+        // ［特别注意］：这个回调并不在 Main 线程中，如果此回调存在 UI 操作，请务必转到 Main 线程中处理。
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.microphoneStatus = granted? PLAuthorizationStatusAuthorized: PLAuthorizationStatusDenied;
+            if (!granted) {
+                self.microphoneDenied = YES;
+            }
+            [self _handleAuthorizationStatusResult];
+        });
     }];
 }
 
