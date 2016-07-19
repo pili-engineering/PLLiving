@@ -12,10 +12,12 @@
 #import "LDDevicePermissionManager.h"
 
 @interface LDAnchorRoomViewController () <LDRoomInfoViewControllerDelegate>
+@property (nonatomic, assign) BOOL didClosed;
 @property (nonatomic, strong) LDRoomInfoViewController *roomInfoViewController;
 @property (nonatomic, strong) PLCameraStreamingSession *cameraStreamingSession;
 @property (nonatomic, strong) LDBroadcastingManager *broadcastingManager;
 @property (nonatomic, strong) NSString *livingTitle;
+@property (nonatomic, strong) PLStream *streamObject;
 @end
 
 @implementation LDAnchorRoomViewController
@@ -43,14 +45,34 @@
         viewController;
     });
     
+    // 获取摄像头、麦克风权限（如果获取不到，在提示用户之后，直接退回上一级）
     [LDDevicePermissionManager requestDevicePermissionWithParentViewController:self
                                                                   withComplete:^(BOOL success) {
         if (!success) {
             [self _close];
         }
     }];
-    //TODO 获取音频视频采集权
-    //TODO 异步获取 PLStream
+    
+    // 异步获取 PLStream 对象。
+    NSURL *streamCloudURL = [NSURL URLWithString:@"http://pili-demo.qiniu.com/api/stream"];
+    __weak typeof(self) weakSelf = self;
+    
+    [self.broadcastingManager generateStreamObject:streamCloudURL withComplete:^(PLStream *streamObject, LDBroadcastingStreamObjectError error) {
+        
+        __strong typeof(self) strongSelf = weakSelf;
+        // 在获取 PLStream 的过程中，self 随时可能被关闭，甚至 dealloc。
+        // 在关闭之后，也没有必要对 PLStream 进行处理了。
+        if (strongSelf && !strongSelf.didClosed) {
+            
+            if (error == LDBroadcastingStreamObjectError_NoError) {
+                self.streamObject = streamObject;
+                [self _onRecivedStreamObject];
+                
+            } else {
+                
+            }
+        }
+    }];
 }
 
 - (void)onReciveRoomInfoWithTitle:(NSString *)title
@@ -64,8 +86,14 @@
     }
 }
 
+- (void)_onRecivedStreamObject
+{
+    
+}
+
 - (void)_close
 {
+    self.didClosed = YES;
     [self.basicViewController removeViewController:self animated:NO completion:nil];
 }
 
