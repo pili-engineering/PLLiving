@@ -30,7 +30,7 @@
                                             previewMirrorRearFacing:NO
                                             streamMirrorFrontFacing:NO
                                              streamMirrorRearFacing:NO
-                                                     cameraPosition:AVCaptureDevicePositionBack//后置摄像头
+                                                     cameraPosition:AVCaptureDevicePositionFront//前置摄像头
                                                    videoOrientation:AVCaptureVideoOrientationPortrait];
     
     audioCaptureConfiguration = [PLAudioCaptureConfiguration defaultConfiguration];
