@@ -208,9 +208,12 @@
     }
 }
 
+// 推流时发生错误，导致推流终止时，会调用这个方法。该方法来自 PLCameraStreamingSessionDelegate。
 - (void)cameraStreamingSession:(PLCameraStreamingSession *)session didDisconnectWithError:(NSError *)error
 {
-    NSLog(@"-> %@", error);
+    if (!self.didClosed) {
+        [self _closeAndAlertErrorMessage:LDString("broadcast-disconnected-because-found-error")];
+    }
 }
 
 - (void)_closeAndAlertErrorMessage:(NSString *)errorMessage
