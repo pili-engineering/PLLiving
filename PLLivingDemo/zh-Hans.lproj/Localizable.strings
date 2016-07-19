@@ -7,7 +7,6 @@
 */
 
 "login-by-wechat" = "微信登录";
-"please-input-any-messages-as_broadcasting-title" = "直播内容不能为空，随便说一点吧。";
 
 // Permission Request
 "can-not-broadcasting" = "无法进行直播";
@@ -18,3 +17,7 @@
 "microphone-permission-did-denied" = "请从 iOS 设置中允许 Living 获取麦克风权限，再重新开始直播。";
 "camera-restricted" = "摄像头设备受限，请关闭家长模式，再重新开始直播。";
 "microphone-restricted" = "麦克风设备受限，请关闭家长模式，再重新开始直播。";
+
+// Broadcasting
+"please-input-any-messages-as_broadcasting-title" = "直播内容不能为空，随便说一点吧。";
+"stop-broadcasting" = "Stop Broadcasting";
