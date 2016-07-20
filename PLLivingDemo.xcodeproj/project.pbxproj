@@ -26,6 +26,10 @@
 		D2F907B81D3CD82C006C987F /* LDBroadcastingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907B71D3CD82C006C987F /* LDBroadcastingManager.m */; };
 		D2FA97791D3F199300ADB180 /* LDAlertUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FA97781D3F199300ADB180 /* LDAlertUtil.m */; };
 		D2FA977C1D3F1F6100ADB180 /* LDRoomPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FA977B1D3F1F6100ADB180 /* LDRoomPanelViewController.m */; };
+		D2FA977F1D3F2F6800ADB180 /* LDTouchTransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FA977E1D3F2F6800ADB180 /* LDTouchTransparentView.m */; };
+		D2FA97821D3F463E00ADB180 /* LDChatItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FA97811D3F463E00ADB180 /* LDChatItem.m */; };
+		D2FA97851D3F468800ADB180 /* LDChatDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FA97841D3F468800ADB180 /* LDChatDataSource.m */; };
+		D2FA97881D3F4AF600ADB180 /* LDChatBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FA97871D3F4AF600ADB180 /* LDChatBubbleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +72,14 @@
 		D2FA97781D3F199300ADB180 /* LDAlertUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAlertUtil.m; sourceTree = "<group>"; };
 		D2FA977A1D3F1F6100ADB180 /* LDRoomPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDRoomPanelViewController.h; sourceTree = "<group>"; };
 		D2FA977B1D3F1F6100ADB180 /* LDRoomPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDRoomPanelViewController.m; sourceTree = "<group>"; };
+		D2FA977D1D3F2F6800ADB180 /* LDTouchTransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDTouchTransparentView.h; sourceTree = "<group>"; };
+		D2FA977E1D3F2F6800ADB180 /* LDTouchTransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDTouchTransparentView.m; sourceTree = "<group>"; };
+		D2FA97801D3F463E00ADB180 /* LDChatItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDChatItem.h; sourceTree = "<group>"; };
+		D2FA97811D3F463E00ADB180 /* LDChatItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDChatItem.m; sourceTree = "<group>"; };
+		D2FA97831D3F468800ADB180 /* LDChatDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDChatDataSource.h; sourceTree = "<group>"; };
+		D2FA97841D3F468800ADB180 /* LDChatDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDChatDataSource.m; sourceTree = "<group>"; };
+		D2FA97861D3F4AF600ADB180 /* LDChatBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDChatBubbleView.h; sourceTree = "<group>"; };
+		D2FA97871D3F4AF600ADB180 /* LDChatBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDChatBubbleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +118,8 @@
 				D23009E21D3DF3CD004A649C /* LDAsyncSemaphore.m */,
 				D2FA97771D3F199300ADB180 /* LDAlertUtil.h */,
 				D2FA97781D3F199300ADB180 /* LDAlertUtil.m */,
+				D2FA977D1D3F2F6800ADB180 /* LDTouchTransparentView.h */,
+				D2FA977E1D3F2F6800ADB180 /* LDTouchTransparentView.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -162,6 +176,10 @@
 			children = (
 				D2F907A01D3C9D5C006C987F /* LDRoomItem.h */,
 				D2F907A11D3C9D5C006C987F /* LDRoomItem.m */,
+				D2FA97801D3F463E00ADB180 /* LDChatItem.h */,
+				D2FA97811D3F463E00ADB180 /* LDChatItem.m */,
+				D2FA97831D3F468800ADB180 /* LDChatDataSource.h */,
+				D2FA97841D3F468800ADB180 /* LDChatDataSource.m */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -171,6 +189,8 @@
 			children = (
 				D2F907A31D3CA066006C987F /* LDLobbyRoomView.h */,
 				D2F907A41D3CA066006C987F /* LDLobbyRoomView.m */,
+				D2FA97861D3F4AF600ADB180 /* LDChatBubbleView.h */,
+				D2FA97871D3F4AF600ADB180 /* LDChatBubbleView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -364,9 +384,13 @@
 				D2F907B81D3CD82C006C987F /* LDBroadcastingManager.m in Sources */,
 				D2F9076E1D3C705D006C987F /* AppDelegate.m in Sources */,
 				D2F907A21D3C9D5C006C987F /* LDRoomItem.m in Sources */,
+				D2FA977F1D3F2F6800ADB180 /* LDTouchTransparentView.m in Sources */,
+				D2FA97881D3F4AF600ADB180 /* LDChatBubbleView.m in Sources */,
 				D2F907A51D3CA066006C987F /* LDLobbyRoomView.m in Sources */,
+				D2FA97821D3F463E00ADB180 /* LDChatItem.m in Sources */,
 				D2F9079F1D3C878F006C987F /* LDBasicViewController.m in Sources */,
 				D2FA977C1D3F1F6100ADB180 /* LDRoomPanelViewController.m in Sources */,
+				D2FA97851D3F468800ADB180 /* LDChatDataSource.m in Sources */,
 				D2F9079C1D3C853B006C987F /* LDLobbyViewController.m in Sources */,
 				D2FA97791D3F199300ADB180 /* LDAlertUtil.m in Sources */,
 				D23009DF1D3DC2BA004A649C /* LDDevicePermissionManager.m in Sources */,

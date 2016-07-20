@@ -10,10 +10,11 @@
 #import "LDRoomPanelViewController.h"
 #import "LDAlertUtil.h"
 
-@interface LDSpectatorRoomViewController () <PLPlayerDelegate>
+@interface LDSpectatorRoomViewController () <PLPlayerDelegate, LDRoomPanelViewControllerDelegate>
 @property (nonatomic, assign) BOOL didPlayFirstFrame;
 @property (nonatomic, strong) PLPlayer *player;
 @property (nonatomic, strong) LDRoomPanelViewController *roomPanelViewControoler;
+@property (nonatomic, strong) UIView *playerContainerView;
 @property (nonatomic, strong) UIButton *closeButton;
 @end
 
@@ -24,7 +25,8 @@
     if (self = [super init]) {
         self.player = [PLPlayer playerWithURL:url option:[PLPlayerOption defaultOption]];
         self.player.delegate = self;
-        self.roomPanelViewControoler = [[LDRoomPanelViewController alloc] init];
+        self.roomPanelViewControoler = [[LDRoomPanelViewController alloc] initWithMode:LDRoomPanelViewControllerMode_Spectator];
+        self.roomPanelViewControoler.delegate = self;
     }
     return self;
 }
@@ -32,12 +34,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.playerContainerView = ({
+        UIView *container = [[UIView alloc] init];
+        [self.view addSubview:container];
+        container.frame = self.view.bounds;
+        container.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+                                     UIViewAutoresizingFlexibleTopMargin |
+                                     UIViewAutoresizingFlexibleBottomMargin;
+        container;
+    });
     ({
         UIView *view = self.player.playerView;
-        [self.view addSubview:view];
+        [self.playerContainerView addSubview:view];
         view.alpha = 0; //在播放器播出第一帧画面前，隐藏它，使观众不至于只能看到一片漆黑。
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.left.and.right.equalTo(self.view);
+            make.top.bottom.left.and.right.equalTo(self.playerContainerView);
         }];
     });
     ({
@@ -62,6 +74,23 @@
     [self.closeButton addTarget:self action:@selector(_onPressedCloseButton:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.player play];
+}
+
+- (void)onKeyboardWasShownWithHeight:(CGFloat)keyboardHeight withDuration:(NSTimeInterval)duration
+{
+    CGRect frame = self.view.bounds;
+    frame.origin.y = -keyboardHeight/2;
+    
+    [UIView animateWithDuration:duration animations:^{
+        self.playerContainerView.frame = frame;
+    }];
+}
+
+- (void)onKeyboardWillBeHiddenWithDuration:(NSTimeInterval)duration
+{
+    [UIView animateWithDuration:duration animations:^{
+        self.playerContainerView.frame = self.view.bounds;
+    }];
 }
 
 - (void)player:(nonnull PLPlayer *)player statusDidChange:(PLPlayerStatus)state

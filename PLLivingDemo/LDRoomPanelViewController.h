@@ -8,6 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    LDRoomPanelViewControllerMode_Anchor,
+    LDRoomPanelViewControllerMode_Spectator
+} LDRoomPanelViewControllerMode;
+
+@class LDRoomPanelViewController;
+
+@protocol LDRoomPanelViewControllerDelegate <NSObject>
+
+@optional
+
+- (void)onKeyboardWasShownWithHeight:(CGFloat)keyboardHeight withDuration:(NSTimeInterval)duration;
+- (void)onKeyboardWillBeHiddenWithDuration:(NSTimeInterval)duration;
+
+@end
+
 @interface LDRoomPanelViewController : UIViewController
+
+@property (nonatomic, weak) id<LDRoomPanelViewControllerDelegate> delegate;
+- (instancetype)initWithMode:(LDRoomPanelViewControllerMode)mode;
 
 @end
