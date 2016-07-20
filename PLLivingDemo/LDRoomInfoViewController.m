@@ -26,6 +26,11 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -92,11 +97,6 @@
                                name:UIKeyboardWillShowNotification object:nil];
     [notificationCenger addObserver:self selector:@selector(_onFoundKeyboardWillBeHidden:)
                                name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)clearNotifications
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)_onFoundKeyboardWasShown:(NSNotification *)notification
