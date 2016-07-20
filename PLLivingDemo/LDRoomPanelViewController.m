@@ -170,7 +170,7 @@
         [self.chatDataSource addChatItemToFirst:chatItem];
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.chatTableView insertRowsAtIndexPaths:@[newIndexPath]
-                                  withRowAnimation:UITableViewRowAnimationRight];
+                                  withRowAnimation:UITableViewRowAnimationLeft];
     } else {
         [self.chatTextField resignFirstResponder];
     }
