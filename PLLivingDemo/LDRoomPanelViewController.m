@@ -153,11 +153,10 @@
     if (![message isEqualToString:@""]) {
         LDChatItem *chatItem = [[LDChatItem alloc] init];
         chatItem.message = message;
-        [self.chatDataSource addChatItem:chatItem];
-        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:self.chatDataSource.count - 1 inSection:0];
+        [self.chatDataSource addChatItemToFirst:chatItem];
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.chatTableView insertRowsAtIndexPaths:@[newIndexPath]
                                   withRowAnimation:UITableViewRowAnimationRight];
-        [self.chatTableView reloadData];
     } else {
         [self.chatTextField resignFirstResponder];
     }

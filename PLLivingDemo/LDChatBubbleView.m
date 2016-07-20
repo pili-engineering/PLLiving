@@ -19,6 +19,7 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = [UIColor clearColor];
         
         UIView *bubbleView = ({
@@ -27,10 +28,9 @@
             view.backgroundColor = [UIColor whiteColor];
             view.layer.cornerRadius = 5;
             [view mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.contentView).with.offset(-7);
+                make.top.equalTo(self.contentView).with.offset(7);
                 make.left.equalTo(self.contentView).with.offset(12);
                 make.bottom.equalTo(self.contentView).with.offset(-7);
-                make.height.mas_greaterThanOrEqualTo(30);
             }];
             view;
         });

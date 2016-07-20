@@ -34,14 +34,14 @@
     return self.chatItems.count;
 }
 
-- (void)addChatItem:(LDChatItem *)chatItem
+- (void)addChatItemToFirst:(LDChatItem *)chatItem
 {
     [self.chatItems addObject:chatItem];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    LDChatItem *chatItem = self.chatItems[indexPath.row];
+    LDChatItem *chatItem = self.chatItems[self.chatItems.count - indexPath.row - 1];
     LDChatBubbleView *cellView = [tableView dequeueReusableCellWithIdentifier:LDChatBubbleViewIdentifer
                                                                 forIndexPath:indexPath];
     [cellView resetViewWith:chatItem];

@@ -13,6 +13,6 @@
 @interface LDChatDataSource : NSObject <UITableViewDataSource>
 
 - (NSUInteger)count;
-- (void)addChatItem:(LDChatItem *)chatItem;
+- (void)addChatItemToFirst:(LDChatItem *)chatItem;
 
 @end
