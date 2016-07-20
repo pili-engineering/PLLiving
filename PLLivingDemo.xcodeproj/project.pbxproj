@@ -24,6 +24,7 @@
 		D2F907AB1D3CB271006C987F /* LDAnchorRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907AA1D3CB271006C987F /* LDAnchorRoomViewController.m */; };
 		D2F907AE1D3CB363006C987F /* LDRoomInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907AD1D3CB363006C987F /* LDRoomInfoViewController.m */; };
 		D2F907B81D3CD82C006C987F /* LDBroadcastingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F907B71D3CD82C006C987F /* LDBroadcastingManager.m */; };
+		D2FA97791D3F199300ADB180 /* LDAlertUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FA97781D3F199300ADB180 /* LDAlertUtil.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,8 @@
 		D2F907AD1D3CB363006C987F /* LDRoomInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDRoomInfoViewController.m; sourceTree = "<group>"; };
 		D2F907B61D3CD82C006C987F /* LDBroadcastingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBroadcastingManager.h; sourceTree = "<group>"; };
 		D2F907B71D3CD82C006C987F /* LDBroadcastingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDBroadcastingManager.m; sourceTree = "<group>"; };
+		D2FA97771D3F199300ADB180 /* LDAlertUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAlertUtil.h; sourceTree = "<group>"; };
+		D2FA97781D3F199300ADB180 /* LDAlertUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAlertUtil.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,8 @@
 			children = (
 				D23009E11D3DF3CD004A649C /* LDAsyncSemaphore.h */,
 				D23009E21D3DF3CD004A649C /* LDAsyncSemaphore.m */,
+				D2FA97771D3F199300ADB180 /* LDAlertUtil.h */,
+				D2FA97781D3F199300ADB180 /* LDAlertUtil.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -357,6 +362,7 @@
 				D2F907A51D3CA066006C987F /* LDLobbyRoomView.m in Sources */,
 				D2F9079F1D3C878F006C987F /* LDBasicViewController.m in Sources */,
 				D2F9079C1D3C853B006C987F /* LDLobbyViewController.m in Sources */,
+				D2FA97791D3F199300ADB180 /* LDAlertUtil.m in Sources */,
 				D23009DF1D3DC2BA004A649C /* LDDevicePermissionManager.m in Sources */,
 				D2F9078B1D3C7A56006C987F /* LDLoginViewController.m in Sources */,
 				D2F907AB1D3CB271006C987F /* LDAnchorRoomViewController.m in Sources */,

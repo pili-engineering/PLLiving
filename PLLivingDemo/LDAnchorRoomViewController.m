@@ -11,6 +11,7 @@
 #import "LDBroadcastingManager.h"
 #import "LDDevicePermissionManager.h"
 #import "LDAsyncSemaphore.h"
+#import "LDAlertUtil.h"
 
 @interface LDAnchorRoomViewController () <LDRoomInfoViewControllerDelegate,
                                           PLCameraStreamingSessionDelegate>
@@ -220,16 +221,10 @@
 {
     if (!self.didShowAlertView) {
         self.didShowAlertView = YES;
-        UIAlertController *av = [UIAlertController alertControllerWithTitle:errorMessage
-                                                                    message:LDString("found-error-while-broadcasting-and-have-to-close")
-                                                             preferredStyle:UIAlertControllerStyleAlert];
-        [av addAction:[UIAlertAction actionWithTitle:LDString("I-see")
-                                               style:UIAlertActionStyleDestructive
-                                             handler:^(UIAlertAction * _Nonnull action) {
-                                                 [self _close];
-                                                 self.didShowAlertView = NO;
-                                             }]];
-        [self presentViewController:av animated:true completion:nil];
+        [LDAlertUtil alertParentViewController:self title:errorMessage error:LDString("found-error-while-broadcasting-and-have-to-close") complete:^{
+            [self _close];
+            self.didShowAlertView = NO;
+        }];
     }
 }
 

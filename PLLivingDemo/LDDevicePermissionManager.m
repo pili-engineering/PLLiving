@@ -7,6 +7,7 @@
 //
 
 #import "LDDevicePermissionManager.h"
+#import "LDAlertUtil.h"
 
 @interface LDDevicePermissionManager ()
 @property (nonatomic, strong) void (^completeBlock)(BOOL granted);
@@ -115,15 +116,9 @@
 
 - (void)_alertAndDeclareFailWithErrorMessage:(NSString *)errorMessage
 {
-    UIAlertController *av = [UIAlertController alertControllerWithTitle:LDString("can-not-broadcasting")
-                                                                message:errorMessage
-                                                         preferredStyle:UIAlertControllerStyleAlert];
-    [av addAction:[UIAlertAction actionWithTitle:LDString("I-see")
-                                           style:UIAlertActionStyleDestructive
-                                         handler:^(UIAlertAction * _Nonnull action) {
-                                             self.completeBlock(NO);
-                                         }]];
-    [self.parentViewController presentViewController:av animated:true completion:nil];
+    [LDAlertUtil alertParentViewController:self.parentViewController title:LDString("can-not-broadcasting") error:errorMessage complete:^{
+        self.completeBlock(NO);
+    }];
 }
 
 @end
