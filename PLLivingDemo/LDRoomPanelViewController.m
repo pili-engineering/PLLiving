@@ -19,6 +19,7 @@
 @property (nonatomic, strong) LDTouchTransparentView *containerView;
 @property (nonatomic, strong) LDChatDataSource *chatDataSource;
 @property (nonatomic, strong) UITableView *chatTableView;
+@property (nonatomic, strong) LDTouchTransparentView *chatTableViewMask;
 @property (nonatomic, strong) UITextField *chatTextField;
 @property (nonatomic, strong) UIButton *spectatorListButton;
 @property (nonatomic, strong) UIButton *sharingButton;
@@ -135,6 +136,19 @@
         }];
         tableView;
     });
+    
+    self.chatTableViewMask = ({
+        LDTouchTransparentView *mask = [[LDTouchTransparentView alloc] init];
+        [self.containerView addSubview:mask];
+        
+        UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_onRecognizeGesture:)];
+        [mask addGestureRecognizer:gestureRecognizer];
+        [mask mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.left.and.right.equalTo(self.chatTableView);
+        }];
+        mask;
+    });
+    
     [self addNotifications];
 }
 
@@ -165,13 +179,29 @@
     return YES;
 }
 
+- (void)_onRecognizeGesture:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    // 判定是否是一个手指下滑的手势。
+    CGPoint displacement = [gestureRecognizer translationInView:self.chatTableViewMask]; // 位移矢量
+    CGPoint velocity = [gestureRecognizer velocityInView:self.chatTableViewMask]; //速度矢量
+    CGFloat radian = atan2(displacement.y, displacement.x); // 位移的弧度
+    CGFloat radius2 = pow(displacement.x, 2) + pow(displacement.y, 2); // 位移的半径平方
+    CGFloat speed2 = pow(velocity.x, 2) + pow(velocity.y, 2); // 速率的平方
+    
+    if (radius2 >= pow(128, 2) && speed2 >= pow(600, 2) && (M_PI_4 <= radian && 3*M_PI_4)) {
+        [self.chatTextField resignFirstResponder];
+    }
+}
+
 - (void)_onFoundKeyboardWasShown:(NSNotification *)notification
 {
     NSDictionary *userInfo = notification.userInfo;
     CGRect keyboardFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     NSTimeInterval duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     
-    self.presetKeyboardHeight = MIN(keyboardFrame.size.width, keyboardFrame.size.height);
+    self.presetKeyboardHeight = keyboardFrame.size.height;
+    self.chatTableViewMask.maskAllScreen = YES;
+    
     [UIView animateWithDuration:duration animations:^{
         [self.view setNeedsLayout];
         [self.view layoutIfNeeded];
@@ -187,6 +217,8 @@
     NSTimeInterval duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     
     self.presetKeyboardHeight = 0;
+    self.chatTableViewMask.maskAllScreen = NO;
+    
     [UIView animateWithDuration:duration animations:^{
         [self.view setNeedsLayout];
         [self.view layoutIfNeeded];
