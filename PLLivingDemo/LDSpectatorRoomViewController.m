@@ -7,11 +7,13 @@
 //
 
 #import "LDSpectatorRoomViewController.h"
+#import "LDRoomPanelViewController.h"
 #import "LDAlertUtil.h"
 
 @interface LDSpectatorRoomViewController () <PLPlayerDelegate>
 @property (nonatomic, assign) BOOL didPlayFirstFrame;
 @property (nonatomic, strong) PLPlayer *player;
+@property (nonatomic, strong) LDRoomPanelViewController *roomPanelViewControoler;
 @property (nonatomic, strong) UIButton *closeButton;
 @end
 
@@ -22,6 +24,7 @@
     if (self = [super init]) {
         self.player = [PLPlayer playerWithURL:url option:[PLPlayerOption defaultOption]];
         self.player.delegate = self;
+        self.roomPanelViewControoler = [[LDRoomPanelViewController alloc] init];
     }
     return self;
 }
@@ -33,6 +36,13 @@
         UIView *view = self.player.playerView;
         [self.view addSubview:view];
         view.alpha = 0; //在播放器播出第一帧画面前，隐藏它，使观众不至于只能看到一片漆黑。
+        [view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.left.and.right.equalTo(self.view);
+        }];
+    });
+    ({
+        UIView *view = self.roomPanelViewControoler.view;
+        [self.view addSubview:view];
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.left.and.right.equalTo(self.view);
         }];
