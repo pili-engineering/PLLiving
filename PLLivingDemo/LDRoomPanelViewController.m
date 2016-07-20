@@ -11,6 +11,7 @@
 #import "LDChatDataSource.h"
 #import "LDChatBubbleView.h"
 #import "LDChatItem.h"
+#import "LDTransformTableView.h"
 
 @interface LDRoomPanelViewController () <UITableViewDelegate, UITextFieldDelegate>
 @property (nonatomic, assign) LDRoomPanelViewControllerMode mode;
@@ -116,7 +117,8 @@
     }
     
     self.chatTableView = ({
-        UITableView *tableView = [[UITableView alloc] init];
+        CGAffineTransform transform = CGAffineTransformMakeScale(1.0, -1.0);
+        UITableView *tableView = [[LDTransformTableView alloc] initWithTransform:transform];
         [self.containerView addSubview:tableView];
         
         tableView.backgroundColor = [UIColor clearColor];
