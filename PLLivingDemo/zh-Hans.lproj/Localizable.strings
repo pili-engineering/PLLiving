@@ -25,3 +25,6 @@
 "can-not-connect-to-server-when-begin-broadcasting" = "开始直播失败";
 "broadcast-disconnected-because-found-error" = "直播过程中发生错误";
 "stop-broadcasting" = "Stop Broadcasting";
+
+// Spectator
+"player-found-error-and-have-to-exit" = "播放过程中发生错误，即将退出房间！";
