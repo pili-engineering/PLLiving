@@ -13,7 +13,7 @@
 @property (nonatomic, assign) CGFloat presetKeyboardHeight;
 @property (nonatomic, strong) LDViewConstraintsStateManager *constraints;
 @property (nonatomic, strong) UIView *container;
-@property (nonatomic, strong) UITextField *editor;
+@property (nonatomic, strong) UITextView *editor;
 @property (nonatomic, strong) UIButton *beginButton;
 @property (nonatomic, strong) UIButton *closeButton;
 @end
@@ -48,10 +48,19 @@ typedef enum {
         container;
     });
     self.editor = ({
-        UITextField *editor = [[UITextField alloc] init];
+        UITextView *editor = [[UITextView alloc] init];
         [self.container addSubview:editor];
+        [editor setEditable:YES];
+        [editor setFont:[UIFont systemFontOfSize:18]];
+        [editor setTintColor:[UIColor whiteColor]];
+        [editor setTextColor:[UIColor whiteColor]];
+        [editor setBackgroundColor:[UIColor clearColor]];
+        [editor setKeyboardAppearance:UIKeyboardAppearanceAlert];
         [editor mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.left.and.right.equalTo(self.container);
+            make.top.equalTo(self.container).with.offset(78);
+            make.left.equalTo(self.container).with.offset(50);
+            make.bottom.equalTo(self.container).with.offset(-78);
+            make.right.equalTo(self.container).with.offset(-50);
         }];
         editor;
     });
@@ -60,7 +69,12 @@ typedef enum {
         [self.container addSubview:button];
         [button setTitle:@"Begin Broadcasting" forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor redColor]];
+        button.backgroundColor = [UIColor colorWithHexString:@"0xED5757"];
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
+        button.layer.cornerRadius = 22;
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(260, 44));
+        }];
         [button addTarget:self action:@selector(_onPressedBeginBroadcastingButton:)
          forControlEvents:UIControlEventTouchUpInside];
         button;
@@ -82,7 +96,7 @@ typedef enum {
         [node view:weakSelf.beginButton makeConstraints:^(UIView *view, MASConstraintMaker *make) {
             view.alpha = 1;
             make.centerX.equalTo(weakSelf.container);
-            make.bottom.equalTo(weakSelf.container).with.offset(-kBeginBroadingButtonFloatHeight);
+            make.bottom.equalTo(weakSelf.container).with.offset(-22);
         }];
         [node view:weakSelf.closeButton makeConstraints:^(UIView *view, MASConstraintMaker *make) {
             view.alpha = 1;
@@ -165,7 +179,7 @@ typedef enum {
         self.constraints.state = @(LayoutState_Hide);
     }];
     [self.editor resignFirstResponder];
-    [self.editor setEnabled:NO];
+    [self.editor setEditable:NO];
     [self _responseTitle:nil];
 }
 

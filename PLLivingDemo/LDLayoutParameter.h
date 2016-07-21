@@ -12,8 +12,6 @@
 
 #define klaystartBroadcastingButtonButtonFloatHeight 50
 
-#define kBeginBroadingButtonFloatHeight 30
-
 #define klayBroadcastingTopBarHeight 40
 
 #define klayRoomPanelBottomBarHeight 60

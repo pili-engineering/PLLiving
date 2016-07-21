@@ -206,6 +206,9 @@
                 }
             });
         }];
+        [UIView animateWithDuration:0.45 animations:^{
+            self.blurBackgroundView.effect = nil;
+        }];
     }
 }
 
