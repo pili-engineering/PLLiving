@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSString *livingTitle;
 
 @property (nonatomic, strong) LDRoomInfoViewController *roomInfoViewController;
+@property (nonatomic, strong) UIVisualEffectView *blurBackgroundView;
 @property (nonatomic, strong) UIView *previewContainer;
 @property (nonatomic, strong) UIView *topBar;
 @property (nonatomic, strong) UIButton *transferCameraButton;
@@ -68,15 +69,29 @@
         preview;
     });
     
-    self.roomInfoViewController = ({
-        LDRoomInfoViewController *viewController = [[LDRoomInfoViewController alloc] init];
-        [self.view addSubview:viewController.view];
-        viewController.delegate = self;
-        [viewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.blurBackgroundView = ({
+        UIVisualEffectView *view = [[UIVisualEffectView alloc] init];
+        [self.view addSubview:view];
+        [view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.left.and.right.equalTo(self.view);
         }];
-        viewController;
+        view;
     });
+    
+    [UIView animateWithDuration:0.35 animations:^{
+        self.blurBackgroundView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    } completion:^(BOOL finished) {
+        
+        self.roomInfoViewController = ({
+            LDRoomInfoViewController *viewController = [[LDRoomInfoViewController alloc] init];
+            viewController.delegate = self;
+            [self.view addSubview:viewController.view];
+            [viewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.bottom.left.and.right.equalTo(self.view);
+            }];
+            viewController;
+        });
+    }];
     
     // 获取摄像头、麦克风权限（如果获取不到，在提示用户之后，直接退回上一级）
     [LDDevicePermissionManager requestDevicePermissionWithParentViewController:self
@@ -231,7 +246,14 @@
 - (void)_close
 {
     self.didClosed = YES;
-    [self.basicViewController removeViewController:self animated:NO completion:nil];
+    
+    [self.previewContainer.layer removeAllAnimations];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.previewContainer.alpha = 0;
+        self.blurBackgroundView.effect = nil;
+    } completion:^(BOOL finished) {
+        [self.basicViewController removeViewController:self animated:NO completion:nil];
+    }];
 }
 
 @end
