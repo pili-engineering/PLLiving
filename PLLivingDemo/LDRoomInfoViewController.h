@@ -17,4 +17,6 @@
 
 @property (nonatomic, weak) id<LDRoomInfoViewControllerDelegate> delegate;
 
+- (void)closeRoomInfoViewController;
+
 @end

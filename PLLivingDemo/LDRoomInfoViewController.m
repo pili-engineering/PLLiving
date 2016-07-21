@@ -175,13 +175,18 @@ typedef enum {
 
 - (void)_onPressedCloseButton:(UIButton *)button
 {
+    [self closeRoomInfoViewController];
+    [self _responseTitle:nil];
+}
+
+- (void)closeRoomInfoViewController
+{
     self.constraints.state = @(LayoutState_Show);
     [UIView animateWithDuration:0.5 animations:^{
         self.constraints.state = @(LayoutState_Hide);
     }];
     [self.editor resignFirstResponder];
     [self.editor setEditable:NO];
-    [self _responseTitle:nil];
 }
 
 - (void)_onPressedBeginBroadcastingButton:(UIButton *)button

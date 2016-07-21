@@ -140,31 +140,6 @@ typedef enum {
         bar;
     });
     
-    // 获取摄像头、麦克风权限（如果获取不到，在提示用户之后，直接退回上一级）
-    [LDDevicePermissionManager requestDevicePermissionWithParentViewController:self
-                                                                  withComplete:^(BOOL success) {
-        if (success) {
-            // 在拿到摄像头权限之前，preview 是显示不出来的。
-            // 因此，直到获取权限成功，才能把 preview 添加到 self.previewContainer 中。
-            UIView *preview = self.cameraStreamingSession.previewView;
-            self.previewContainer.alpha = 0;
-            self.topBar.alpha = 0;
-            
-            preview.frame = self.previewContainer.bounds;
-            preview.autoresizingMask = UIViewAutoresizingFlexibleWidth |
-                                       UIViewAutoresizingFlexibleHeight;
-            [self.previewContainer addSubview:preview];
-            [UIView animateWithDuration:3.5 animations:^{
-                self.previewContainer.alpha = 1;
-            } completion:^(BOOL finished) {
-                self.topBar.alpha = 1;
-            }];
-            
-        } else {
-            [self _close];
-        }
-    }];
-    
     // 异步获取 PLStream 对象。
     // 我之所以要异步获取，是为了让主播在输入 title 的同时，也在等待服务器返回 PLStream 对象。
     // 很可能主播输入完 title 之前，PLStream 就已经拿到了。
@@ -186,6 +161,38 @@ typedef enum {
             } else {
                 // TODO
             }
+        }
+    }];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    // 获取摄像头、麦克风权限（如果获取不到，在提示用户之后，直接退回上一级）
+    [LDDevicePermissionManager requestDevicePermissionWithParentViewController:self
+                                                                  withComplete:^(BOOL success) {
+        if (success) {
+            // 在拿到摄像头权限之前，preview 是显示不出来的。
+            // 因此，直到获取权限成功，才能把 preview 添加到 self.previewContainer 中。
+            UIView *preview = self.cameraStreamingSession.previewView;
+            self.previewContainer.alpha = 0;
+            self.topBar.alpha = 0;
+            
+            preview.frame = self.previewContainer.bounds;
+            preview.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+            UIViewAutoresizingFlexibleHeight;
+            [self.previewContainer addSubview:preview];
+            
+            UIViewAnimationOptions options = UIViewAnimationCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction;
+            
+            [UIView animateWithDuration:3.5 delay:0 options:options animations:^{
+                self.previewContainer.alpha = 1;
+            } completion:^(BOOL finished) {
+                self.topBar.alpha = 1;
+            }];
+            
+        } else {
+            [self.roomInfoViewController closeRoomInfoViewController];
+            [self _close];
         }
     }];
 }
@@ -314,7 +321,6 @@ typedef enum {
     
     [self.previewContainer.layer removeAllAnimations];
     self.blurBackgroundView.hidden = NO;
-    self.blurBackgroundView.effect = nil;
     
     [UIView animateWithDuration:0.45 animations:^{
         self.topBar.alpha = 0;
