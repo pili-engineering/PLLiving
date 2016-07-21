@@ -7,25 +7,38 @@
 //
 
 #import "LDAnchorRoomViewController.h"
+#import "LDViewConstraintsStateManager.h"
 #import "LDRoomInfoViewController.h"
 #import "LDBroadcastingManager.h"
 #import "LDDevicePermissionManager.h"
 #import "LDAsyncSemaphore.h"
 #import "LDAlertUtil.h"
 
+#define kTopBarHeight 70
+
+typedef enum {
+    LayoutState_HideTopBar,
+    LayoutState_ShowTopBar,
+    LayoutState_Float
+} LayoutState;
+
 @interface LDAnchorRoomViewController () <LDRoomInfoViewControllerDelegate,
                                           PLCameraStreamingSessionDelegate>
 
 @property (nonatomic, assign) BOOL didClosed;
 @property (nonatomic, assign) BOOL didShowAlertView;
+@property (nonatomic, assign) CGFloat previewContainerBeginPosition;
+@property (nonatomic, assign) LayoutState originalLayoutStateBeforeGestureBeginning;
 
 @property (nonatomic, strong) PLCameraStreamingSession *cameraStreamingSession;
 @property (nonatomic, strong) LDAsyncSemaphore *broadcastingSemaphore;
 @property (nonatomic, strong) LDBroadcastingManager *broadcastingManager;
 @property (nonatomic, strong) NSString *livingTitle;
+@property (nonatomic, strong) LDViewConstraintsStateManager *previewConstraints;
 
 @property (nonatomic, strong) LDRoomInfoViewController *roomInfoViewController;
 @property (nonatomic, strong) UIVisualEffectView *blurBackgroundView;
+@property (nonatomic, strong) UIImageView *arrowIconView;
 @property (nonatomic, strong) UIView *previewContainer;
 @property (nonatomic, strong) UIView *topBar;
 @property (nonatomic, strong) UIButton *transferCameraButton;
@@ -40,6 +53,7 @@
     if (self = [super init]) {
         
         self.broadcastingManager = [[LDBroadcastingManager alloc] init];
+        self.previewConstraints = [[LDViewConstraintsStateManager alloc] init];
         
         // 需要等待 3 个信号后才能开始推流（信号都是异步的，先后完全不可预测）
         // 1. 主播输入完 title，构造好 subivews。
@@ -68,9 +82,28 @@
     self.previewContainer = ({
         UIView *preview = [[UIView alloc] init];
         [self.view addSubview:preview];
-        [preview mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.left.and.right.equalTo(self.view);
+        
+        __weak typeof(self) weakSelf = self;
+        [self.previewConstraints addState:@(LayoutState_HideTopBar) makeConstraints:^(LDViewConstraintsStateNode *node) {
+            [node view:preview makeConstraints:^(UIView *view, MASConstraintMaker *make) {
+                make.top.bottom.left.and.right.equalTo(weakSelf.view);
+            }];
         }];
+        [self.previewConstraints addState:@(LayoutState_ShowTopBar) makeConstraints:^(LDViewConstraintsStateNode *node) {
+            [node view:preview makeConstraints:^(UIView *view, MASConstraintMaker *make) {
+                make.top.equalTo(weakSelf.view).with.offset(kTopBarHeight);
+                make.height.equalTo(weakSelf.view);
+                make.left.and.right.equalTo(weakSelf.view);
+            }];
+        }];
+        [self.previewConstraints addState:@(LayoutState_Float) makeConstraints:^(LDViewConstraintsStateNode *node) {
+            [node view:preview makeConstraints:^(UIView *view, MASConstraintMaker *make) {
+                make.size.equalTo(weakSelf.view);
+                make.left.equalTo(weakSelf.view);
+            }];
+        }];
+        self.previewConstraints.state = @(LayoutState_HideTopBar);
+        
         preview;
     });
     
@@ -84,7 +117,7 @@
     });
     
     [UIView animateWithDuration:0.35 animations:^{
-        self.blurBackgroundView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        self.blurBackgroundView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     } completion:^(BOOL finished) {
         
         self.roomInfoViewController = ({
@@ -98,6 +131,15 @@
         });
     }];
     
+    self.topBar = ({
+        UIView *bar = [[UIView alloc] init];
+        [self.view insertSubview:bar belowSubview:self.previewContainer];
+        [bar mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.left.and.right.equalTo(self.view);
+        }];
+        bar;
+    });
+    
     // 获取摄像头、麦克风权限（如果获取不到，在提示用户之后，直接退回上一级）
     [LDDevicePermissionManager requestDevicePermissionWithParentViewController:self
                                                                   withComplete:^(BOOL success) {
@@ -105,15 +147,17 @@
             // 在拿到摄像头权限之前，preview 是显示不出来的。
             // 因此，直到获取权限成功，才能把 preview 添加到 self.previewContainer 中。
             UIView *preview = self.cameraStreamingSession.previewView;
-            
             self.previewContainer.alpha = 0;
-            [self.previewContainer addSubview:preview];
-            [preview mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.bottom.left.and.right.equalTo(self.previewContainer);
-            }];
+            self.topBar.alpha = 0;
             
+            preview.frame = self.previewContainer.bounds;
+            preview.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+                                       UIViewAutoresizingFlexibleHeight;
+            [self.previewContainer addSubview:preview];
             [UIView animateWithDuration:3.5 animations:^{
                 self.previewContainer.alpha = 1;
+            } completion:^(BOOL finished) {
+                self.topBar.alpha = 1;
             }];
             
         } else {
@@ -153,6 +197,7 @@
         [self.roomInfoViewController.view removeFromSuperview];
         self.roomInfoViewController = nil;
         [self _setupAnchorSubviews];
+        [self _setupGestureRecognizerForTopBar];
         [self.broadcastingSemaphore signal]; //主播输入完 title，构造好 subivews
     } else {
         [self _close];
@@ -161,16 +206,16 @@
 
 - (void)_setupAnchorSubviews
 {
-    self.topBar = ({
-        UIView *bar = [[UIView alloc] init];
-        [self.view addSubview:bar];
-        bar.backgroundColor = [UIColor blackColor];
-        [bar mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.and.right.equalTo(self.view);
-            make.height.mas_equalTo(70);
+    self.arrowIconView = ({
+        UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrows-down"]];
+        [self.previewContainer addSubview:icon];
+        [icon mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.previewContainer).with.offset(20);
+            make.right.equalTo(self.previewContainer).with.offset(-18);
         }];
-        bar;
+        icon;
     });
+    
     self.transferCameraButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.topBar addSubview:button];
@@ -222,6 +267,9 @@
         }];
         [UIView animateWithDuration:0.45 animations:^{
             self.blurBackgroundView.effect = nil;
+            self.view.backgroundColor = [UIColor blackColor];
+        } completion:^(BOOL finished) {
+            self.blurBackgroundView.hidden = YES;
         }];
     }
 }
@@ -265,12 +313,88 @@
     self.didClosed = YES;
     
     [self.previewContainer.layer removeAllAnimations];
-    [UIView animateWithDuration:0.5 animations:^{
-        self.previewContainer.alpha = 0;
-        self.blurBackgroundView.effect = nil;
+    self.blurBackgroundView.hidden = NO;
+    self.blurBackgroundView.effect = nil;
+    
+    [UIView animateWithDuration:0.45 animations:^{
+        self.topBar.alpha = 0;
+        self.blurBackgroundView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        self.view.backgroundColor = [UIColor clearColor];
+        
     } completion:^(BOOL finished) {
-        [self.basicViewController removeViewController:self animated:NO completion:nil];
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            self.blurBackgroundView.effect = nil;
+            self.previewContainer.alpha = 0;
+        } completion:^(BOOL finished) {
+            [self.basicViewController removeViewController:self animated:NO completion:nil];
+        }];
     }];
+}
+
+# pragma mark - move preview to show top bar
+
+- (void)_setupGestureRecognizerForTopBar
+{
+    UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_onRecognizeGesture:)];
+    [self.previewContainer addGestureRecognizer:gestureRecognizer];
+}
+
+- (void)_onRecognizeGesture:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    CGPoint vector = [gestureRecognizer translationInView:gestureRecognizer.view.superview];
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        [self.previewContainer.layer removeAllAnimations];
+        self.previewContainerBeginPosition = self.previewContainer.frame.origin.y;
+        self.originalLayoutStateBeforeGestureBeginning = [self.previewConstraints.state intValue];
+        self.previewConstraints.state = @(LayoutState_Float);
+    }
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan ||
+        gestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        
+        CGSize size = self.view.bounds.size;
+        CGFloat touchPosition = self.previewContainerBeginPosition + vector.y;
+        CGFloat previewPosition = touchPosition;
+        
+        if (touchPosition < 0) { // 超过屏幕顶端
+            previewPosition = -pow(ABS(touchPosition), 0.75);
+        } else if (touchPosition > kTopBarHeight) {
+            previewPosition = kTopBarHeight + pow(touchPosition - kTopBarHeight, 0.75);
+        }
+        gestureRecognizer.view.frame = CGRectMake(0, previewPosition, size.width, size.height);
+        
+    } else {
+        LayoutState finalState;
+        
+        if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+
+            if (self.previewContainer.frame.origin.y >= kTopBarHeight/2) {
+                finalState = LayoutState_ShowTopBar;
+            } else {
+                finalState = LayoutState_HideTopBar;
+            }
+        } else if (gestureRecognizer.state == UIGestureRecognizerStateCancelled || //突然来个电话，恢复原状
+                   gestureRecognizer.state == UIGestureRecognizerStateFailed) {
+            
+            finalState = self.originalLayoutStateBeforeGestureBeginning;
+        }
+        
+        NSTimeInterval duration = 0.35;
+        if (finalState == LayoutState_ShowTopBar) {
+            duration *= (ABS(vector.y - kTopBarHeight))/kTopBarHeight;
+        } else {
+            duration *= ABS(vector.y)/kTopBarHeight;
+        }
+        duration = MIN(duration, 0.35);
+        
+        UIViewAnimationOptions options = UIViewAnimationCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction;
+        [UIView animateWithDuration:duration delay:0 options:options animations:^{
+            self.previewConstraints.state = @(finalState);
+        } completion:nil];
+    }
+    
 }
 
 @end
