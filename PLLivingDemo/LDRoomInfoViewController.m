@@ -82,9 +82,10 @@ typedef enum {
     self.closeButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.container addSubview:button];
-        [button setTitle:@"Close" forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor redColor]];
+        [button setImage:[UIImage imageNamed:@"icon-close"] forState:UIControlStateNormal];
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+        }];
         [button addTarget:self action:@selector(_onPressedCloseButton:)
          forControlEvents:UIControlEventTouchUpInside];
         button;
@@ -100,8 +101,8 @@ typedef enum {
         }];
         [node view:weakSelf.closeButton makeConstraints:^(UIView *view, MASConstraintMaker *make) {
             view.alpha = 1;
-            make.right.equalTo(weakSelf.container).with.offset(-25);
-            make.top.equalTo(weakSelf.container).with.offset(25);
+            make.right.equalTo(weakSelf.container).with.offset(-22.1);
+            make.top.equalTo(weakSelf.container).with.offset(21.1);
         }];
     }];
     
@@ -113,10 +114,12 @@ typedef enum {
         }];
         [node view:weakSelf.closeButton makeConstraints:^(UIView *view, MASConstraintMaker *make) {
             view.alpha = 0;
-            make.right.equalTo(weakSelf.container).with.offset(-25);
+            make.right.equalTo(weakSelf.container).with.offset(-22.1);
             make.bottom.equalTo(weakSelf.container.mas_top);
         }];
     }];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     self.constraints.state = @(LayoutState_Hide);
     [UIView animateWithDuration:0.5 animations:^{
