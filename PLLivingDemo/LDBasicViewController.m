@@ -35,6 +35,16 @@
     self.view = [[_LDBasicView alloc] initWithBasicViewController:self];
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    BOOL hidden = super.prefersStatusBarHidden;
+    UIViewController *topViewController = self.basicViewController.viewControllers.lastObject;
+    if (topViewController) {
+        hidden = topViewController.prefersStatusBarHidden;
+    }
+    return hidden;
+}
+
 - (void)popupViewController:(UIViewController * __nonnull)viewController
                    animated:(BOOL)animatedFlag
                  completion:(void (^ __nullable)(void))completion
@@ -69,6 +79,7 @@
                 completion();
             }
         }
+        [self setNeedsStatusBarAppearanceUpdate];
     }
 }
 
@@ -100,6 +111,7 @@
                 completion();
             }
         }
+        [self setNeedsStatusBarAppearanceUpdate];
     }
 }
 
