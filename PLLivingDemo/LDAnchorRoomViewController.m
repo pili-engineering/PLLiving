@@ -163,20 +163,25 @@
 {
     self.topBar = ({
         UIView *bar = [[UIView alloc] init];
-        bar.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:bar];
+        bar.backgroundColor = [UIColor blackColor];
         [bar mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.and.right.equalTo(self.view);
-            make.height.mas_equalTo(klayStatusBarHeight + klayBroadcastingTopBarHeight);
+            make.height.mas_equalTo(70);
         }];
         bar;
     });
     self.transferCameraButton = ({
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.topBar addSubview:button];
-        [button setTitle:@"转" forState:UIControlStateNormal];
+        [button.layer setCornerRadius:22];
+        [button setTintColor:[UIColor blackColor]];
+        [button setBackgroundColor:[UIColor whiteColor]];
+        [button setImage:[UIImage imageNamed:@"toggle-camera"] forState:UIControlStateNormal];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.and.bottom.equalTo(self.topBar).with.offset(-7);
+            make.top.equalTo(self.topBar).with.offset(12);
+            make.right.equalTo(self.topBar).with.offset(-25);
+            make.size.mas_equalTo(CGSizeMake(44, 44));
         }];
         button;
     });
@@ -184,10 +189,14 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [self.topBar addSubview:button];
         [button setTitle:LDString("stop-broadcasting") forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor colorWithHexString:@"0xED5757"];
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
+        button.layer.cornerRadius = 22;
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.topBar).with.offset(7);
-            make.bottom.equalTo(self.topBar).with.offset(-7);
-            make.right.equalTo(self.transferCameraButton.mas_left).with.offset(-7);
+            make.top.equalTo(self.topBar).with.offset(12);
+            make.left.equalTo(self.topBar).with.offset(22);
+            make.size.mas_equalTo(CGSizeMake(260, 44));
         }];
         button;
     });

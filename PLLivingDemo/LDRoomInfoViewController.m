@@ -82,7 +82,7 @@ typedef enum {
     self.closeButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.container addSubview:button];
-        [button setImage:[UIImage imageNamed:@"icon-close"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"icon-big-close@2x"] forState:UIControlStateNormal];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             
         }];
@@ -118,8 +118,6 @@ typedef enum {
             make.bottom.equalTo(weakSelf.container.mas_top);
         }];
     }];
-    
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     self.constraints.state = @(LayoutState_Hide);
     [UIView animateWithDuration:0.5 animations:^{
