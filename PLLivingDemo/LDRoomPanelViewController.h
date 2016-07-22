@@ -27,6 +27,8 @@ typedef enum {
 @interface LDRoomPanelViewController : UIViewController
 
 @property (nonatomic, weak) id<LDRoomPanelViewControllerDelegate> delegate;
+
 - (instancetype)initWithMode:(LDRoomPanelViewControllerMode)mode;
+- (void)playCloseRoomPanelViewControllerAnimation;
 
 @end

@@ -21,6 +21,7 @@ typedef enum {
 @property (nonatomic, strong) LDViewConstraintsStateManager *constraints;
 @property (nonatomic, strong) PLPlayer *player;
 @property (nonatomic, strong) LDRoomPanelViewController *roomPanelViewControoler;
+@property (nonatomic, strong) UIVisualEffectView *blurBackgroundView;
 @property (nonatomic, strong) UIView *playerContainerView;
 @property (nonatomic, strong) UIButton *closeButton;
 @end
@@ -52,6 +53,7 @@ typedef enum {
                                      UIViewAutoresizingFlexibleBottomMargin;
         container;
     });
+    
     ({
         UIView *view = self.player.playerView;
         view.alpha = 0; //在播放器播出第一帧画面前，隐藏它，使观众不至于只能看到一片漆黑。
@@ -60,6 +62,16 @@ typedef enum {
                                 UIViewAutoresizingFlexibleHeight;
         [self.playerContainerView addSubview:view];
     });
+    
+    self.blurBackgroundView = ({
+        UIVisualEffectView *view = [[UIVisualEffectView alloc] init];
+        [self.view addSubview:view];
+        [view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.left.and.right.equalTo(self.view);
+        }];
+        view;
+    });
+    
     ({
         UIView *view = self.roomPanelViewControoler.view;
         [self.view addSubview:view];
@@ -67,6 +79,7 @@ typedef enum {
             make.top.bottom.left.and.right.equalTo(self.view);
         }];
     });
+    
     self.closeButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [self.view addSubview:button];
@@ -83,7 +96,7 @@ typedef enum {
     [self.constraints addState:@(PanelState_Hide) makeConstraints:^(LDViewConstraintsStateNode *node) {
         [node view:weakSelf.closeButton makeConstraints:^(UIView *view, MASConstraintMaker *make) {
             view.alpha = 0;
-            make.top.equalTo(weakSelf.view.mas_bottom);
+            make.bottom.equalTo(weakSelf.view.mas_top);
         }];
     }];
     [self.constraints addState:@(PanelState_Show) makeConstraints:^(LDViewConstraintsStateNode *node) {
@@ -92,11 +105,22 @@ typedef enum {
             make.top.equalTo(weakSelf.view).with.offset(21.1);
         }];
     }];
-    self.constraints.state = @(PanelState_Show);
+    self.constraints.state = @(PanelState_Hide);
     
     [self.closeButton addTarget:self action:@selector(_onPressedCloseButton:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.player play];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [UIView animateWithDuration:0.45 animations:^{
+        self.blurBackgroundView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.65 animations:^{
+            self.constraints.state = @(PanelState_Show);
+        }];
+    }];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -125,8 +149,12 @@ typedef enum {
 {
     if (state == PLPlayerStatusReady && // 播放器已经完全准备好，可以播放出第一帧了。
         !self.didPlayFirstFrame) {
-        [UIView animateWithDuration:0.7 animations:^{
+        [UIView animateWithDuration:0.35 animations:^{
             player.playerView.alpha = 1.0;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.55 animations:^{
+                self.blurBackgroundView.effect = nil;
+            }];
         }];
     }
 }
@@ -139,14 +167,36 @@ typedef enum {
     NSString *title = LDString("player-found-error-and-have-to-exit");
     NSString *message = [NSString stringWithFormat:@"%@", error];
     [LDAlertUtil alertParentViewController:self title:title error:message complete:^{
-        [self.basicViewController removeViewController:self animated:NO completion:nil];
+        [self _closeSpectatorRoomViewController];
     }];
 }
 
 - (void)_onPressedCloseButton:(UIButton *)button
 {
     [self.player stop];
-    [self.basicViewController removeViewController:self animated:NO completion:nil];
+    [self _closeSpectatorRoomViewController];
+}
+
+- (void)_closeSpectatorRoomViewController
+{
+    [self.roomPanelViewControoler playCloseRoomPanelViewControllerAnimation];
+    
+    [UIView animateWithDuration:0.65 animations:^{
+        self.constraints.state = @(PanelState_Hide);
+        self.blurBackgroundView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.35 animations:^{
+            self.player.playerView.alpha = 0;
+            
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.25 animations:^{
+                self.blurBackgroundView.effect = nil;
+            } completion:^(BOOL finished) {
+                [self.basicViewController removeViewController:self animated:NO completion:nil];
+            }];
+        }];
+    }];
 }
 
 @end

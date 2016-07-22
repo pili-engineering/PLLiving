@@ -10,6 +10,8 @@
 
 @interface LDTransformTableView : UITableView
 
+@property (nonatomic, assign) BOOL canNotMaskGestureRecognizer;
+
 - (instancetype)initWithTransform:(CGAffineTransform)transform;
 
 @end

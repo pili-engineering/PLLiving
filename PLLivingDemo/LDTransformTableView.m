@@ -39,4 +39,12 @@
     [super setTableFooterView:tableFooterView];
 }
 
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    if (self.canNotMaskGestureRecognizer) {
+        return [super hitTest:point withEvent:event];
+    }
+    return nil;
+}
+
 @end

@@ -11,6 +11,7 @@
 #import "LDAnchorRoomViewController.h"
 #import "LDViewConstraintsStateManager.h"
 #import "LDRoomInfoViewController.h"
+#import "LDRoomPanelViewController.h"
 #import "LDBroadcastingManager.h"
 #import "LDDevicePermissionManager.h"
 #import "LDAsyncSemaphore.h"
@@ -25,6 +26,7 @@ typedef enum {
 } LayoutState;
 
 @interface LDAnchorRoomViewController () <LDRoomInfoViewControllerDelegate,
+                                          LDRoomPanelViewControllerDelegate,
                                           PLCameraStreamingSessionDelegate>
 
 @property (nonatomic, assign) BOOL didClosed;
@@ -39,6 +41,7 @@ typedef enum {
 @property (nonatomic, strong) LDViewConstraintsStateManager *previewConstraints;
 
 @property (nonatomic, strong) LDRoomInfoViewController *roomInfoViewController;
+@property (nonatomic, strong) LDRoomPanelViewController *roomPanelViewControoler;
 @property (nonatomic, strong) UIVisualEffectView *blurBackgroundView;
 @property (nonatomic, strong) UIImageView *arrowIconView;
 @property (nonatomic, strong) UIView *previewContainer;
@@ -56,6 +59,9 @@ typedef enum {
         
         self.broadcastingManager = [[LDBroadcastingManager alloc] init];
         self.previewConstraints = [[LDViewConstraintsStateManager alloc] init];
+        
+        self.roomPanelViewControoler = [[LDRoomPanelViewController alloc] initWithMode:LDRoomPanelViewControllerMode_Anchor];
+        self.roomPanelViewControoler.delegate = self;
         
         // 需要等待 3 个信号后才能开始推流（信号都是异步的，先后完全不可预测）
         // 1. 主播输入完 title，构造好 subivews。
@@ -215,6 +221,14 @@ typedef enum {
 
 - (void)_setupAnchorSubviews
 {
+    ({
+        UIView *view = self.roomPanelViewControoler.view;
+        [self.previewContainer addSubview:view];
+        [view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.left.and.right.equalTo(self.previewContainer);
+        }];
+    });
+    
     self.arrowIconView = ({
         UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrows-down"]];
         [self.previewContainer addSubview:icon];
@@ -322,6 +336,7 @@ typedef enum {
     self.didClosed = YES;
     
     self.blurBackgroundView.hidden = NO;
+    [self.roomPanelViewControoler playCloseRoomPanelViewControllerAnimation];
     
     [UIView animateWithDuration:0.45 animations:^{
         self.topBar.alpha = 0;

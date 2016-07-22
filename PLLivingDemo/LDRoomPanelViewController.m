@@ -170,8 +170,11 @@ typedef enum {
     
     self.chatTableView = ({
         CGAffineTransform transform = CGAffineTransformMakeScale(1.0, -1.0);
-        UITableView *tableView = [[LDTransformTableView alloc] initWithTransform:transform];
+        LDTransformTableView *tableView = [[LDTransformTableView alloc] initWithTransform:transform];
         [self.containerView addSubview:tableView];
+        
+        // 如果是主播，UITableView 将可以被“穿透”，当 touch 触碰到它上时，感觉就像穿透它直接 touch 到它后面的 view 一样。
+        tableView.canNotMaskGestureRecognizer = (self.mode == LDRoomPanelViewControllerMode_Spectator);
         
         tableView.backgroundColor = [UIColor clearColor];
         [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -231,6 +234,15 @@ typedef enum {
 {
     [UIView animateWithDuration:0.65 animations:^{
         self.constraints.state = @(LayoutState_Show);
+    }];
+}
+
+- (void)playCloseRoomPanelViewControllerAnimation
+{
+    [self.chatTextField resignFirstResponder];
+    
+    [UIView animateWithDuration:0.65 animations:^{
+        self.constraints.state = @(LayoutState_Hide);
     }];
 }
 
