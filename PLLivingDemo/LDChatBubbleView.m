@@ -26,7 +26,8 @@
         self.userIconView = ({
             UIImageView *iconView = [[UIImageView alloc] init];
             [self.contentView addSubview:iconView];
-            [iconView.layer setCornerRadius:15];
+            [iconView.layer setCornerRadius:16];
+            [iconView setImage:[UIImage imageNamed:@"icon1.jpeg"]];
             [iconView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(32, 32));
                 make.left.equalTo(self.contentView).with.offset(15);
@@ -38,24 +39,35 @@
         UIView *bubbleView = ({
             UIView *view = [[UIView alloc] init];
             [self.contentView addSubview:view];
-            view.backgroundColor = [UIColor whiteColor];
-            view.layer.cornerRadius = 5;
+            view.backgroundColor = [UIColor colorWithHexString:@"FFDCDCDC"];
+            view.layer.cornerRadius = 16;
+            view.alpha = 0.85;
             [view mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.contentView).with.offset(7);
-                make.left.equalTo(self.userIconView).with.offset(10);
+                make.left.equalTo(self.userIconView.mas_right).with.offset(10);
                 make.right.lessThanOrEqualTo(self.contentView).with.offset(-25);
                 make.bottom.equalTo(self.userIconView);
+            }];
+            
+            UIView *cornerView = [[UIView alloc] init];
+            [view addSubview:cornerView];
+            cornerView.backgroundColor = [UIColor colorWithHexString:@"FFDCDCDC"];
+            cornerView.layer.cornerRadius = 2;
+            [cornerView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.bottom.equalTo(view);
+                make.size.mas_equalTo(CGSizeMake(25, 16));
             }];
             view;
         });
         self.chatContentlabel = ({
             UILabel *label = [[UILabel alloc] init];
+            label.font = [UIFont systemFontOfSize:14];
             [bubbleView addSubview:label];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(bubbleView).with.offset(7);
-                make.left.equalTo(bubbleView).with.offset(4);
-                make.bottom.equalTo(bubbleView).with.offset(-7);
-                make.right.equalTo(bubbleView).with.offset(-4);
+                make.top.equalTo(bubbleView).with.offset(13);
+                make.left.equalTo(bubbleView).with.offset(20);
+                make.bottom.equalTo(bubbleView).with.offset(-16);
+                make.right.equalTo(bubbleView).with.offset(-10);
             }];
             label;
         });

@@ -7,6 +7,7 @@
 //
 
 #import "LDRoomPanelViewController.h"
+#import "LDViewConstraintsStateManager.h"
 #import "LDTouchTransparentView.h"
 #import "LDChatDataSource.h"
 #import "LDChatBubbleView.h"
@@ -14,8 +15,15 @@
 #import "LDTransformTableView.h"
 #import "LDAppearanceView.h"
 
+typedef enum {
+    LayoutState_Hide,
+    LayoutState_Show
+} LayoutState;
+
+
 @interface LDRoomPanelViewController () <UITableViewDelegate, UITextFieldDelegate>
 @property (nonatomic, assign) LDRoomPanelViewControllerMode mode;
+@property (nonatomic, strong) LDViewConstraintsStateManager *constraints;
 @property (nonatomic, assign) CGFloat presetKeyboardHeight;
 @property (nonatomic, strong) LDTouchTransparentView *containerView;
 @property (nonatomic, strong) LDChatDataSource *chatDataSource;
@@ -38,6 +46,7 @@
     if (self = [self init]) {
         _mode = mode;
         _chatDataSource = [[LDChatDataSource alloc] init];
+        _constraints = [[LDViewConstraintsStateManager alloc] init];
     }
     return self;
 }
@@ -81,7 +90,7 @@
         UIView *bar = [[UIView alloc] init];
         [self.containerView addSubview:bar];
         [bar mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.and.bottom.equalTo(self.containerView);
+            make.left.right.and.equalTo(self.containerView);
             make.height.mas_equalTo(97);
         }];
         UIView *gradientView = [[LDAppearanceView alloc] initWithLayer:({
@@ -173,7 +182,8 @@
         tableView.dataSource = self.chatDataSource;
         [tableView registerClass:[LDChatBubbleView class] forCellReuseIdentifier:LDChatBubbleViewIdentifer];
         [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.and.right.equalTo(self.containerView);
+            make.top.equalTo(self.containerView);
+            make.width.equalTo(self.containerView);
             make.bottom.equalTo(bottomBar.mas_top).with.offset(44);
         }];
         tableView;
@@ -191,7 +201,37 @@
         mask;
     });
     
+    __weak typeof(self) weakSelf = self;
+    [self.constraints addState:@(LayoutState_Show) makeConstraints:^(LDViewConstraintsStateNode *node) {
+        [node view:bottomBar makeConstraints:^(UIView *view, MASConstraintMaker *make) {
+            bottomBar.alpha = 1;
+            make.bottom.equalTo(weakSelf.containerView);
+        }];
+        [node view:weakSelf.chatTableView makeConstraints:^(UIView *view, MASConstraintMaker *make) {
+            make.left.equalTo(weakSelf.containerView);
+        }];
+    }];
+    [self.constraints addState:@(LayoutState_Hide) makeConstraints:^(LDViewConstraintsStateNode *node) {
+        [node view:bottomBar makeConstraints:^(UIView *view, MASConstraintMaker *make) {
+            bottomBar.alpha = 1;
+            bottomBar.alpha = 0;
+            make.top.equalTo(weakSelf.containerView.mas_bottom);
+        }];
+        [node view:weakSelf.chatTableView makeConstraints:^(UIView *view, MASConstraintMaker *make) {
+            bottomBar.alpha = 0;
+            make.right.equalTo(weakSelf.containerView.mas_left);
+        }];
+    }];
+    self.constraints.state = @(LayoutState_Hide);
+    
     [self addNotifications];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [UIView animateWithDuration:0.65 animations:^{
+        self.constraints.state = @(LayoutState_Show);
+    }];
 }
 
 - (void)addNotifications
