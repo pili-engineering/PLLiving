@@ -6,6 +6,8 @@
 //  Copyright © 2016年 com.pili-engineering. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "LDAnchorRoomViewController.h"
 #import "LDViewConstraintsStateManager.h"
 #import "LDRoomInfoViewController.h"
@@ -319,7 +321,6 @@ typedef enum {
 {
     self.didClosed = YES;
     
-    [self.previewContainer.layer removeAllAnimations];
     self.blurBackgroundView.hidden = NO;
     
     [UIView animateWithDuration:0.45 animations:^{
@@ -328,6 +329,10 @@ typedef enum {
         self.view.backgroundColor = [UIColor clearColor];
         
     } completion:^(BOOL finished) {
+        
+        CALayer *previewLayer = self.previewContainer.layer.presentationLayer;
+        [self.previewContainer.layer removeAllAnimations];
+        self.previewContainer.layer.opacity = previewLayer.opacity;
         
         [UIView animateWithDuration:0.25 animations:^{
             self.blurBackgroundView.effect = nil;
