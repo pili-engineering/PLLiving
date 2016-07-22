@@ -77,7 +77,9 @@
 
 - (void)resetViewWith:(LDChatItem *)chatItem
 {
+    NSArray *array = @[@"icon1.jpeg", @"icon2.jpg", @"icon3.jpg"];
     [self.chatContentlabel setText:chatItem.message];
+    [self.userIconView setImage:[UIImage imageNamed:array[chatItem.message.hash % array.count]]];
 }
 
 @end
