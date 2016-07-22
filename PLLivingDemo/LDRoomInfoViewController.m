@@ -173,20 +173,32 @@ typedef enum {
     }];
 }
 
-- (void)_onPressedCloseButton:(UIButton *)button
-{
-    [self closeRoomInfoViewController];
-    [self _responseTitle:nil];
-}
-
 - (void)closeRoomInfoViewController
 {
-    self.constraints.state = @(LayoutState_Show);
-    [UIView animateWithDuration:0.5 animations:^{
-        self.constraints.state = @(LayoutState_Hide);
-    }];
+    [self _closeWithAnimationFinish:nil];
+}
+
+- (void)_closeWithAnimationFinish:(void (^)())finishBlock
+{
     [self.editor resignFirstResponder];
     [self.editor setEditable:NO];
+    
+    self.constraints.state = @(LayoutState_Show);
+    [UIView animateWithDuration:0.35 animations:^{
+        self.constraints.state = @(LayoutState_Hide);
+        self.editor.alpha = 0;
+        
+    } completion:^(BOOL finished) {
+        if (finishBlock) {
+            finishBlock();
+        }
+    }];
+}
+
+- (void)_onPressedCloseButton:(UIButton *)button
+{
+    [self _closeWithAnimationFinish:nil];
+    [self _responseTitle:nil];
 }
 
 - (void)_onPressedBeginBroadcastingButton:(UIButton *)button
@@ -196,7 +208,9 @@ typedef enum {
         [self.view makeToast:LDString("please-input-any-messages-as_broadcasting-title")
                     duration:1.2 position:CSToastPositionTop];
     } else {
-        [self _responseTitle:title];
+        [self _closeWithAnimationFinish:^{
+            [self _responseTitle:title];
+        }];
     }
 }
 
