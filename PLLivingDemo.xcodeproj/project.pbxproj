@@ -52,6 +52,7 @@
 		D246EBDA1D41EEE500510816 /* toggle-camera@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D246EBB71D41EEE500510816 /* toggle-camera@3x.png */; };
 		D27022B81D41F8D800A8B311 /* arrows-up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D27022B61D41F8D800A8B311 /* arrows-up@2x.png */; };
 		D27022B91D41F8D800A8B311 /* arrows-up@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D27022B71D41F8D800A8B311 /* arrows-up@3x.png */; };
+		D27022C01D4214CA00A8B311 /* LDBlurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27022BF1D4214CA00A8B311 /* LDBlurViewController.m */; };
 		D2F6B3141D407B160000B6C7 /* LDViewConstraintsStateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */; };
 		D2F6B31D1D40A00F0000B6C7 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F6B31C1D40A00F0000B6C7 /* UIColor+HexString.m */; };
 		D2F9076B1D3C705D006C987F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9076A1D3C705D006C987F /* main.m */; };
@@ -128,6 +129,8 @@
 		D246EBB71D41EEE500510816 /* toggle-camera@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toggle-camera@3x.png"; path = "Assets/toggle-camera@3x.png"; sourceTree = "<group>"; };
 		D27022B61D41F8D800A8B311 /* arrows-up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrows-up@2x.png"; path = "Assets/arrows-up@2x.png"; sourceTree = "<group>"; };
 		D27022B71D41F8D800A8B311 /* arrows-up@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrows-up@3x.png"; path = "Assets/arrows-up@3x.png"; sourceTree = "<group>"; };
+		D27022BE1D4214CA00A8B311 /* LDBlurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBlurViewController.h; sourceTree = "<group>"; };
+		D27022BF1D4214CA00A8B311 /* LDBlurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDBlurViewController.m; sourceTree = "<group>"; };
 		D2F6B3121D407B160000B6C7 /* LDViewConstraintsStateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDViewConstraintsStateManager.h; sourceTree = "<group>"; };
 		D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDViewConstraintsStateManager.m; sourceTree = "<group>"; };
 		D2F6B31B1D40A00F0000B6C7 /* UIColor+HexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
@@ -359,6 +362,8 @@
 				D2F907881D3C7A18006C987F /* Login */,
 				D2F9079D1D3C878F006C987F /* LDBasicViewController.h */,
 				D2F9079E1D3C878F006C987F /* LDBasicViewController.m */,
+				D27022BE1D4214CA00A8B311 /* LDBlurViewController.h */,
+				D27022BF1D4214CA00A8B311 /* LDBlurViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -582,6 +587,7 @@
 				D2F9076E1D3C705D006C987F /* AppDelegate.m in Sources */,
 				D2F907A21D3C9D5C006C987F /* LDRoomItem.m in Sources */,
 				D2FA977F1D3F2F6800ADB180 /* LDTouchTransparentView.m in Sources */,
+				D27022C01D4214CA00A8B311 /* LDBlurViewController.m in Sources */,
 				D2FA97881D3F4AF600ADB180 /* LDChatBubbleView.m in Sources */,
 				D2F907A51D3CA066006C987F /* LDLobbyRoomView.m in Sources */,
 				D2FA97821D3F463E00ADB180 /* LDChatItem.m in Sources */,
