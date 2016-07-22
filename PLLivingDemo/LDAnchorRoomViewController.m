@@ -355,6 +355,10 @@ typedef enum {
         self.previewContainerBeginPosition = self.previewContainer.frame.origin.y;
         self.originalLayoutStateBeforeGestureBeginning = [self.previewConstraints.state intValue];
         self.previewConstraints.state = @(LayoutState_Float);
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            self.arrowIconView.alpha = 0;
+        }];
     }
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan ||
@@ -390,8 +394,10 @@ typedef enum {
         NSTimeInterval duration = 0.35;
         if (finalState == LayoutState_ShowTopBar) {
             duration *= (ABS(vector.y - kTopBarHeight))/kTopBarHeight;
+            self.arrowIconView.image = [UIImage imageNamed:@"arrows-up"];
         } else {
             duration *= ABS(vector.y)/kTopBarHeight;
+            self.arrowIconView.image = [UIImage imageNamed:@"arrows-down"];
         }
         duration = MIN(duration, 0.35);
         
@@ -399,6 +405,10 @@ typedef enum {
         [UIView animateWithDuration:duration delay:0 options:options animations:^{
             self.previewConstraints.state = @(finalState);
         } completion:nil];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            self.arrowIconView.alpha = 1;
+        }];
     }
     
 }
