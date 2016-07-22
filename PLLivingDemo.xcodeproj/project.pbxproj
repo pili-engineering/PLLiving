@@ -53,6 +53,8 @@
 		D27022B81D41F8D800A8B311 /* arrows-up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D27022B61D41F8D800A8B311 /* arrows-up@2x.png */; };
 		D27022B91D41F8D800A8B311 /* arrows-up@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D27022B71D41F8D800A8B311 /* arrows-up@3x.png */; };
 		D27022C01D4214CA00A8B311 /* LDBlurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27022BF1D4214CA00A8B311 /* LDBlurViewController.m */; };
+		D27022C31D421DE000A8B311 /* LDSpectatorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27022C21D421DE000A8B311 /* LDSpectatorListViewController.m */; };
+		D27022C61D421F4A00A8B311 /* LDSpectatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D27022C51D421F4A00A8B311 /* LDSpectatorItem.m */; };
 		D2F6B3141D407B160000B6C7 /* LDViewConstraintsStateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */; };
 		D2F6B31D1D40A00F0000B6C7 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F6B31C1D40A00F0000B6C7 /* UIColor+HexString.m */; };
 		D2F9076B1D3C705D006C987F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9076A1D3C705D006C987F /* main.m */; };
@@ -131,6 +133,10 @@
 		D27022B71D41F8D800A8B311 /* arrows-up@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrows-up@3x.png"; path = "Assets/arrows-up@3x.png"; sourceTree = "<group>"; };
 		D27022BE1D4214CA00A8B311 /* LDBlurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBlurViewController.h; sourceTree = "<group>"; };
 		D27022BF1D4214CA00A8B311 /* LDBlurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDBlurViewController.m; sourceTree = "<group>"; };
+		D27022C11D421DE000A8B311 /* LDSpectatorListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDSpectatorListViewController.h; sourceTree = "<group>"; };
+		D27022C21D421DE000A8B311 /* LDSpectatorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSpectatorListViewController.m; sourceTree = "<group>"; };
+		D27022C41D421F4A00A8B311 /* LDSpectatorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDSpectatorItem.h; sourceTree = "<group>"; };
+		D27022C51D421F4A00A8B311 /* LDSpectatorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSpectatorItem.m; sourceTree = "<group>"; };
 		D2F6B3121D407B160000B6C7 /* LDViewConstraintsStateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDViewConstraintsStateManager.h; sourceTree = "<group>"; };
 		D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDViewConstraintsStateManager.m; sourceTree = "<group>"; };
 		D2F6B31B1D40A00F0000B6C7 /* UIColor+HexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
@@ -339,6 +345,8 @@
 				D2FA97811D3F463E00ADB180 /* LDChatItem.m */,
 				D2FA97831D3F468800ADB180 /* LDChatDataSource.h */,
 				D2FA97841D3F468800ADB180 /* LDChatDataSource.m */,
+				D27022C41D421F4A00A8B311 /* LDSpectatorItem.h */,
+				D27022C51D421F4A00A8B311 /* LDSpectatorItem.m */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -405,6 +413,8 @@
 				D23009E51D3E208C004A649C /* LDSpectatorRoomViewController.m */,
 				D2FA977A1D3F1F6100ADB180 /* LDRoomPanelViewController.h */,
 				D2FA977B1D3F1F6100ADB180 /* LDRoomPanelViewController.m */,
+				D27022C11D421DE000A8B311 /* LDSpectatorListViewController.h */,
+				D27022C21D421DE000A8B311 /* LDSpectatorListViewController.m */,
 			);
 			name = Room;
 			sourceTree = "<group>";
@@ -594,10 +604,12 @@
 				D2F6B31D1D40A00F0000B6C7 /* UIColor+HexString.m in Sources */,
 				D2F9079F1D3C878F006C987F /* LDBasicViewController.m in Sources */,
 				D2FA977C1D3F1F6100ADB180 /* LDRoomPanelViewController.m in Sources */,
+				D27022C61D421F4A00A8B311 /* LDSpectatorItem.m in Sources */,
 				D2FA97851D3F468800ADB180 /* LDChatDataSource.m in Sources */,
 				D2F9079C1D3C853B006C987F /* LDLobbyViewController.m in Sources */,
 				D2FA97791D3F199300ADB180 /* LDAlertUtil.m in Sources */,
 				D23009DF1D3DC2BA004A649C /* LDDevicePermissionManager.m in Sources */,
+				D27022C31D421DE000A8B311 /* LDSpectatorListViewController.m in Sources */,
 				D2F9078B1D3C7A56006C987F /* LDLoginViewController.m in Sources */,
 				D2F907AB1D3CB271006C987F /* LDAnchorRoomViewController.m in Sources */,
 				D23009E61D3E208C004A649C /* LDSpectatorRoomViewController.m in Sources */,

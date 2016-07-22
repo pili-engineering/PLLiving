@@ -27,7 +27,6 @@
             UIImageView *iconView = [[UIImageView alloc] init];
             [self.contentView addSubview:iconView];
             [iconView.layer setCornerRadius:16];
-            [iconView setImage:[UIImage imageNamed:@"icon1.jpeg"]];
             [iconView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(32, 32));
                 make.left.equalTo(self.contentView).with.offset(15);

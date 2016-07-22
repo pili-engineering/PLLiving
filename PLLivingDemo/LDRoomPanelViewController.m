@@ -8,10 +8,12 @@
 
 #import "LDRoomPanelViewController.h"
 #import "LDViewConstraintsStateManager.h"
+#import "LDSpectatorListViewController.h"
 #import "LDTouchTransparentView.h"
 #import "LDChatDataSource.h"
 #import "LDChatBubbleView.h"
 #import "LDChatItem.h"
+#import "LDSpectatorItem.h"
 #import "LDTransformTableView.h"
 #import "LDAppearanceView.h"
 
@@ -227,6 +229,9 @@ typedef enum {
     }];
     self.constraints.state = @(LayoutState_Hide);
     
+    [self.spectatorListButton addTarget:self action:@selector(_onPressedSpectatorListButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.sharingButton addTarget:self action:@selector(_onPressedSharingButton:) forControlEvents:UIControlEventTouchUpInside];
+    
     [self addNotifications];
 }
 
@@ -320,6 +325,34 @@ typedef enum {
     if ([self.delegate respondsToSelector:@selector(onKeyboardWasShownWithHeight:withDuration:)]) {
         [self.delegate onKeyboardWillBeHiddenWithDuration:duration];
     }
+}
+
+- (void)_onPressedSpectatorListButton:(UIButton *)button
+{
+    LDSpectatorListViewController *viewController = [[LDSpectatorListViewController alloc] initWithSpectators:({
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        LDSpectatorItem *item;
+        
+        item = [[LDSpectatorItem alloc] init];
+        item.userName = @"moskize";
+        [array addObject:item];
+        
+        item = [[LDSpectatorItem alloc] init];
+        item.userName = @"帝王不愧冲天下";
+        [array addObject:item];
+        
+        item = [[LDSpectatorItem alloc] init];
+        item.userName = @"大王亲自来巡山";
+        [array addObject:item];
+        
+        array;
+    })];
+    [self.basicViewController popupViewController:viewController animated:NO completion:nil];
+}
+
+- (void)_onPressedSharingButton:(UIButton *)button
+{
+    
 }
 
 @end

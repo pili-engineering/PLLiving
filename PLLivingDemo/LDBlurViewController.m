@@ -20,14 +20,24 @@ typedef enum {
     LDViewConstraintsStateManager *_constraints;
 }
 
+- (instancetype)initWithPresentOrientation:(LDBlurViewControllerPresentOrientation)presentOrientation
+{
+    if (self = [self init]) {
+        _presentOrientation = presentOrientation;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     _constraints = [[LDViewConstraintsStateManager alloc] init];
+    self.view.hidden = YES;
     
     _blurBackgroundView = ({
         UIVisualEffectView *view = [[UIVisualEffectView alloc] init];
+        view.backgroundColor = [UIColor clearColor];
         __weak typeof(self) weakSelf = self;
         [_constraints addState:@(BackgroundState_Fix) makeConstraints:^(LDViewConstraintsStateNode *node) {
             [node view:view makeConstraints:^(UIView *view, MASConstraintMaker *make) {
@@ -51,6 +61,7 @@ typedef enum {
     [self.view.superview insertSubview:_blurBackgroundView belowSubview:self.view];
     CGRect frame = self.view.superview.bounds;
     _blurBackgroundView.frame = frame;
+    self.view.hidden = NO;
     
     switch (self.presentOrientation) {
         case LDBlurViewControllerPresentOrientation_FromTop:
@@ -74,6 +85,9 @@ typedef enum {
     [UIView animateWithDuration:0.75 animations:^{
         _blurBackgroundView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
         self.view.frame = self.view.superview.bounds;
+        
+    } completion:^(BOOL finished) {
+        _constraints.state = @(BackgroundState_Float);
     }];
 }
 

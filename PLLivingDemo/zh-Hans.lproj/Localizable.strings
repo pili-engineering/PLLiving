@@ -31,3 +31,9 @@
 
 // Room Panel
 "chat-placeholder" = "Say somthing";
+
+// Spectator List
+"viewers" = "VIEWERS";
+"x-more-viewers" = "%li More Viewers";
+"report-broadcast" = "Report Broadcast";
+
