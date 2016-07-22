@@ -147,6 +147,7 @@
             field.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12, 10)];
             field.leftViewMode = UITextFieldViewModeAlways;
             field.layer.cornerRadius = 4;
+            [field setKeyboardAppearance:UIKeyboardAppearanceAlert];
             [bottomBar addSubview:field];
             [field mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(bottomBar).with.offset(54);
