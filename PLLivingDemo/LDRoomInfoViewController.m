@@ -73,6 +73,7 @@ typedef enum {
         button.titleLabel.font = [UIFont systemFontOfSize:14];
         button.layer.cornerRadius = 22;
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.container);
             make.size.mas_equalTo(CGSizeMake(260, 44));
         }];
         [button addTarget:self action:@selector(_onPressedBeginBroadcastingButton:)
@@ -84,7 +85,7 @@ typedef enum {
         [self.container addSubview:button];
         [button setImage:[UIImage imageNamed:@"icon-big-close@2x"] forState:UIControlStateNormal];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            
+            make.right.equalTo(self.container).with.offset(-22.1);
         }];
         [button addTarget:self action:@selector(_onPressedCloseButton:)
          forControlEvents:UIControlEventTouchUpInside];
@@ -96,12 +97,10 @@ typedef enum {
     [self.constraints addState:@(LayoutState_Show) makeConstraints:^(LDViewConstraintsStateNode *node) {
         [node view:weakSelf.beginButton makeConstraints:^(UIView *view, MASConstraintMaker *make) {
             view.alpha = 1;
-            make.centerX.equalTo(weakSelf.container);
             make.bottom.equalTo(weakSelf.container).with.offset(-22);
         }];
         [node view:weakSelf.closeButton makeConstraints:^(UIView *view, MASConstraintMaker *make) {
             view.alpha = 1;
-            make.right.equalTo(weakSelf.container).with.offset(-22.1);
             make.top.equalTo(weakSelf.container).with.offset(21.1);
         }];
     }];
@@ -109,12 +108,10 @@ typedef enum {
     [self.constraints addState:@(LayoutState_Hide) makeConstraints:^(LDViewConstraintsStateNode *node) {
         [node view:weakSelf.beginButton makeConstraints:^(UIView *view, MASConstraintMaker *make) {
             view.alpha = 0;
-            make.centerX.equalTo(weakSelf.container);
             make.top.equalTo(weakSelf.container.mas_bottom);
         }];
         [node view:weakSelf.closeButton makeConstraints:^(UIView *view, MASConstraintMaker *make) {
             view.alpha = 0;
-            make.right.equalTo(weakSelf.container).with.offset(-22.1);
             make.bottom.equalTo(weakSelf.container.mas_top);
         }];
     }];
