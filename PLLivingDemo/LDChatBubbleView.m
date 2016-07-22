@@ -10,6 +10,7 @@
 #import "LDChatItem.h"
 
 @interface LDChatBubbleView ()
+@property (nonatomic, strong) UIImageView *userIconView;
 @property (nonatomic, strong) UILabel *chatContentlabel;
 @end
 
@@ -22,6 +23,18 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = [UIColor clearColor];
         
+        self.userIconView = ({
+            UIImageView *iconView = [[UIImageView alloc] init];
+            [self.contentView addSubview:iconView];
+            [iconView.layer setCornerRadius:15];
+            [iconView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(32, 32));
+                make.left.equalTo(self.contentView).with.offset(15);
+                make.bottom.equalTo(self.contentView).with.offset(-7);
+            }];
+            iconView;
+        });
+        
         UIView *bubbleView = ({
             UIView *view = [[UIView alloc] init];
             [self.contentView addSubview:view];
@@ -29,8 +42,9 @@
             view.layer.cornerRadius = 5;
             [view mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.contentView).with.offset(7);
-                make.left.equalTo(self.contentView).with.offset(12);
-                make.bottom.equalTo(self.contentView).with.offset(-7);
+                make.left.equalTo(self.userIconView).with.offset(10);
+                make.right.lessThanOrEqualTo(self.contentView).with.offset(-25);
+                make.bottom.equalTo(self.userIconView);
             }];
             view;
         });
