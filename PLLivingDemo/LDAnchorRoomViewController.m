@@ -181,7 +181,7 @@ typedef enum {
             
             preview.frame = self.previewContainer.bounds;
             preview.autoresizingMask = UIViewAutoresizingFlexibleWidth |
-            UIViewAutoresizingFlexibleHeight;
+                                       UIViewAutoresizingFlexibleHeight;
             [self.previewContainer addSubview:preview];
             
             UIViewAnimationOptions options = UIViewAnimationCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction;
@@ -244,7 +244,7 @@ typedef enum {
         [self.topBar addSubview:button];
         [button setTitle:LDString("stop-broadcasting") forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        button.backgroundColor = [UIColor colorWithHexString:@"0xED5757"];
+        button.backgroundColor = [UIColor colorWithHexString:@"ED5757"];
         button.titleLabel.font = [UIFont systemFontOfSize:14];
         button.layer.cornerRadius = 22;
         [button mas_makeConstraints:^(MASConstraintMaker *make) {

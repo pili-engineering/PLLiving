@@ -69,7 +69,7 @@ typedef enum {
         [self.container addSubview:button];
         [button setTitle:@"Begin Broadcasting" forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        button.backgroundColor = [UIColor colorWithHexString:@"0xED5757"];
+        button.backgroundColor = [UIColor colorWithHexString:@"ED5757"];
         button.titleLabel.font = [UIFont systemFontOfSize:14];
         button.layer.cornerRadius = 22;
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -83,7 +83,7 @@ typedef enum {
     self.closeButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.container addSubview:button];
-        [button setImage:[UIImage imageNamed:@"icon-big-close@2x"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"icon-big-close"] forState:UIControlStateNormal];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.container).with.offset(-22.1);
         }];

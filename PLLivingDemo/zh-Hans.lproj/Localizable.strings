@@ -28,3 +28,6 @@
 
 // Spectator
 "player-found-error-and-have-to-exit" = "播放过程中发生错误，即将退出房间！";
+
+// Room Panel
+"chat-placeholder" = "Say somthing";

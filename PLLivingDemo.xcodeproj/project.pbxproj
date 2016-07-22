@@ -13,6 +13,7 @@
 		D23009E61D3E208C004A649C /* LDSpectatorRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009E51D3E208C004A649C /* LDSpectatorRoomViewController.m */; };
 		D246EB801D41B31300510816 /* arrows-up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D246EB7E1D41B31300510816 /* arrows-up@2x.png */; };
 		D246EB811D41B31300510816 /* arrows-up@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D246EB7F1D41B31300510816 /* arrows-up@3x.png */; };
+		D246EB841D41CD1F00510816 /* LDAppearanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = D246EB831D41CD1F00510816 /* LDAppearanceView.m */; };
 		D2F6B3141D407B160000B6C7 /* LDViewConstraintsStateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */; };
 		D2F6B31D1D40A00F0000B6C7 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F6B31C1D40A00F0000B6C7 /* UIColor+HexString.m */; };
 		D2F6B3421D40A6300000B6C7 /* add-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2F6B31F1D40A6300000B6C7 /* add-button@2x.png */; };
@@ -84,6 +85,8 @@
 		D23009E51D3E208C004A649C /* LDSpectatorRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSpectatorRoomViewController.m; sourceTree = "<group>"; };
 		D246EB7E1D41B31300510816 /* arrows-up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrows-up@2x.png"; sourceTree = "<group>"; };
 		D246EB7F1D41B31300510816 /* arrows-up@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrows-up@3x.png"; sourceTree = "<group>"; };
+		D246EB821D41CD1F00510816 /* LDAppearanceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAppearanceView.h; sourceTree = "<group>"; };
+		D246EB831D41CD1F00510816 /* LDAppearanceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAppearanceView.m; sourceTree = "<group>"; };
 		D2F6B3121D407B160000B6C7 /* LDViewConstraintsStateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDViewConstraintsStateManager.h; sourceTree = "<group>"; };
 		D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDViewConstraintsStateManager.m; sourceTree = "<group>"; };
 		D2F6B31B1D40A00F0000B6C7 /* UIColor+HexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 				D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */,
 				D2F6B31B1D40A00F0000B6C7 /* UIColor+HexString.h */,
 				D2F6B31C1D40A00F0000B6C7 /* UIColor+HexString.m */,
+				D246EB821D41CD1F00510816 /* LDAppearanceView.h */,
+				D246EB831D41CD1F00510816 /* LDAppearanceView.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -573,6 +578,7 @@
 				D2F907AE1D3CB363006C987F /* LDRoomInfoViewController.m in Sources */,
 				D2F9076B1D3C705D006C987F /* main.m in Sources */,
 				D2F6B3141D407B160000B6C7 /* LDViewConstraintsStateManager.m in Sources */,
+				D246EB841D41CD1F00510816 /* LDAppearanceView.m in Sources */,
 				D23009E31D3DF3CD004A649C /* LDAsyncSemaphore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

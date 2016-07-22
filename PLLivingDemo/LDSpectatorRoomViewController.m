@@ -8,10 +8,17 @@
 
 #import "LDSpectatorRoomViewController.h"
 #import "LDRoomPanelViewController.h"
+#import "LDViewConstraintsStateManager.h"
 #import "LDAlertUtil.h"
+
+typedef enum {
+    PanelState_Show,
+    PanelState_Hide
+} PanelState;
 
 @interface LDSpectatorRoomViewController () <PLPlayerDelegate, LDRoomPanelViewControllerDelegate>
 @property (nonatomic, assign) BOOL didPlayFirstFrame;
+@property (nonatomic, strong) LDViewConstraintsStateManager *constraints;
 @property (nonatomic, strong) PLPlayer *player;
 @property (nonatomic, strong) LDRoomPanelViewController *roomPanelViewControoler;
 @property (nonatomic, strong) UIView *playerContainerView;
@@ -27,6 +34,7 @@
         self.player.delegate = self;
         self.roomPanelViewControoler = [[LDRoomPanelViewController alloc] initWithMode:LDRoomPanelViewControllerMode_Spectator];
         self.roomPanelViewControoler.delegate = self;
+        self.constraints = [[LDViewConstraintsStateManager alloc] init];
     }
     return self;
 }
@@ -46,11 +54,11 @@
     });
     ({
         UIView *view = self.player.playerView;
-        [self.playerContainerView addSubview:view];
         view.alpha = 0; //在播放器播出第一帧画面前，隐藏它，使观众不至于只能看到一片漆黑。
-        [view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.left.and.right.equalTo(self.playerContainerView);
-        }];
+        view.frame = self.playerContainerView.bounds;
+        view.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+                                UIViewAutoresizingFlexibleHeight;
+        [self.playerContainerView addSubview:view];
     });
     ({
         UIView *view = self.roomPanelViewControoler.view;
@@ -62,18 +70,38 @@
     self.closeButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [self.view addSubview:button];
-        [button setTitle:@"X" forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor redColor]];
+        [button setTintColor:[UIColor whiteColor]];
+        [button setImage:[UIImage imageNamed:@"icon-big-close"] forState:UIControlStateNormal];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).with.offset(40);
-            make.right.equalTo(self.view).with.offset(-20);
+            make.right.equalTo(self.view).with.offset(-22.1);
         }];
         button;
     });
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [self.constraints addState:@(PanelState_Hide) makeConstraints:^(LDViewConstraintsStateNode *node) {
+        [node view:weakSelf.closeButton makeConstraints:^(UIView *view, MASConstraintMaker *make) {
+            view.alpha = 0;
+            make.top.equalTo(weakSelf.view.mas_bottom);
+        }];
+    }];
+    [self.constraints addState:@(PanelState_Show) makeConstraints:^(LDViewConstraintsStateNode *node) {
+        [node view:weakSelf.closeButton makeConstraints:^(UIView *view, MASConstraintMaker *make) {
+            view.alpha = 1;
+            make.top.equalTo(weakSelf.view).with.offset(21.1);
+        }];
+    }];
+    self.constraints.state = @(PanelState_Show);
+    
     [self.closeButton addTarget:self action:@selector(_onPressedCloseButton:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.player play];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 - (void)onKeyboardWasShownWithHeight:(CGFloat)keyboardHeight withDuration:(NSTimeInterval)duration

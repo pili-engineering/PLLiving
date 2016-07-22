@@ -12,6 +12,7 @@
 #import "LDChatBubbleView.h"
 #import "LDChatItem.h"
 #import "LDTransformTableView.h"
+#import "LDAppearanceView.h"
 
 @interface LDRoomPanelViewController () <UITableViewDelegate, UITextFieldDelegate>
 @property (nonatomic, assign) LDRoomPanelViewControllerMode mode;
@@ -79,30 +80,56 @@
     UIView *bottomBar = ({
         UIView *bar = [[UIView alloc] init];
         [self.containerView addSubview:bar];
-        bar.backgroundColor = [UIColor whiteColor];
         [bar mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.and.bottom.equalTo(self.containerView);
-            make.height.mas_equalTo(klayRoomPanelBottomBarHeight);
+            make.height.mas_equalTo(97);
+        }];
+        UIView *gradientView = [[LDAppearanceView alloc] initWithLayer:({
+            CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+            gradientLayer.startPoint = CGPointMake(0, 0);
+            gradientLayer.endPoint = CGPointMake(0, 1);
+            gradientLayer.colors = @[(__bridge id) [UIColor colorWithHexString:@"00000000"].CGColor,
+                                     (__bridge id) [UIColor colorWithHexString:@"66000000"].CGColor,];
+            gradientLayer;
+        })];
+        [bar addSubview:gradientView];
+        [gradientView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.and.bottom.equalTo(bar);
+        }];
+        UIView *line = [[UIView alloc] init];
+        [bar addSubview:line];
+        [line setBackgroundColor:[UIColor colorWithHexString:@"56FFFFFF"]];
+        [line mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(bar).with.offset(14);
+            make.right.equalTo(bar).with.offset(-14);
+            make.bottom.equalTo(bar).with.offset(-50);
+            make.height.mas_equalTo(1);
         }];
         bar;
     });
     self.spectatorListButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [bottomBar addSubview:button];
-        [button setTitle:@"观" forState:UIControlStateNormal];
+        [button setTintColor:[UIColor whiteColor]];
+        [button setTitle:@"  321" forState:UIControlStateNormal];
+        [button.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [button setImage:[UIImage imageNamed:@"audience"] forState:UIControlStateNormal];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.and.bottom.equalTo(bottomBar);
-            make.left.equalTo(bottomBar);
+            make.centerY.equalTo(bottomBar).with.offset(27);
+            make.left.equalTo(bottomBar.mas_left).with.offset(17);
+            make.right.lessThanOrEqualTo(bottomBar.mas_left).with.offset(70);
         }];
         button;
     });
     self.sharingButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [bottomBar addSubview:button];
-        [button setTitle:@"享" forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+        [button setTintColor:[UIColor whiteColor]];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.and.bottom.equalTo(bottomBar);
-            make.right.equalTo(bottomBar);
+            make.centerY.equalTo(bottomBar).with.offset(27);
+            make.right.equalTo(bottomBar.mas_right).with.offset(-17);
+            make.left.greaterThanOrEqualTo(bottomBar.mas_right).with.offset(-51);
         }];
         button;
     });
@@ -112,11 +139,20 @@
         self.chatTextField = ({
             UITextField *field = [[UITextField alloc] init];
             field.delegate = self;
+            field.textColor = [UIColor whiteColor];
+            field.tintColor = [UIColor whiteColor];
+            field.font = [UIFont systemFontOfSize:14];
+            field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:LDString("chat-placeholder") attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14], NSForegroundColorAttributeName: [UIColor colorWithHexString:@"99FFFFFF"]}];
+            field.backgroundColor = [UIColor colorWithHexString:@"40E5E5E5"];
+            field.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12, 10)];
+            field.leftViewMode = UITextFieldViewModeAlways;
+            field.layer.cornerRadius = 4;
             [bottomBar addSubview:field];
             [field mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.and.bottom.equalTo(bottomBar);
-                make.left.equalTo(self.spectatorListButton.mas_right);
-                make.right.equalTo(self.sharingButton.mas_left);
+                make.top.equalTo(bottomBar).with.offset(54);
+                make.bottom.equalTo(bottomBar).with.offset(-5);
+                make.left.equalTo(bottomBar).with.offset(70);
+                make.right.equalTo(bottomBar).with.offset(-51);
             }];
             field;
         });
@@ -137,7 +173,7 @@
         [tableView registerClass:[LDChatBubbleView class] forCellReuseIdentifier:LDChatBubbleViewIdentifer];
         [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.and.right.equalTo(self.containerView);
-            make.bottom.equalTo(bottomBar.mas_top);
+            make.bottom.equalTo(bottomBar.mas_top).with.offset(44);
         }];
         tableView;
     });

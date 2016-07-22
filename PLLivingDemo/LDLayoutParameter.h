@@ -11,5 +11,3 @@
 #define klayLobbyRoomTabHeight 100
 
 #define klaystartBroadcastingButtonButtonFloatHeight 50
-
-#define klayRoomPanelBottomBarHeight 60
