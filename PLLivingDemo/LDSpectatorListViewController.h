@@ -15,5 +15,6 @@
 @interface LDSpectatorListViewController : LDBlurViewController
 
 - (instancetype)initWithSpectators:(NSArray <LDSpectatorItem *> *)spectators;
+- (void)close;
 
 @end

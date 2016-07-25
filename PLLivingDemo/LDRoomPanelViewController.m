@@ -24,9 +24,13 @@ typedef enum {
 
 
 @interface LDRoomPanelViewController () <UITableViewDelegate, UITextFieldDelegate>
+
 @property (nonatomic, assign) LDRoomPanelViewControllerMode mode;
 @property (nonatomic, strong) LDViewConstraintsStateManager *constraints;
 @property (nonatomic, assign) CGFloat presetKeyboardHeight;
+
+@property (nonatomic, weak) LDSpectatorListViewController *spectatorListViewController;
+
 @property (nonatomic, strong) LDTouchTransparentView *containerView;
 @property (nonatomic, strong) LDChatDataSource *chatDataSource;
 @property (nonatomic, strong) UITableView *chatTableView;
@@ -249,6 +253,10 @@ typedef enum {
     [UIView animateWithDuration:0.65 animations:^{
         self.constraints.state = @(LayoutState_Hide);
     }];
+    
+    if (self.spectatorListViewController) {
+        [self.spectatorListViewController close];
+    }
 }
 
 - (void)addNotifications
@@ -347,8 +355,10 @@ typedef enum {
         
         array;
     })];
+    [self.chatTextField resignFirstResponder];
     [self.basicViewController popupViewController:viewController animated:NO completion:nil];
     [viewController playAppearAnimationWithComplete:nil];
+    self.spectatorListViewController = viewController;
 }
 
 - (void)_onPressedSharingButton:(UIButton *)button

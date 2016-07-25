@@ -40,6 +40,12 @@
     return YES;
 }
 
+- (void)close
+{
+    [self.basicViewController removeViewController:self animated:NO completion:nil];
+    [self playDisappearAnimationWithComplete:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -186,10 +192,7 @@
 
 - (void)_onPressedBackgroundView:(id)sender
 {
-    [self.basicViewController removeViewController:self animated:NO completion:nil];
-    [self playDisappearAnimationWithComplete:^{
-        
-    }];
+    [self close];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
