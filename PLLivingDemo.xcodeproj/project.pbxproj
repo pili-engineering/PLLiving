@@ -11,6 +11,7 @@
 		D23009DF1D3DC2BA004A649C /* LDDevicePermissionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009DE1D3DC2BA004A649C /* LDDevicePermissionManager.m */; };
 		D23009E31D3DF3CD004A649C /* LDAsyncSemaphore.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009E21D3DF3CD004A649C /* LDAsyncSemaphore.m */; };
 		D23009E61D3E208C004A649C /* LDSpectatorRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009E51D3E208C004A649C /* LDSpectatorRoomViewController.m */; };
+		D23063881D45F635001D3283 /* LDReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D23063871D45F635001D3283 /* LDReportViewController.m */; };
 		D246EB841D41CD1F00510816 /* LDAppearanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = D246EB831D41CD1F00510816 /* LDAppearanceView.m */; };
 		D246EB921D41EEAD00510816 /* icon1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D246EB8F1D41EEAD00510816 /* icon1.jpeg */; };
 		D246EB931D41EEAD00510816 /* icon2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D246EB901D41EEAD00510816 /* icon2.jpg */; };
@@ -89,6 +90,8 @@
 		D23009E21D3DF3CD004A649C /* LDAsyncSemaphore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAsyncSemaphore.m; sourceTree = "<group>"; };
 		D23009E41D3E208C004A649C /* LDSpectatorRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDSpectatorRoomViewController.h; sourceTree = "<group>"; };
 		D23009E51D3E208C004A649C /* LDSpectatorRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSpectatorRoomViewController.m; sourceTree = "<group>"; };
+		D23063861D45F635001D3283 /* LDReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDReportViewController.h; sourceTree = "<group>"; };
+		D23063871D45F635001D3283 /* LDReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDReportViewController.m; sourceTree = "<group>"; };
 		D246EB821D41CD1F00510816 /* LDAppearanceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAppearanceView.h; sourceTree = "<group>"; };
 		D246EB831D41CD1F00510816 /* LDAppearanceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAppearanceView.m; sourceTree = "<group>"; };
 		D246EB8F1D41EEAD00510816 /* icon1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = icon1.jpeg; path = DemoIcons/icon1.jpeg; sourceTree = "<group>"; };
@@ -415,6 +418,8 @@
 				D2FA977B1D3F1F6100ADB180 /* LDRoomPanelViewController.m */,
 				D27022C11D421DE000A8B311 /* LDSpectatorListViewController.h */,
 				D27022C21D421DE000A8B311 /* LDSpectatorListViewController.m */,
+				D23063861D45F635001D3283 /* LDReportViewController.h */,
+				D23063871D45F635001D3283 /* LDReportViewController.m */,
 			);
 			name = Room;
 			sourceTree = "<group>";
@@ -612,6 +617,7 @@
 				D27022C31D421DE000A8B311 /* LDSpectatorListViewController.m in Sources */,
 				D2F9078B1D3C7A56006C987F /* LDLoginViewController.m in Sources */,
 				D2F907AB1D3CB271006C987F /* LDAnchorRoomViewController.m in Sources */,
+				D23063881D45F635001D3283 /* LDReportViewController.m in Sources */,
 				D23009E61D3E208C004A649C /* LDSpectatorRoomViewController.m in Sources */,
 				D2F907AE1D3CB363006C987F /* LDRoomInfoViewController.m in Sources */,
 				D2F9076B1D3C705D006C987F /* main.m in Sources */,

@@ -8,12 +8,14 @@
 
 #import "LDSpectatorListViewController.h"
 #import "LDSpectatorItem.h"
+#import "LDReportViewController.h"
 
 #define kLDSpectatorCellViewIdentifer @"kLDSpectatorCellViewIdentifer"
 
 @interface LDSpectatorListViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, assign) NSUInteger moreViewersCount;
 @property (nonatomic, assign) BOOL enableReportBroadcast;
+@property (nonatomic, weak) LDReportViewController *reportViewController;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray <LDSpectatorItem *> *spectators;
 @end
@@ -42,6 +44,9 @@
 
 - (void)close
 {
+    if (self.reportViewController) {
+        [self.reportViewController close];
+    }
     [self.basicViewController removeViewController:self animated:NO completion:nil];
     [self playDisappearAnimationWithComplete:nil];
 }
@@ -183,11 +188,20 @@
                 make.bottom.equalTo(footer).with.offset(-24);
                 make.centerX.equalTo(footer);
             }];
+            [reportButton addTarget:self action:@selector(_onPressedReportBroadcastButton:) forControlEvents:UIControlEventTouchUpInside];
         }
         [self _resetAutolayoutHeightWithView:footer];
         
         footer;
     });
+}
+
+- (void)_onPressedReportBroadcastButton:(id)sender
+{
+    LDReportViewController *viewController = [[LDReportViewController alloc] initWithPresentOrientation:LDBlurViewControllerPresentOrientation_FromBottom];
+    [self.basicViewController popupViewController:viewController animated:NO completion:nil];
+    [viewController playAppearAnimationWithComplete:nil];
+    self.reportViewController = viewController;
 }
 
 - (void)_onPressedBackgroundView:(id)sender

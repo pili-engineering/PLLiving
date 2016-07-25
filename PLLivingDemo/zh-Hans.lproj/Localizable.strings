@@ -37,3 +37,7 @@
 "x-more-viewers" = "%li More Viewers";
 "report-broadcast" = "Report Broadcast";
 
+// Dialog
+"sure-to-report-this-broadcast" = "Are you sure you want to report this broadcast?";
+"report-content" = "Report Inappropriate Content";
+"cancel" = "Cancel";
