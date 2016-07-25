@@ -348,6 +348,7 @@ typedef enum {
         array;
     })];
     [self.basicViewController popupViewController:viewController animated:NO completion:nil];
+    [viewController playAppearAnimationWithComplete:nil];
 }
 
 - (void)_onPressedSharingButton:(UIButton *)button

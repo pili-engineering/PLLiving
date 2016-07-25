@@ -186,7 +186,10 @@
 
 - (void)_onPressedBackgroundView:(id)sender
 {
-    NSLog(@"---------");
+    [self.basicViewController removeViewController:self animated:NO completion:nil];
+    [self playDisappearAnimationWithComplete:^{
+        
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

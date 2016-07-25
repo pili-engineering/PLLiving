@@ -18,6 +18,9 @@ typedef enum {
 @interface LDBlurViewController : UIViewController
 
 @property (nonatomic, assign) LDBlurViewControllerPresentOrientation presentOrientation;
+
 - (instancetype)initWithPresentOrientation:(LDBlurViewControllerPresentOrientation)presentOrientation;
+- (void)playAppearAnimationWithComplete:(void (^)())complete;
+- (void)playDisappearAnimationWithComplete:(void (^)())complete;
 
 @end

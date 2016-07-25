@@ -7,17 +7,10 @@
 //
 
 #import "LDBlurViewController.h"
-#import "LDViewConstraintsStateManager.h"
-
-typedef enum {
-    BackgroundState_Fix,
-    BackgroundState_Float
-} BackgroundState;
 
 @implementation LDBlurViewController
 {
     UIVisualEffectView *_blurBackgroundView;
-    LDViewConstraintsStateManager *_constraints;
 }
 
 - (instancetype)initWithPresentOrientation:(LDBlurViewControllerPresentOrientation)presentOrientation
@@ -32,68 +25,73 @@ typedef enum {
 {
     [super viewDidLoad];
     
-    _constraints = [[LDViewConstraintsStateManager alloc] init];
     self.view.hidden = YES;
-    
-    _blurBackgroundView = ({
-        UIVisualEffectView *view = [[UIVisualEffectView alloc] init];
-        view.backgroundColor = [UIColor clearColor];
-        __weak typeof(self) weakSelf = self;
-        [_constraints addState:@(BackgroundState_Fix) makeConstraints:^(LDViewConstraintsStateNode *node) {
-            [node view:view makeConstraints:^(UIView *view, MASConstraintMaker *make) {
-                make.top.bottom.left.and.right.equalTo(weakSelf.view);
-            }];
-        }];
-        [_constraints addState:@(BackgroundState_Float) makeConstraints:^(LDViewConstraintsStateNode *node) {
-            [node view:view makeConstraints:^(UIView *view, MASConstraintMaker *make) {
-                // No Constraints.
-            }];
-        }];
-        _constraints.state = @(BackgroundState_Float);
-        
-        view;
-    });
+    _blurBackgroundView = [[UIVisualEffectView alloc] init];
+    _blurBackgroundView.backgroundColor = [UIColor clearColor];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)playAppearAnimationWithComplete:(void (^)())complete
 {
-    [super viewDidAppear:animated];
     [self.view.superview insertSubview:_blurBackgroundView belowSubview:self.view];
+    [_blurBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.left.and.right.equalTo(self.view.superview);
+    }];
     CGRect frame = self.view.superview.bounds;
     _blurBackgroundView.frame = frame;
     self.view.hidden = NO;
     
-    switch (self.presentOrientation) {
-        case LDBlurViewControllerPresentOrientation_FromTop:
-            frame.origin.y = -frame.size.height;
-            break;
-            
-        case LDBlurViewControllerPresentOrientation_FromBottom:
-            frame.origin.y = frame.size.height;
-            break;
-            
-        case LDBlurViewControllerPresentOrientation_FromLeft:
-            frame.origin.x = -frame.size.width;
-            
-            
-        case LDBlurViewControllerPresentOrientation_FromRight:
-            frame.origin.x = frame.size.width;
-            break;
-    }
+    [self _resetOrigin:&frame.origin withPresentOrientation:self.presentOrientation];
     self.view.frame = frame;
     
-    [UIView animateWithDuration:0.75 animations:^{
+    [UIView animateWithDuration:0.55 animations:^{
         _blurBackgroundView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
         self.view.frame = self.view.superview.bounds;
         
     } completion:^(BOOL finished) {
-        _constraints.state = @(BackgroundState_Float);
+        if (complete) {
+            complete();
+        }
     }];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)playDisappearAnimationWithComplete:(void (^)())complete
 {
-    [_blurBackgroundView removeFromSuperview];
+    [_blurBackgroundView addSubview:self.view];
+    
+    CGRect frame = self.view.frame;
+    [self _resetOrigin:&frame.origin withPresentOrientation:self.presentOrientation];
+    
+    [UIView animateWithDuration:0.55 animations:^{
+        _blurBackgroundView.effect = nil;
+        self.view.frame = frame;
+    } completion:^(BOOL finished) {
+        [_blurBackgroundView removeFromSuperview];
+        if (complete) {
+            complete();
+        }
+    }];
+}
+
+- (void)_resetOrigin:(CGPoint *)pOrigin withPresentOrientation:(LDBlurViewControllerPresentOrientation)orinetation
+{
+    CGRect frame = self.view.superview.bounds;
+    switch (orinetation) {
+        case LDBlurViewControllerPresentOrientation_FromTop:
+            pOrigin->y = -frame.size.height;
+            break;
+            
+        case LDBlurViewControllerPresentOrientation_FromBottom:
+            pOrigin->y = frame.size.height;
+            break;
+            
+        case LDBlurViewControllerPresentOrientation_FromLeft:
+            pOrigin->x = -frame.size.width;
+            
+            
+        case LDBlurViewControllerPresentOrientation_FromRight:
+            pOrigin->x = frame.size.width;
+            break;
+    }
 }
 
 @end
