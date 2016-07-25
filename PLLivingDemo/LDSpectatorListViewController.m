@@ -9,6 +9,7 @@
 #import "LDSpectatorListViewController.h"
 #import "LDSpectatorItem.h"
 #import "LDReportViewController.h"
+#import "LDViewConstraintsStateManager.h"
 
 #define kLDSpectatorCellViewIdentifer @"kLDSpectatorCellViewIdentifer"
 
@@ -21,8 +22,10 @@
 @end
 
 @interface _LDSpectatorCellView : UITableViewCell
+@property (nonatomic, strong) LDViewConstraintsStateManager *constraints;
 @property (nonatomic, strong) UIImageView *iconImageView;
 @property (nonatomic, strong) UILabel *userNameLabel;
+@property (nonatomic, strong) UILabel *descriptionLabel;
 - (void)resetViewWithSpectatorItem:(LDSpectatorItem *)spectatorItem at:(NSUInteger)index;
 @end
 
@@ -223,14 +226,30 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.spectators.count;
+    BOOL showShareItem = NO;
+    if (self.moreViewersCount == 0) {
+        showShareItem = YES;
+    }
+    if (showShareItem) {
+        return self.spectators.count + 1;
+    } else {
+        return self.spectators.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    LDSpectatorItem *spectatorItem = self.spectators[indexPath.row];
+    LDSpectatorItem *spectatorItem;
+    if (indexPath.row < self.spectators.count) {
+        spectatorItem = self.spectators[indexPath.row];
+    } else {
+        spectatorItem = [[LDSpectatorItem alloc] init];
+        spectatorItem.userIcon = [UIImage imageNamed:@"Group"];
+        spectatorItem.userName = LDString("share");
+        spectatorItem.descriptionMessage = LDString("share-get-more-attention");
+    }
     _LDSpectatorCellView *cellView = [tableView dequeueReusableCellWithIdentifier:kLDSpectatorCellViewIdentifer
-                                                                forIndexPath:indexPath];
+                                                                     forIndexPath:indexPath];
     [cellView resetViewWithSpectatorItem:spectatorItem at:indexPath.row];
     return cellView;
 }
@@ -249,11 +268,18 @@
 
 @end
 
+typedef enum {
+    LayoutState_OnlyName,
+    LayoutState_NameAndDescription
+} LayoutState;
+
 @implementation _LDSpectatorCellView
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        
+        self.constraints = [[LDViewConstraintsStateManager alloc] init];
         self.backgroundColor = [UIColor whiteColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -278,27 +304,72 @@
             iconImageView;
         });
         
-        self.userNameLabel = ({
-            UILabel *label = [[UILabel alloc] init];
-            [self.contentView addSubview:label];
-            [label setFont:[UIFont systemFontOfSize:16]];
-            [label setTextColor:[UIColor colorWithHexString:@"383838"]];
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        UIView *messageContainer = ({
+            UIView *container = [[UIView alloc] init];
+            [self.contentView addSubview:container];
+            [container mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.iconImageView.mas_right).with.offset(30);
                 make.right.equalTo(self.contentView).with.offset(-35);
                 make.centerY.equalTo(self.contentView);
             }];
+            container;
+        });
+        
+        self.userNameLabel = ({
+            UILabel *label = [[UILabel alloc] init];
+            [messageContainer addSubview:label];
+            [label setFont:[UIFont systemFontOfSize:16]];
+            [label setTextColor:[UIColor colorWithHexString:@"383838"]];
             label;
         });
+        
+        self.descriptionLabel = ({
+            UILabel *label = [[UILabel alloc] init];
+            [messageContainer addSubview:label];
+            [label setFont:[UIFont systemFontOfSize:12]];
+            [label setTextColor:[UIColor colorWithHexString:@"B3B3B3"]];
+            label;
+        });
+        
+        __weak typeof(self) weakSelf = self;
+        
+        [self.constraints addState:@(LayoutState_OnlyName) makeConstraints:^(LDViewConstraintsStateNode *node) {
+            [node view:weakSelf.userNameLabel makeConstraints:^(UIView *view, MASConstraintMaker *make) {
+                make.top.bottom.left.and.right.equalTo(messageContainer);
+            }];
+            [node view:weakSelf.descriptionLabel makeConstraints:^(UIView *view, MASConstraintMaker *make) {
+                weakSelf.descriptionLabel.hidden = YES;
+            }];
+        }];
+        [self.constraints addState:@(LayoutState_NameAndDescription) makeConstraints:^(LDViewConstraintsStateNode *node) {
+            [node view:weakSelf.userNameLabel makeConstraints:^(UIView *view, MASConstraintMaker *make) {
+                make.top.left.and.right.equalTo(messageContainer);
+            }];
+            [node view:weakSelf.descriptionLabel makeConstraints:^(UIView *view, MASConstraintMaker *make) {
+                weakSelf.descriptionLabel.hidden = NO;
+                make.top.equalTo(weakSelf.userNameLabel.mas_bottom).with.offset(1);
+                make.left.right.and.bottom.equalTo(messageContainer);
+            }];
+        }];
     }
     return self;
 }
 
 - (void)resetViewWithSpectatorItem:(LDSpectatorItem *)spectatorItem at:(NSUInteger)index
 {
-    NSArray *array = @[@"icon1.jpeg", @"icon2.jpg", @"icon3.jpg"];
-    [self.iconImageView setImage:[UIImage imageNamed:array[index % array.count]]];
+    if (!spectatorItem.userIcon) {
+        NSArray *array = @[@"icon1.jpeg", @"icon2.jpg", @"icon3.jpg"];
+        spectatorItem.userIcon = [UIImage imageNamed:array[index % array.count]];
+    }
+    [self.iconImageView setImage:spectatorItem.userIcon];
     [self.userNameLabel setText:spectatorItem.userName];
+    
+    if (spectatorItem.descriptionMessage) {
+        [self.descriptionLabel setText:spectatorItem.descriptionMessage];
+        self.constraints.state = @(LayoutState_NameAndDescription);
+    } else {
+        self.constraints.state = @(LayoutState_OnlyName);
+    }
 }
 
 @end

@@ -10,6 +10,8 @@
 
 @interface LDSpectatorItem : NSObject
 
+@property (nonatomic, strong) UIImage *userIcon;
 @property (nonatomic, strong) NSString *userName;
+@property (nonatomic, strong) NSString *descriptionMessage;
 
 @end
