@@ -14,7 +14,9 @@
 
 @interface LDSpectatorListViewController : LDBlurViewController
 
-- (instancetype)initWithSpectators:(NSArray <LDSpectatorItem *> *)spectators;
+- (instancetype)initWithEnableReportBroadcast:(BOOL)enableReportBroadcast
+                         withMoreViewersCount:(NSUInteger)moreViewersCount
+                               withSpectators:(NSArray <LDSpectatorItem *> *)spectators;
 - (void)close;
 
 @end

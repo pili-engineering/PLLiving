@@ -28,11 +28,15 @@
 
 @implementation LDSpectatorListViewController
 
-- (instancetype)initWithSpectators:(NSArray <LDSpectatorItem *> *)spectators
+- (instancetype)initWithEnableReportBroadcast:(BOOL)enableReportBroadcast
+                         withMoreViewersCount:(NSUInteger)moreViewersCount
+                               withSpectators:(NSArray <LDSpectatorItem *> *)spectators
 {
+    
     if (self = [super initWithPresentOrientation:LDBlurViewControllerPresentOrientation_FromBottom]) {
+        self.enableReportBroadcast = enableReportBroadcast;
+        self.moreViewersCount = moreViewersCount;
         self.spectators = spectators;
-        self.enableReportBroadcast = YES;
     }
     return self;
 }
@@ -110,7 +114,7 @@
         
         UILabel *countLabel = [[UILabel alloc] init];
         [topView addSubview:countLabel];
-        [countLabel setText:[NSString stringWithFormat:@"%li", self.spectators.count]];
+        [countLabel setText:[NSString stringWithFormat:@"%li", self.spectators.count + self.moreViewersCount]];
         [countLabel setFont:[UIFont systemFontOfSize:36]];
         [topView addSubview:countLabel];
         [countLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -153,6 +157,8 @@
         }];
         
         UILabel *moreViewersLabel = nil;
+        UIView *previousView = nil;
+        
         if (self.moreViewersCount > 0) {
             moreViewersLabel = [[UILabel alloc] init];
             [footer addSubview:moreViewersLabel];
@@ -163,13 +169,14 @@
                 make.top.equalTo(footer).with.offset(26);
                 make.centerX.equalTo(footer);
             }];
+            previousView = moreViewersLabel;
         }
         UIView *splitLine = [[UIView alloc] init];
         [footer addSubview:splitLine];
         [splitLine setBackgroundColor:[UIColor colorWithHexString:@"FFF3F3F3"]];
         [splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
-            if (moreViewersLabel) {
-                make.top.equalTo(moreViewersLabel.mas_bottom).with.offset(48);
+            if (previousView) {
+                make.top.equalTo(previousView.mas_bottom).with.offset(48);
             } else {
                 make.top.equalTo(footer);
             }
@@ -177,6 +184,7 @@
             make.right.equalTo(footer).with.offset(-30);
             make.height.mas_equalTo(1);
         }];
+        previousView = splitLine;
         
         if (self.enableReportBroadcast) {
             UIButton *reportButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -184,11 +192,15 @@
             [reportButton setTitleColor:[UIColor colorWithHexString:@"ED5757"] forState:UIControlStateNormal];
             [reportButton setTitle:LDString("report-broadcast") forState:UIControlStateNormal];
             [reportButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(splitLine).with.offset(21);
+                make.top.equalTo(previousView.mas_bottom).with.offset(21);
                 make.bottom.equalTo(footer).with.offset(-24);
                 make.centerX.equalTo(footer);
             }];
             [reportButton addTarget:self action:@selector(_onPressedReportBroadcastButton:) forControlEvents:UIControlEventTouchUpInside];
+        } else {
+            [previousView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(footer).with.offset(-24);
+            }];
         }
         [self _resetAutolayoutHeightWithView:footer];
         

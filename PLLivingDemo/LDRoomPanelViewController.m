@@ -337,7 +337,10 @@ typedef enum {
 
 - (void)_onPressedSpectatorListButton:(UIButton *)button
 {
-    LDSpectatorListViewController *viewController = [[LDSpectatorListViewController alloc] initWithSpectators:({
+    // 只有观众可以举报主播，主播不能举报自己。
+    BOOL enableReportBroadcast = (self.mode == LDRoomPanelViewControllerMode_Spectator);
+    
+    LDSpectatorListViewController *viewController = [[LDSpectatorListViewController alloc] initWithEnableReportBroadcast:enableReportBroadcast withMoreViewersCount:32 withSpectators:({
         NSMutableArray *array = [[NSMutableArray alloc] init];
         LDSpectatorItem *item;
         
