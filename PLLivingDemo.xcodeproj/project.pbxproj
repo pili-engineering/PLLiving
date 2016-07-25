@@ -12,6 +12,8 @@
 		D23009E31D3DF3CD004A649C /* LDAsyncSemaphore.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009E21D3DF3CD004A649C /* LDAsyncSemaphore.m */; };
 		D23009E61D3E208C004A649C /* LDSpectatorRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009E51D3E208C004A649C /* LDSpectatorRoomViewController.m */; };
 		D23063881D45F635001D3283 /* LDReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D23063871D45F635001D3283 /* LDReportViewController.m */; };
+		D230638B1D4610A4001D3283 /* Group@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D23063891D4610A4001D3283 /* Group@2x.png */; };
+		D230638C1D4610A4001D3283 /* Group@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D230638A1D4610A4001D3283 /* Group@3x.png */; };
 		D246EB841D41CD1F00510816 /* LDAppearanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = D246EB831D41CD1F00510816 /* LDAppearanceView.m */; };
 		D246EB921D41EEAD00510816 /* icon1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D246EB8F1D41EEAD00510816 /* icon1.jpeg */; };
 		D246EB931D41EEAD00510816 /* icon2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D246EB901D41EEAD00510816 /* icon2.jpg */; };
@@ -92,6 +94,8 @@
 		D23009E51D3E208C004A649C /* LDSpectatorRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSpectatorRoomViewController.m; sourceTree = "<group>"; };
 		D23063861D45F635001D3283 /* LDReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDReportViewController.h; sourceTree = "<group>"; };
 		D23063871D45F635001D3283 /* LDReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDReportViewController.m; sourceTree = "<group>"; };
+		D23063891D4610A4001D3283 /* Group@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Group@2x.png"; path = "Assets/Group@2x.png"; sourceTree = "<group>"; };
+		D230638A1D4610A4001D3283 /* Group@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Group@3x.png"; path = "Assets/Group@3x.png"; sourceTree = "<group>"; };
 		D246EB821D41CD1F00510816 /* LDAppearanceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAppearanceView.h; sourceTree = "<group>"; };
 		D246EB831D41CD1F00510816 /* LDAppearanceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAppearanceView.m; sourceTree = "<group>"; };
 		D246EB8F1D41EEAD00510816 /* icon1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = icon1.jpeg; path = DemoIcons/icon1.jpeg; sourceTree = "<group>"; };
@@ -249,6 +253,8 @@
 		D2F6B31E1D40A6230000B6C7 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				D23063891D4610A4001D3283 /* Group@2x.png */,
+				D230638A1D4610A4001D3283 /* Group@3x.png */,
 				D27022B61D41F8D800A8B311 /* arrows-up@2x.png */,
 				D27022B71D41F8D800A8B311 /* arrows-up@3x.png */,
 				D246EB951D41EEE500510816 /* add-button@2x.png */,
@@ -523,6 +529,7 @@
 				D246EBCA1D41EEE500510816 /* logo@2x.png in Resources */,
 				D246EBBF1D41EEE500510816 /* audience@3x.png in Resources */,
 				D246EBC61D41EEE500510816 /* icon-menu@2x.png in Resources */,
+				D230638C1D4610A4001D3283 /* Group@3x.png in Resources */,
 				D246EBD01D41EEE500510816 /* share-link@3x.png in Resources */,
 				D246EBD91D41EEE500510816 /* toggle-camera@2x.png in Resources */,
 				D246EBC71D41EEE500510816 /* icon-menu@3x.png in Resources */,
@@ -534,6 +541,7 @@
 				D246EBBA1D41EEE500510816 /* arrows-down@2x.png in Resources */,
 				D246EBC01D41EEE500510816 /* empty-illustration@2x.png in Resources */,
 				D246EBCB1D41EEE500510816 /* logo@3x.png in Resources */,
+				D230638B1D4610A4001D3283 /* Group@2x.png in Resources */,
 				D246EBBE1D41EEE500510816 /* audience@2x.png in Resources */,
 				D246EBC81D41EEE500510816 /* LIVING@2x.png in Resources */,
 				D246EBC11D41EEE500510816 /* empty-illustration@3x.png in Resources */,
