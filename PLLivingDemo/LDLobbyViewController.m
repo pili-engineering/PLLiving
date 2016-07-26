@@ -13,6 +13,7 @@
 #import "LDAnchorRoomViewController.h"
 #import "LDSpectatorRoomViewController.h"
 #import "LDPanGestureHandler.h"
+#import "LDUserSettingViewController.h"
 
 #define kComponentAnimationDuration 0.45
 
@@ -151,6 +152,8 @@ typedef enum {
         UIBarButtonItem *button = [[UIBarButtonItem alloc] init];
         [button setImage:[UIImage imageNamed:@"icon-menu"]];
         navigationItem.leftBarButtonItem = button;
+        [button setTarget:self];
+        [button setAction:@selector(_onPressedSetting:)];
         button;
     });
     
@@ -247,6 +250,13 @@ typedef enum {
 {
     [self.basicViewController popupViewController:[[LDAnchorRoomViewController alloc] init]
                                          animated:NO completion:nil];
+}
+
+- (void)_onPressedSetting:(UIButton *)button
+{
+    LDUserSettingViewController *viewController = [[LDUserSettingViewController alloc] initWithPresentOrientation:LDBlurViewControllerPresentOrientation_FromLeft];
+    [self.basicViewController popupViewController:viewController animated:NO completion:nil];
+    [viewController playAppearAnimationWithComplete:nil];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

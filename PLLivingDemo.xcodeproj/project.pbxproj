@@ -61,6 +61,7 @@
 		D2E654881D471A4100DD7A14 /* live1.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E654861D471A4100DD7A14 /* live1.png */; };
 		D2E654891D471A4100DD7A14 /* live2.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E654871D471A4100DD7A14 /* live2.png */; };
 		D2E6548C1D4733EE00DD7A14 /* LDPanGestureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E6548B1D4733EE00DD7A14 /* LDPanGestureHandler.m */; };
+		D2E654901D47549D00DD7A14 /* LDUserSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E6548F1D47549D00DD7A14 /* LDUserSettingViewController.m */; };
 		D2F6B3141D407B160000B6C7 /* LDViewConstraintsStateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */; };
 		D2F6B31D1D40A00F0000B6C7 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F6B31C1D40A00F0000B6C7 /* UIColor+HexString.m */; };
 		D2F9076B1D3C705D006C987F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9076A1D3C705D006C987F /* main.m */; };
@@ -151,6 +152,8 @@
 		D2E654871D471A4100DD7A14 /* live2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = live2.png; path = DemoIcons/live2.png; sourceTree = "<group>"; };
 		D2E6548A1D4733EE00DD7A14 /* LDPanGestureHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDPanGestureHandler.h; sourceTree = "<group>"; };
 		D2E6548B1D4733EE00DD7A14 /* LDPanGestureHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDPanGestureHandler.m; sourceTree = "<group>"; };
+		D2E6548E1D47549D00DD7A14 /* LDUserSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDUserSettingViewController.h; sourceTree = "<group>"; };
+		D2E6548F1D47549D00DD7A14 /* LDUserSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDUserSettingViewController.m; sourceTree = "<group>"; };
 		D2F6B3121D407B160000B6C7 /* LDViewConstraintsStateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDViewConstraintsStateManager.h; sourceTree = "<group>"; };
 		D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDViewConstraintsStateManager.m; sourceTree = "<group>"; };
 		D2F6B31B1D40A00F0000B6C7 /* UIColor+HexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
@@ -259,6 +262,15 @@
 				D246EB911D41EEAD00510816 /* icon3.jpg */,
 			);
 			name = DemoIcons;
+			sourceTree = "<group>";
+		};
+		D2E6548D1D4753EB00DD7A14 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				D2E6548E1D47549D00DD7A14 /* LDUserSettingViewController.h */,
+				D2E6548F1D47549D00DD7A14 /* LDUserSettingViewController.m */,
+			);
+			name = Setting;
 			sourceTree = "<group>";
 		};
 		D2F6B31E1D40A6230000B6C7 /* Assets */ = {
@@ -385,6 +397,7 @@
 		D2F907871D3C79FD006C987F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D2E6548D1D4753EB00DD7A14 /* Setting */,
 				D2F907A81D3CB232006C987F /* Room */,
 				D2F907991D3C847F006C987F /* Lobby */,
 				D2F907881D3C7A18006C987F /* Login */,
@@ -629,6 +642,7 @@
 				D2FA97821D3F463E00ADB180 /* LDChatItem.m in Sources */,
 				D2F6B31D1D40A00F0000B6C7 /* UIColor+HexString.m in Sources */,
 				D2F9079F1D3C878F006C987F /* LDBasicViewController.m in Sources */,
+				D2E654901D47549D00DD7A14 /* LDUserSettingViewController.m in Sources */,
 				D2FA977C1D3F1F6100ADB180 /* LDRoomPanelViewController.m in Sources */,
 				D27022C61D421F4A00A8B311 /* LDSpectatorItem.m in Sources */,
 				D2FA97851D3F468800ADB180 /* LDChatDataSource.m in Sources */,
