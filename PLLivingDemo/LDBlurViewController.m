@@ -84,7 +84,9 @@
 
 - (void)_resetOrigin:(CGPoint *)pOrigin withPresentOrientation:(LDBlurViewControllerPresentOrientation)orinetation
 {
+    *pOrigin = CGPointZero;
     CGRect frame = self.view.superview.bounds;
+    
     switch (orinetation) {
         case LDBlurViewControllerPresentOrientation_FromTop:
             pOrigin->y = -frame.size.height;
@@ -96,7 +98,7 @@
             
         case LDBlurViewControllerPresentOrientation_FromLeft:
             pOrigin->x = -frame.size.width;
-            
+            break;
             
         case LDBlurViewControllerPresentOrientation_FromRight:
             pOrigin->x = frame.size.width;
