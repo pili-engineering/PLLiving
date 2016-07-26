@@ -46,28 +46,30 @@
 
 - (void)setState:(id)state
 {
-    _state = state;
-    
-    if (self.previousConstaints) {
-        for (MASConstraint *constraint in self.previousConstaints) {
-            [constraint uninstall];
-        }
-    }
-    LDViewConstraintsStateNode *node = self.nodeDictionary[state];
-    self.previousConstaints = [node install];
-    
-    NSMutableSet<UIView *>*viewSuperviews = ({
-        NSMutableSet<UIView *> *set = [[NSMutableSet<UIView *> alloc] init];
-        for (UIView *view in node.views) {
-            if (view.superview) {
-                [set addObject:view.superview];
+    if (![_state isEqual:state]) {
+        _state = state;
+        
+        if (self.previousConstaints) {
+            for (MASConstraint *constraint in self.previousConstaints) {
+                [constraint uninstall];
             }
         }
-        set;
-    });
-    for (UIView *view in viewSuperviews) {
-        [view setNeedsLayout];
-        [view layoutIfNeeded];
+        LDViewConstraintsStateNode *node = self.nodeDictionary[state];
+        self.previousConstaints = [node install];
+        
+        NSMutableSet<UIView *>*viewSuperviews = ({
+            NSMutableSet<UIView *> *set = [[NSMutableSet<UIView *> alloc] init];
+            for (UIView *view in node.views) {
+                if (view.superview) {
+                    [set addObject:view.superview];
+                }
+            }
+            set;
+        });
+        for (UIView *view in viewSuperviews) {
+            [view setNeedsLayout];
+            [view layoutIfNeeded];
+        }
     }
 }
 
