@@ -7,5 +7,3 @@
 //
 
 #define klayStatusBarHeight 20
-
-#define klaystartBroadcastingButtonButtonFloatHeight 50

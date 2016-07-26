@@ -8,7 +8,7 @@
 
 #import "LDPanGestureHandler.h"
 
-@interface LDPanGestureHandler ()
+@interface LDPanGestureHandler () <UIGestureRecognizerDelegate>
 @property (nonatomic, assign) LDPanGestureHandlerOrientation orientation;
 @property (nonatomic, assign) CGFloat strengthRate;
 @property (nonatomic, strong) void (^recognizedCallback)();
@@ -20,11 +20,18 @@
       strengthRate:(CGFloat)strengthRate recognized:(void (^)())recognizedCallback
 {
     LDPanGestureHandler *handler = [[LDPanGestureHandler alloc] init];
+    handler.cancelsTouchesInView = NO;
+    handler.delegate = handler;
     handler.orientation = orientation;
     handler.strengthRate = strengthRate;
     handler.recognizedCallback = recognizedCallback;
     [handler addTarget:handler action:@selector(_onRecognizeGesture:)];
     [view addGestureRecognizer:handler];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
 }
 
 - (void)_onRecognizeGesture:(UIPanGestureRecognizer *)gestureRecognizer
