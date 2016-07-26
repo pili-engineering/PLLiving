@@ -7,7 +7,5 @@
 //
 
 #define klayStatusBarHeight 20
-#define kNavigationBarHeight 50
-#define klayLobbyRoomTabHeight 100
 
 #define klaystartBroadcastingButtonButtonFloatHeight 50

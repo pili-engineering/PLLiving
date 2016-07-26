@@ -58,6 +58,8 @@
 		D27022C01D4214CA00A8B311 /* LDBlurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27022BF1D4214CA00A8B311 /* LDBlurViewController.m */; };
 		D27022C31D421DE000A8B311 /* LDSpectatorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27022C21D421DE000A8B311 /* LDSpectatorListViewController.m */; };
 		D27022C61D421F4A00A8B311 /* LDSpectatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D27022C51D421F4A00A8B311 /* LDSpectatorItem.m */; };
+		D2E654881D471A4100DD7A14 /* live1.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E654861D471A4100DD7A14 /* live1.png */; };
+		D2E654891D471A4100DD7A14 /* live2.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E654871D471A4100DD7A14 /* live2.png */; };
 		D2F6B3141D407B160000B6C7 /* LDViewConstraintsStateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */; };
 		D2F6B31D1D40A00F0000B6C7 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F6B31C1D40A00F0000B6C7 /* UIColor+HexString.m */; };
 		D2F9076B1D3C705D006C987F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9076A1D3C705D006C987F /* main.m */; };
@@ -144,6 +146,8 @@
 		D27022C21D421DE000A8B311 /* LDSpectatorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSpectatorListViewController.m; sourceTree = "<group>"; };
 		D27022C41D421F4A00A8B311 /* LDSpectatorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDSpectatorItem.h; sourceTree = "<group>"; };
 		D27022C51D421F4A00A8B311 /* LDSpectatorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSpectatorItem.m; sourceTree = "<group>"; };
+		D2E654861D471A4100DD7A14 /* live1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = live1.png; path = DemoIcons/live1.png; sourceTree = "<group>"; };
+		D2E654871D471A4100DD7A14 /* live2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = live2.png; path = DemoIcons/live2.png; sourceTree = "<group>"; };
 		D2F6B3121D407B160000B6C7 /* LDViewConstraintsStateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDViewConstraintsStateManager.h; sourceTree = "<group>"; };
 		D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDViewConstraintsStateManager.m; sourceTree = "<group>"; };
 		D2F6B31B1D40A00F0000B6C7 /* UIColor+HexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
@@ -243,6 +247,8 @@
 		D246EB881D41EE1D00510816 /* DemoIcons */ = {
 			isa = PBXGroup;
 			children = (
+				D2E654861D471A4100DD7A14 /* live1.png */,
+				D2E654871D471A4100DD7A14 /* live2.png */,
 				D246EB8F1D41EEAD00510816 /* icon1.jpeg */,
 				D246EB901D41EEAD00510816 /* icon2.jpg */,
 				D246EB911D41EEAD00510816 /* icon3.jpg */,
@@ -504,6 +510,7 @@
 			files = (
 				D246EBD11D41EEE500510816 /* share-moment@2x.png in Resources */,
 				D246EBB81D41EEE500510816 /* add-button@2x.png in Resources */,
+				D2E654891D471A4100DD7A14 /* live2.png in Resources */,
 				D246EBD41D41EEE500510816 /* share-wechat.pdf in Resources */,
 				D27022B81D41F8D800A8B311 /* arrows-up@2x.png in Resources */,
 				D246EBBC1D41EEE500510816 /* arrows-left@2x.png in Resources */,
@@ -537,6 +544,7 @@
 				D246EBC51D41EEE500510816 /* icon-close@3x.png in Resources */,
 				D246EBCD1D41EEE500510816 /* planet.png in Resources */,
 				D2F9078E1D3C7BB4006C987F /* Localizable.strings in Resources */,
+				D2E654881D471A4100DD7A14 /* live1.png in Resources */,
 				D246EBC21D41EEE500510816 /* icon-big-close@2x.png in Resources */,
 				D246EBBA1D41EEE500510816 /* arrows-down@2x.png in Resources */,
 				D246EBC01D41EEE500510816 /* empty-illustration@2x.png in Resources */,

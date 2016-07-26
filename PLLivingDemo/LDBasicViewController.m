@@ -35,6 +35,11 @@
     self.view = [[_LDBasicView alloc] initWithBasicViewController:self];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 - (BOOL)prefersStatusBarHidden
 {
     BOOL hidden = super.prefersStatusBarHidden;

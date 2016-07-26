@@ -14,6 +14,6 @@
 
 @interface LDLobbyRoomView : UITableViewCell
 
-- (void)resetViewWithRoomItem:(LDRoomItem *)roomItem;
+- (void)resetViewWithRoomItem:(LDRoomItem *)roomItem at:(NSUInteger)index;
 
 @end

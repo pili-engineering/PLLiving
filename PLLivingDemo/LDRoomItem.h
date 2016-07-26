@@ -10,6 +10,8 @@
 
 @interface LDRoomItem : NSObject
 
+@property (nonatomic, strong) UIImage *previewImage;
+@property (nonatomic, strong) UIImage *anchorIcon;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *authorName;
 @property (nonatomic, strong) NSDate *createdTime;

@@ -15,7 +15,7 @@
 @interface LDLobbyViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSArray<LDRoomItem *> *roomItems;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UINavigationBar *navigationBar;
+@property (nonatomic, strong) UIBarButtonItem *settingButton;
 @property (nonatomic, strong) UIButton *startBroadcastingButton;
 @end
 
@@ -31,24 +31,28 @@
             roomItem = [[LDRoomItem alloc] init];
             roomItem.title = @"大家快点来看我直播";
             roomItem.authorName = @"一个人的勇敢";
+            roomItem.anchorIcon = [UIImage imageNamed:@"icon1.jpeg"];
             roomItem.createdTime = [[NSDate alloc] init];
             [array addObject:roomItem];
             
             roomItem = [[LDRoomItem alloc] init];
             roomItem.title = @"礼仪培训";
             roomItem.authorName = @"Honney";
+            roomItem.anchorIcon = [UIImage imageNamed:@"icon2.jpg"];
             roomItem.createdTime = [[NSDate alloc] init];
             [array addObject:roomItem];
             
             roomItem = [[LDRoomItem alloc] init];
             roomItem.title = @"我以为我会很快乐";
             roomItem.authorName = @"菲";
+            roomItem.anchorIcon = [UIImage imageNamed:@"icon3.jpg"];
             roomItem.createdTime = [[NSDate alloc] init];
             [array addObject:roomItem];
             
             roomItem = [[LDRoomItem alloc] init];
             roomItem.title = @"我的直播";
             roomItem.authorName = @"大王亲自来巡山";
+            roomItem.anchorIcon = [UIImage imageNamed:@"icon1.jpeg"];
             roomItem.createdTime = [[NSDate alloc] init];
             [array addObject:roomItem];
             
@@ -58,38 +62,64 @@
     return self;
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    _navigationBar = ({
+    UINavigationBar *navigationBar = ({
         UINavigationBar *bar = [[UINavigationBar alloc] init];
         [self.view addSubview:bar];
+        bar.barStyle = UIBarStyleDefault;
+        bar.translucent = NO;
+        bar.barTintColor = [UIColor blackColor];
+        bar.tintColor = [UIColor whiteColor];
         [bar mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.and.right.equalTo(self.view);
-            make.top.equalTo(self.view).with.offset(klayStatusBarHeight);
-            make.height.mas_equalTo(kNavigationBarHeight);
+            make.top.equalTo(self.view);
+            make.height.mas_equalTo(48);
         }];
         bar;
     });
-    _tableView = ({
+    UINavigationItem *navigationItem = ({
+        UINavigationItem *item = [[UINavigationItem alloc] init];
+        [navigationBar pushNavigationItem:item animated:NO];
+        item;
+    });
+    self.settingButton = ({
+        UIBarButtonItem *button = [[UIBarButtonItem alloc] init];
+        [button setImage:[UIImage imageNamed:@"icon-menu"]];
+        navigationItem.leftBarButtonItem = button;
+        button;
+    });
+    
+    self.tableView = ({
         UITableView *tableView = [[UITableView alloc] init];
         [self.view addSubview:tableView];
+        tableView.backgroundColor = [UIColor blackColor];
         tableView.dataSource = self;
         tableView.delegate = self;
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        tableView.estimatedRowHeight = 220;
+        tableView.rowHeight = UITableViewAutomaticDimension;
         
         [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.and.right.equalTo(self.view);
-            make.top.equalTo(_navigationBar.mas_bottom);
+            make.top.equalTo(navigationBar.mas_bottom);
             make.bottom.equalTo(self.view);
         }];
         [tableView registerClass:[LDLobbyRoomView class] forCellReuseIdentifier:LDLobbyRoomViewIdentifer];
         tableView;
     });
-    _startBroadcastingButton = ({
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.startBroadcastingButton = ({
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"add-button"] forState:UIControlStateNormal];
         [self.view addSubview:button];
-        [button setTitle:@"开始直播(+)" forState:UIControlStateNormal];
+        
         [button addTarget:self action:@selector(_onPressedStartBroadcasting:)
          forControlEvents:UIControlEventTouchUpInside];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -105,17 +135,12 @@
     return self.roomItems.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return klayLobbyRoomTabHeight;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     LDRoomItem *roomItem = self.roomItems[indexPath.row];
     LDLobbyRoomView *cellView = [tableView dequeueReusableCellWithIdentifier:LDLobbyRoomViewIdentifer
                                                                 forIndexPath:indexPath];
-    [cellView resetViewWithRoomItem:roomItem];
+    [cellView resetViewWithRoomItem:roomItem at:indexPath.row];
     return cellView;
 }
 
