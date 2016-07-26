@@ -193,16 +193,16 @@ typedef enum {
     [LDPanGestureHandler handleView:self.tableView orientation:LDPanGestureHandlerOrientation_Down strengthRate:0.7 recognized:^{
         __strong typeof(self) strongSelf = weakSelf;
         [UIView animateWithDuration:kComponentAnimationDuration delay:0 options:options animations:^{
-            strongSelf.navigationConstraints.state = @(ComponentState_Hide);
-            strongSelf.startBroadcastingConstraints.state = @(ComponentState_Show);
+            strongSelf.navigationConstraints.state = @(ComponentState_Show);
+            strongSelf.startBroadcastingConstraints.state = @(ComponentState_Hide);
         } completion:nil];
     }];
     [LDPanGestureHandler handleView:self.tableView orientation:LDPanGestureHandlerOrientation_Up strengthRate:0.7 recognized:^{
         __strong typeof(self) strongSelf = weakSelf;
         
         [UIView animateWithDuration:kComponentAnimationDuration delay:0 options:options animations:^{
-            strongSelf.navigationConstraints.state = @(ComponentState_Show);
-            strongSelf.startBroadcastingConstraints.state = @(ComponentState_Hide);
+            strongSelf.navigationConstraints.state = @(ComponentState_Hide);
+            strongSelf.startBroadcastingConstraints.state = @(ComponentState_Show);
         } completion:nil];
     }];
 }
