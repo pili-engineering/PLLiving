@@ -7,8 +7,10 @@
 //
 
 #import "LDReportViewController.h"
+#import "LDPanGestureHandler.h"
 
 @interface LDReportViewController ()
+@property (nonatomic, assign) BOOL didClosed;
 @property (nonatomic, strong) UIButton *reportButton;
 @property (nonatomic, strong) UIButton *cancelButton;
 @end
@@ -77,6 +79,12 @@
          forControlEvents:UIControlEventTouchUpInside];
         button;
     });
+    
+    __weak typeof(self) weakSelf = self;
+    [LDPanGestureHandler handleView:self.view orientation:LDPanGestureHandlerOrientation_Down
+                       strengthRate:1.0 recognized:^{
+        [weakSelf close];
+    }];
 }
 
 - (void)_pressedReportButton:(id)sender
@@ -91,8 +99,11 @@
 
 - (void)close
 {
-    [self.basicViewController removeViewController:self animated:NO completion:nil];
-    [self playDisappearAnimationWithComplete:nil];
+    if (!self.didClosed) {
+        self.didClosed = YES;
+        [self.basicViewController removeViewController:self animated:NO completion:nil];
+        [self playDisappearAnimationWithComplete:nil];
+    }
 }
 
 @end
