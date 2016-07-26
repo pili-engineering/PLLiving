@@ -16,6 +16,7 @@
 #import "LDSpectatorItem.h"
 #import "LDTransformTableView.h"
 #import "LDAppearanceView.h"
+#import "LDPanGestureHandler.h"
 
 typedef enum {
     LayoutState_Hide,
@@ -201,9 +202,6 @@ typedef enum {
     self.chatTableViewMask = ({
         LDTouchTransparentView *mask = [[LDTouchTransparentView alloc] init];
         [self.containerView addSubview:mask];
-        
-        UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_onRecognizeGesture:)];
-        [mask addGestureRecognizer:gestureRecognizer];
         [mask mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.left.and.right.equalTo(self.chatTableView);
         }];
@@ -235,6 +233,10 @@ typedef enum {
     
     [self.spectatorListButton addTarget:self action:@selector(_onPressedSpectatorListButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.sharingButton addTarget:self action:@selector(_onPressedSharingButton:) forControlEvents:UIControlEventTouchUpInside];
+    [LDPanGestureHandler handleView:self.chatTableViewMask orientation:LDPanGestureHandlerOrientation_Down
+                       strengthRate:1 recognized:^{
+        [self.chatTextField resignFirstResponder];
+    }];
     
     [self addNotifications];
 }
@@ -284,20 +286,6 @@ typedef enum {
     self.chatTextField.text = @"";
     
     return YES;
-}
-
-- (void)_onRecognizeGesture:(UIPanGestureRecognizer *)gestureRecognizer
-{
-    // 判定是否是一个手指下滑的手势。
-    CGPoint displacement = [gestureRecognizer translationInView:self.chatTableViewMask]; // 位移矢量
-    CGPoint velocity = [gestureRecognizer velocityInView:self.chatTableViewMask]; //速度矢量
-    CGFloat radian = atan2(displacement.y, displacement.x); // 位移的弧度
-    CGFloat radius2 = pow(displacement.x, 2) + pow(displacement.y, 2); // 位移的半径平方
-    CGFloat speed2 = pow(velocity.x, 2) + pow(velocity.y, 2); // 速率的平方
-    
-    if (radius2 >= pow(128, 2) && speed2 >= pow(600, 2) && (M_PI_4 <= radian && 3*M_PI_4)) {
-        [self.chatTextField resignFirstResponder];
-    }
 }
 
 - (void)_onFoundKeyboardWasShown:(NSNotification *)notification

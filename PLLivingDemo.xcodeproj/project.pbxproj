@@ -60,6 +60,7 @@
 		D27022C61D421F4A00A8B311 /* LDSpectatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D27022C51D421F4A00A8B311 /* LDSpectatorItem.m */; };
 		D2E654881D471A4100DD7A14 /* live1.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E654861D471A4100DD7A14 /* live1.png */; };
 		D2E654891D471A4100DD7A14 /* live2.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E654871D471A4100DD7A14 /* live2.png */; };
+		D2E6548C1D4733EE00DD7A14 /* LDPanGestureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E6548B1D4733EE00DD7A14 /* LDPanGestureHandler.m */; };
 		D2F6B3141D407B160000B6C7 /* LDViewConstraintsStateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */; };
 		D2F6B31D1D40A00F0000B6C7 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F6B31C1D40A00F0000B6C7 /* UIColor+HexString.m */; };
 		D2F9076B1D3C705D006C987F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9076A1D3C705D006C987F /* main.m */; };
@@ -148,6 +149,8 @@
 		D27022C51D421F4A00A8B311 /* LDSpectatorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSpectatorItem.m; sourceTree = "<group>"; };
 		D2E654861D471A4100DD7A14 /* live1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = live1.png; path = DemoIcons/live1.png; sourceTree = "<group>"; };
 		D2E654871D471A4100DD7A14 /* live2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = live2.png; path = DemoIcons/live2.png; sourceTree = "<group>"; };
+		D2E6548A1D4733EE00DD7A14 /* LDPanGestureHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDPanGestureHandler.h; sourceTree = "<group>"; };
+		D2E6548B1D4733EE00DD7A14 /* LDPanGestureHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDPanGestureHandler.m; sourceTree = "<group>"; };
 		D2F6B3121D407B160000B6C7 /* LDViewConstraintsStateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDViewConstraintsStateManager.h; sourceTree = "<group>"; };
 		D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDViewConstraintsStateManager.m; sourceTree = "<group>"; };
 		D2F6B31B1D40A00F0000B6C7 /* UIColor+HexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
@@ -240,6 +243,8 @@
 				D2F6B31C1D40A00F0000B6C7 /* UIColor+HexString.m */,
 				D246EB821D41CD1F00510816 /* LDAppearanceView.h */,
 				D246EB831D41CD1F00510816 /* LDAppearanceView.m */,
+				D2E6548A1D4733EE00DD7A14 /* LDPanGestureHandler.h */,
+				D2E6548B1D4733EE00DD7A14 /* LDPanGestureHandler.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -633,6 +638,7 @@
 				D27022C31D421DE000A8B311 /* LDSpectatorListViewController.m in Sources */,
 				D2F9078B1D3C7A56006C987F /* LDLoginViewController.m in Sources */,
 				D2F907AB1D3CB271006C987F /* LDAnchorRoomViewController.m in Sources */,
+				D2E6548C1D4733EE00DD7A14 /* LDPanGestureHandler.m in Sources */,
 				D23063881D45F635001D3283 /* LDReportViewController.m in Sources */,
 				D23009E61D3E208C004A649C /* LDSpectatorRoomViewController.m in Sources */,
 				D2F907AE1D3CB363006C987F /* LDRoomInfoViewController.m in Sources */,
