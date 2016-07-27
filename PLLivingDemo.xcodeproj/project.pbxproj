@@ -61,6 +61,7 @@
 		D2AE56391D486852005BB832 /* LDAppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AE56381D486852005BB832 /* LDAppSettingViewController.m */; };
 		D2AE563C1D4871EF005BB832 /* LDSettingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AE563B1D4871EF005BB832 /* LDSettingNavigationController.m */; };
 		D2AE563F1D487331005BB832 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AE563E1D487331005BB832 /* UIImage+Color.m */; };
+		D2AE56421D4895E8005BB832 /* LDAgreementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AE56411D4895E8005BB832 /* LDAgreementsViewController.m */; };
 		D2E654881D471A4100DD7A14 /* live1.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E654861D471A4100DD7A14 /* live1.png */; };
 		D2E654891D471A4100DD7A14 /* live2.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E654871D471A4100DD7A14 /* live2.png */; };
 		D2E6548C1D4733EE00DD7A14 /* LDPanGestureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E6548B1D4733EE00DD7A14 /* LDPanGestureHandler.m */; };
@@ -157,6 +158,8 @@
 		D2AE563B1D4871EF005BB832 /* LDSettingNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSettingNavigationController.m; sourceTree = "<group>"; };
 		D2AE563D1D487331005BB832 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
 		D2AE563E1D487331005BB832 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
+		D2AE56401D4895E8005BB832 /* LDAgreementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAgreementsViewController.h; sourceTree = "<group>"; };
+		D2AE56411D4895E8005BB832 /* LDAgreementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAgreementsViewController.m; sourceTree = "<group>"; };
 		D2E654861D471A4100DD7A14 /* live1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = live1.png; path = DemoIcons/live1.png; sourceTree = "<group>"; };
 		D2E654871D471A4100DD7A14 /* live2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = live2.png; path = DemoIcons/live2.png; sourceTree = "<group>"; };
 		D2E6548A1D4733EE00DD7A14 /* LDPanGestureHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDPanGestureHandler.h; sourceTree = "<group>"; };
@@ -284,6 +287,8 @@
 				D2E6548F1D47549D00DD7A14 /* LDUserSettingViewController.m */,
 				D2AE56371D486852005BB832 /* LDAppSettingViewController.h */,
 				D2AE56381D486852005BB832 /* LDAppSettingViewController.m */,
+				D2AE56401D4895E8005BB832 /* LDAgreementsViewController.h */,
+				D2AE56411D4895E8005BB832 /* LDAgreementsViewController.m */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -658,6 +663,7 @@
 				D2AE563C1D4871EF005BB832 /* LDSettingNavigationController.m in Sources */,
 				D2F6B31D1D40A00F0000B6C7 /* UIColor+HexString.m in Sources */,
 				D2F9079F1D3C878F006C987F /* LDBasicViewController.m in Sources */,
+				D2AE56421D4895E8005BB832 /* LDAgreementsViewController.m in Sources */,
 				D2E654901D47549D00DD7A14 /* LDUserSettingViewController.m in Sources */,
 				D2FA977C1D3F1F6100ADB180 /* LDRoomPanelViewController.m in Sources */,
 				D27022C61D421F4A00A8B311 /* LDSpectatorItem.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "LDAppSettingViewController.h"
+#import "LDAgreementsViewController.h"
 
 @interface LDAppSettingViewController ()
 @property (nonatomic, strong) UIBarButtonItem *closeButton;
@@ -108,6 +109,9 @@
             make.centerX.equalTo(self.view);
         }];
     });
+    
+    [agreementsButton addTarget:self action:@selector(_pressedAgreementsButton)
+               forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -134,6 +138,12 @@
 - (void)_pressedCloseButton
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)_pressedAgreementsButton
+{
+    LDAgreementsViewController *viewController = [[LDAgreementsViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end
