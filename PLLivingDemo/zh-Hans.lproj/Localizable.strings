@@ -6,6 +6,9 @@
   Copyright © 2016年 com.pili-engineering. All rights reserved.
 */
 
+"slogan" = "Real life in real-time.";
+"version" = "Version 1.0.0（3672）";
+
 "login-by-wechat" = "微信登录";
 "I-see" = "知道了";
 
@@ -43,5 +46,6 @@
 "cancel" = "Cancel";
 "share" = "Share";
 "setting" = "Setting";
+"settings" = "Settings";
 "share-get-more-attention" = "Share, get more attention.";
 

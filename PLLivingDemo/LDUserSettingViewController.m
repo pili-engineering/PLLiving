@@ -7,6 +7,8 @@
 //
 
 #import "LDUserSettingViewController.h"
+#import "LDSettingNavigationController.h"
+#import "LDAppSettingViewController.h"
 
 @interface LDUserSettingViewController()
 @property (nonatomic, strong) UIImageView *userIconImageView;
@@ -139,7 +141,9 @@
 
 - (void)_onPressedSettingButton:(id)sender
 {
-    
+    LDSettingNavigationController *navigationController = [[LDSettingNavigationController alloc] init];
+    [navigationController pushViewController:[[LDAppSettingViewController alloc] init] animated:NO];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)_onPressedCloseButton:(id)sender
