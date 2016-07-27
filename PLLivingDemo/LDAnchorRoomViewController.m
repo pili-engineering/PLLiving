@@ -310,7 +310,45 @@ typedef enum {
 
 - (void)_onPressedTransferCameraButton:(UIButton *)button
 {
-    [self.cameraStreamingSession toggleCamera];
+    self.transferCameraButton.enabled = NO;
+    
+    // 由于切换摄像头的方法不是一瞬间即可完成的，因此被放置在后台线程执行以防阻塞 UI。
+    // 这里的动画效果是为了消除摄像头切换不可避免所得等待造成的焦虑。
+    UIView *previewMask = ({
+        UIView *mask = [[UIView alloc] init];
+        [self.previewContainer addSubview:mask];
+        [mask setBackgroundColor:[UIColor blackColor]];
+        [mask setAlpha:0];
+        [mask mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.and.bottom.equalTo(self.previewContainer);
+        }];
+        mask;
+    });
+    UIViewAnimationOptions options = UIViewAnimationCurveEaseInOut |
+                                     UIViewAnimationOptionAllowUserInteraction;
+    
+    [UIView animateWithDuration:0.45 delay:0 options:options animations:^{
+        previewMask.alpha = 0.5;
+    } completion:nil];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        // 这个方法需要耗一点时间，如果在 Main 线程调用，会阻塞 UI 几百毫秒。
+        [self.cameraStreamingSession toggleCamera];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            CALayer *previewLayer = self.previewContainer.layer.presentationLayer;
+            [self.previewContainer.layer removeAllAnimations];
+            self.previewContainer.layer.opacity = previewLayer.opacity;
+            
+            [UIView animateWithDuration:0.55 delay:0 options:options animations:^{
+                previewMask.alpha = 0;
+                
+            } completion:^(BOOL finished) {
+                self.transferCameraButton.enabled = YES;
+            }];
+        });
+    });
 }
 
 - (void)_onPressedStopBroadcastingButton:(UIButton *)button
@@ -432,7 +470,8 @@ typedef enum {
         }
         duration = MIN(duration, 0.35);
         
-        UIViewAnimationOptions options = UIViewAnimationCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction;
+        UIViewAnimationOptions options = UIViewAnimationCurveEaseInOut |
+                                         UIViewAnimationOptionAllowUserInteraction;
         [UIView animateWithDuration:duration delay:0 options:options animations:^{
             self.previewConstraints.state = @(finalState);
         } completion:nil];
