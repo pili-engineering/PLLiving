@@ -173,7 +173,11 @@ typedef enum {
 
 - (void)_onPressedCloseButton:(UIButton *)button
 {
-    [self.player stop];
+    // PLPlayer 调用 stop 并非一瞬间可以完成。
+    // 这个过程如果放在 Main 线程进行，会阻塞 UI 几百毫秒，这个操作放在另一个线程进行可以让体验好一点。
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.player stop];
+    });
     [self _closeSpectatorRoomViewController];
 }
 
@@ -181,20 +185,17 @@ typedef enum {
 {
     [self.roomPanelViewControoler playCloseRoomPanelViewControllerAnimation];
     
-    [UIView animateWithDuration:0.65 animations:^{
+    [UIView animateWithDuration:0.35 animations:^{
         self.constraints.state = @(PanelState_Hide);
         self.blurBackgroundView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
         
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.35 animations:^{
+            self.blurBackgroundView.effect = nil;
             self.player.playerView.alpha = 0;
             
         } completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.25 animations:^{
-                self.blurBackgroundView.effect = nil;
-            } completion:^(BOOL finished) {
-                [self.basicViewController removeViewController:self animated:NO completion:nil];
-            }];
+            [self.basicViewController removeViewController:self animated:NO completion:nil];
         }];
     }];
 }
