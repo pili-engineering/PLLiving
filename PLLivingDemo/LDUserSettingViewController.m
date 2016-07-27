@@ -131,7 +131,7 @@
     ({
         UIImageView *arrow = [[UIImageView alloc] init];
         [panel addSubview:arrow];
-        arrow.image = [UIImage imageNamed:@"arrows-left"];
+        arrow.image = [UIImage imageNamed:@"arrows-right"];
         [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(panel).with.offset(-17);
             make.centerY.equalTo(self.settingButton);

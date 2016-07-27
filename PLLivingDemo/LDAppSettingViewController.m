@@ -79,6 +79,13 @@
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(sloganLabel.mas_bottom).with.offset(66);
         }];
+        UIImageView *arrowImageView = [[UIImageView alloc] init];
+        [button addSubview:arrowImageView];
+        arrowImageView.image = [UIImage imageNamed:@"arrows-right"];
+        [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(button);
+            make.right.equalTo(button).with.offset(-12.5);
+        }];
         button;
     });
     

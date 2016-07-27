@@ -25,6 +25,14 @@
         label;
     })];
     
+    self.navigationItem.leftBarButtonItem = ({
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] init];
+        [backButton setImage:[UIImage imageNamed:@"arrows-left"]];
+        [backButton setTarget:self];
+        [backButton setAction:@selector(_pressedBackButton)];
+        backButton;
+    });
+    
     ({
         UITextView *textView = [[UITextView alloc] init];
         [self.view addSubview:textView];
@@ -32,6 +40,8 @@
         [textView setEditable:NO];
         [textView setScrollEnabled:YES];
         [textView setAttributedText:[self _createAgreementsText]];
+        [textView setShowsVerticalScrollIndicator:NO];
+        [textView setShowsHorizontalScrollIndicator:NO];
         [textView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.view).with.offset(22);
             make.bottom.equalTo(self.view).with.offset(-22);
@@ -39,6 +49,11 @@
             make.right.equalTo(self.view).with.offset(-32);
         }];
     });
+}
+
+- (void)_pressedBackButton
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)_text:(NSMutableAttributedString *)text addTitle:(NSString *)title

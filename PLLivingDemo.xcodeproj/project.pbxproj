@@ -62,6 +62,8 @@
 		D2AE563C1D4871EF005BB832 /* LDSettingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AE563B1D4871EF005BB832 /* LDSettingNavigationController.m */; };
 		D2AE563F1D487331005BB832 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AE563E1D487331005BB832 /* UIImage+Color.m */; };
 		D2AE56421D4895E8005BB832 /* LDAgreementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AE56411D4895E8005BB832 /* LDAgreementsViewController.m */; };
+		D2AE56451D48AB1C005BB832 /* arrows-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2AE56431D48AB1C005BB832 /* arrows-right@2x.png */; };
+		D2AE56461D48AB1C005BB832 /* arrows-right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2AE56441D48AB1C005BB832 /* arrows-right@3x.png */; };
 		D2E654881D471A4100DD7A14 /* live1.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E654861D471A4100DD7A14 /* live1.png */; };
 		D2E654891D471A4100DD7A14 /* live2.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E654871D471A4100DD7A14 /* live2.png */; };
 		D2E6548C1D4733EE00DD7A14 /* LDPanGestureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E6548B1D4733EE00DD7A14 /* LDPanGestureHandler.m */; };
@@ -160,6 +162,8 @@
 		D2AE563E1D487331005BB832 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 		D2AE56401D4895E8005BB832 /* LDAgreementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAgreementsViewController.h; sourceTree = "<group>"; };
 		D2AE56411D4895E8005BB832 /* LDAgreementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAgreementsViewController.m; sourceTree = "<group>"; };
+		D2AE56431D48AB1C005BB832 /* arrows-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrows-right@2x.png"; path = "Assets/arrows-right@2x.png"; sourceTree = "<group>"; };
+		D2AE56441D48AB1C005BB832 /* arrows-right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrows-right@3x.png"; path = "Assets/arrows-right@3x.png"; sourceTree = "<group>"; };
 		D2E654861D471A4100DD7A14 /* live1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = live1.png; path = DemoIcons/live1.png; sourceTree = "<group>"; };
 		D2E654871D471A4100DD7A14 /* live2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = live2.png; path = DemoIcons/live2.png; sourceTree = "<group>"; };
 		D2E6548A1D4733EE00DD7A14 /* LDPanGestureHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDPanGestureHandler.h; sourceTree = "<group>"; };
@@ -296,6 +300,8 @@
 		D2F6B31E1D40A6230000B6C7 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				D2AE56431D48AB1C005BB832 /* arrows-right@2x.png */,
+				D2AE56441D48AB1C005BB832 /* arrows-right@3x.png */,
 				D23063891D4610A4001D3283 /* Group@2x.png */,
 				D230638A1D4610A4001D3283 /* Group@3x.png */,
 				D27022B61D41F8D800A8B311 /* arrows-up@2x.png */,
@@ -555,6 +561,7 @@
 				D246EBCC1D41EEE500510816 /* moon.png in Resources */,
 				D246EBB91D41EEE500510816 /* add-button@3x.png in Resources */,
 				D246EBDA1D41EEE500510816 /* toggle-camera@3x.png in Resources */,
+				D2AE56451D48AB1C005BB832 /* arrows-right@2x.png in Resources */,
 				D246EBD71D41EEE500510816 /* share@2x.png in Resources */,
 				D246EB931D41EEAD00510816 /* icon2.jpg in Resources */,
 				D246EBCE1D41EEE500510816 /* share-link.pdf in Resources */,
@@ -580,6 +587,7 @@
 				D246EBC71D41EEE500510816 /* icon-menu@3x.png in Resources */,
 				D2F907791D3C705D006C987F /* LaunchScreen.storyboard in Resources */,
 				D246EBC51D41EEE500510816 /* icon-close@3x.png in Resources */,
+				D2AE56461D48AB1C005BB832 /* arrows-right@3x.png in Resources */,
 				D246EBCD1D41EEE500510816 /* planet.png in Resources */,
 				D2F9078E1D3C7BB4006C987F /* Localizable.strings in Resources */,
 				D2E654881D471A4100DD7A14 /* live1.png in Resources */,
