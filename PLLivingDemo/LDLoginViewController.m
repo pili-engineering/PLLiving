@@ -7,8 +7,10 @@
 //
 
 #import "LDLoginViewController.h"
+#import "LDLoginFlowViewController.h"
 #import "LDLobbyViewController.h"
 #import "LDAppearanceView.h"
+#import "UIImage+Color.h"
 
 @interface LDLoginViewController ()
 
@@ -21,6 +23,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_onStart:)]];
     
     ({
         UIView *backgroundView = [[LDAppearanceView alloc] initWithLayer:({
@@ -91,12 +95,32 @@
     });
 }
 
-- (void)_onPressedLoginButton:(UIButton *)button
+- (void)_onStart:(id)sender
 {
     LDLobbyViewController *lobbyViewController = [[LDLobbyViewController alloc] init];
     [self.basicViewController popupViewController:lobbyViewController animated:YES completion:^{
         [self.basicViewController removeViewController:self animated:NO completion:nil];
     }];
+}
+
+- (void)_onPressedLoginButton:(UIButton *)button
+{
+    
+    UINavigationController *navigationController = ({
+        UINavigationController *nc = [[UINavigationController alloc] init];
+        UINavigationBar *bar = nc.navigationBar;
+        bar.barStyle = UIBarStyleDefault;
+        bar.translucent = NO;
+        bar.barTintColor = [UIColor whiteColor];
+        bar.tintColor = [UIColor blackColor];
+        
+        [bar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]]
+                 forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+        [bar setShadowImage:[[UIImage alloc] init]];
+        nc;
+    });
+    [navigationController pushViewController:[LDLoginFlowViewController loginFlowViewController] animated:NO];
+    [self.view.window.rootViewController presentViewController:navigationController animated:YES completion:nil];
 }
 
 @end

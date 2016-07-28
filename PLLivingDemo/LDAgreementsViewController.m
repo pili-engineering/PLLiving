@@ -10,6 +10,11 @@
 
 @implementation LDAgreementsViewController
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

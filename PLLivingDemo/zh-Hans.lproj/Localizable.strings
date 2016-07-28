@@ -14,6 +14,12 @@
 
 // Login and Register
 "login-by-phone-number" = "Sign In with Phone Number";
+"enter-phone-number" = "Enter your mobile phone number";
+"send-confirmation-code" = "Send a confirmation code";
+"enter-confirmation-code" = "Enter your 4-digit code";
+"perfect-information" = "Perfect information";
+"user-name" = "Username";
+"create-account" = "Create Account";
 
 // Permission Request
 "can-not-broadcasting" = "无法进行直播";

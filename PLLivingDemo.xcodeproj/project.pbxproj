@@ -90,6 +90,9 @@
 		D2FA97851D3F468800ADB180 /* LDChatDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FA97841D3F468800ADB180 /* LDChatDataSource.m */; };
 		D2FA97881D3F4AF600ADB180 /* LDChatBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FA97871D3F4AF600ADB180 /* LDChatBubbleView.m */; };
 		D2FA978B1D3F699E00ADB180 /* LDTransformTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FA978A1D3F699E00ADB180 /* LDTransformTableView.m */; };
+		D2FB62231D49B7070009147F /* LDLoginFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FB62221D49B7070009147F /* LDLoginFlowViewController.m */; };
+		D2FB62271D49F8640009147F /* Shape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2FB62251D49F8640009147F /* Shape@2x.png */; };
+		D2FB62281D49F8640009147F /* Shape@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2FB62261D49F8640009147F /* Shape@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -214,6 +217,10 @@
 		D2FA97871D3F4AF600ADB180 /* LDChatBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDChatBubbleView.m; sourceTree = "<group>"; };
 		D2FA97891D3F699E00ADB180 /* LDTransformTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDTransformTableView.h; sourceTree = "<group>"; };
 		D2FA978A1D3F699E00ADB180 /* LDTransformTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDTransformTableView.m; sourceTree = "<group>"; };
+		D2FB62211D49B7070009147F /* LDLoginFlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDLoginFlowViewController.h; sourceTree = "<group>"; };
+		D2FB62221D49B7070009147F /* LDLoginFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDLoginFlowViewController.m; sourceTree = "<group>"; };
+		D2FB62251D49F8640009147F /* Shape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Shape@2x.png"; path = "Assets/Shape@2x.png"; sourceTree = "<group>"; };
+		D2FB62261D49F8640009147F /* Shape@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Shape@3x.png"; path = "Assets/Shape@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,6 +311,8 @@
 				D2AE56441D48AB1C005BB832 /* arrows-right@3x.png */,
 				D23063891D4610A4001D3283 /* Group@2x.png */,
 				D230638A1D4610A4001D3283 /* Group@3x.png */,
+				D2FB62251D49F8640009147F /* Shape@2x.png */,
+				D2FB62261D49F8640009147F /* Shape@3x.png */,
 				D27022B61D41F8D800A8B311 /* arrows-up@2x.png */,
 				D27022B71D41F8D800A8B311 /* arrows-up@3x.png */,
 				D246EB951D41EEE500510816 /* add-button@2x.png */,
@@ -440,6 +449,8 @@
 			children = (
 				D2F907891D3C7A56006C987F /* LDLoginViewController.h */,
 				D2F9078A1D3C7A56006C987F /* LDLoginViewController.m */,
+				D2FB62211D49B7070009147F /* LDLoginFlowViewController.h */,
+				D2FB62221D49B7070009147F /* LDLoginFlowViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -558,6 +569,7 @@
 				D246EBD41D41EEE500510816 /* share-wechat.pdf in Resources */,
 				D27022B81D41F8D800A8B311 /* arrows-up@2x.png in Resources */,
 				D246EBBC1D41EEE500510816 /* arrows-left@2x.png in Resources */,
+				D2FB62281D49F8640009147F /* Shape@3x.png in Resources */,
 				D246EBCC1D41EEE500510816 /* moon.png in Resources */,
 				D246EBB91D41EEE500510816 /* add-button@3x.png in Resources */,
 				D246EBDA1D41EEE500510816 /* toggle-camera@3x.png in Resources */,
@@ -568,6 +580,7 @@
 				D246EBD51D41EEE500510816 /* share-wechat@2x.png in Resources */,
 				D246EBC91D41EEE500510816 /* LIVING@3x.png in Resources */,
 				D246EBC41D41EEE500510816 /* icon-close@2x.png in Resources */,
+				D2FB62271D49F8640009147F /* Shape@2x.png in Resources */,
 				D246EBBB1D41EEE500510816 /* arrows-down@3x.png in Resources */,
 				D246EBD31D41EEE500510816 /* share-moments.pdf in Resources */,
 				D246EBD61D41EEE500510816 /* share-wechat@3x.png in Resources */,
@@ -671,6 +684,7 @@
 				D2AE563C1D4871EF005BB832 /* LDSettingNavigationController.m in Sources */,
 				D2F6B31D1D40A00F0000B6C7 /* UIColor+HexString.m in Sources */,
 				D2F9079F1D3C878F006C987F /* LDBasicViewController.m in Sources */,
+				D2FB62231D49B7070009147F /* LDLoginFlowViewController.m in Sources */,
 				D2AE56421D4895E8005BB832 /* LDAgreementsViewController.m in Sources */,
 				D2E654901D47549D00DD7A14 /* LDUserSettingViewController.m in Sources */,
 				D2FA977C1D3F1F6100ADB180 /* LDRoomPanelViewController.m in Sources */,
@@ -754,7 +768,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -792,7 +806,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
