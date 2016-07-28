@@ -175,8 +175,9 @@ typedef enum {
 {
     // PLPlayer 调用 stop 并非一瞬间可以完成。
     // 这个过程如果放在 Main 线程进行，会阻塞 UI 几百毫秒，这个操作放在另一个线程进行可以让体验好一点。
+    PLPlayer *player = self.player;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self.player stop];
+        [player stop];
     });
     [self _closeSpectatorRoomViewController];
 }
