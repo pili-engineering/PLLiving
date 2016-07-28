@@ -40,7 +40,10 @@
                 CAGradientLayer *gradientLayer = [CAGradientLayer layer];
                 gradientLayer.startPoint = CGPointMake(0, 0);
                 gradientLayer.endPoint = CGPointMake(0, 1);
-                gradientLayer.colors = @[(__bridge id) [UIColor colorWithHexString:@"00FFFFFF"].CGColor,
+                gradientLayer.locations = @[@0, @0.33, @0.66, @1];
+                gradientLayer.colors = @[(__bridge id) [UIColor colorWithHexString:@"1A000000"].CGColor,
+                                         (__bridge id) [UIColor colorWithHexString:@"005A5A5A"].CGColor,
+                                         (__bridge id) [UIColor colorWithHexString:@"00282828"].CGColor,
                                          (__bridge id) [UIColor colorWithHexString:@"AB000000"].CGColor,];
                 gradientLayer;
             })];
