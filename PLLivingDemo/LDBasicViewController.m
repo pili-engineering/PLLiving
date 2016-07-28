@@ -43,11 +43,16 @@
 - (BOOL)prefersStatusBarHidden
 {
     BOOL hidden = super.prefersStatusBarHidden;
-    UIViewController *topViewController = self.basicViewController.viewControllers.lastObject;
+    UIViewController *topViewController = self.basicViewController.topViewController;
     if (topViewController) {
         hidden = topViewController.prefersStatusBarHidden;
     }
     return hidden;
+}
+
+- (UIViewController *)topViewController
+{
+    return self.viewControllers.lastObject;
 }
 
 - (void)popupViewController:(UIViewController * __nonnull)viewController

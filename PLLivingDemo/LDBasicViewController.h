@@ -10,6 +10,8 @@
 
 @interface LDBasicViewController : UIViewController
 
+- (UIViewController *)topViewController;
+
 - (void)popupViewController:(UIViewController * __nonnull)viewController
                    animated:(BOOL)animatedFlag
                  completion:(void (^ __nullable)(void))completion;

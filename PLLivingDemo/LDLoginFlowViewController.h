@@ -8,7 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@class LDLoginFlowViewController;
+
+@protocol LDLoginFlowViewControllerDelegate <NSObject>
+
+- (void)flowViewControllerComplete:(LDLoginFlowViewController *)flowViewController;
+
+@end
+
 @interface LDLoginFlowViewController : UIViewController
+
+@property (nonatomic, weak) id<LDLoginFlowViewControllerDelegate> delegate;
 
 + (instancetype)loginFlowViewController;
 

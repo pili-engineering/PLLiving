@@ -12,7 +12,7 @@
 #import "LDAppearanceView.h"
 #import "UIImage+Color.h"
 
-@interface LDLoginViewController ()
+@interface LDLoginViewController () <LDLoginFlowViewControllerDelegate>
 
 @property (nonatomic, strong) UIButton *loginButton;
 
@@ -23,8 +23,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_onStart:)]];
     
     ({
         UIView *backgroundView = [[LDAppearanceView alloc] initWithLayer:({
@@ -95,14 +93,6 @@
     });
 }
 
-- (void)_onStart:(id)sender
-{
-    LDLobbyViewController *lobbyViewController = [[LDLobbyViewController alloc] init];
-    [self.basicViewController popupViewController:lobbyViewController animated:YES completion:^{
-        [self.basicViewController removeViewController:self animated:NO completion:nil];
-    }];
-}
-
 - (void)_onPressedLoginButton:(UIButton *)button
 {
     
@@ -119,8 +109,19 @@
         [bar setShadowImage:[[UIImage alloc] init]];
         nc;
     });
-    [navigationController pushViewController:[LDLoginFlowViewController loginFlowViewController] animated:NO];
+    LDLoginFlowViewController *flowViewController = [LDLoginFlowViewController loginFlowViewController];
+    flowViewController.delegate = self;
+    [navigationController pushViewController:flowViewController animated:NO];
     [self.view.window.rootViewController presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)flowViewControllerComplete:(LDLoginFlowViewController *)flowViewController
+{
+    LDLobbyViewController *lobbyViewController = [[LDLobbyViewController alloc] init];
+    [self.basicViewController popupViewController:lobbyViewController animated:NO completion:^{
+        [self.basicViewController removeViewController:self animated:NO completion:nil];
+        [flowViewController.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 @end

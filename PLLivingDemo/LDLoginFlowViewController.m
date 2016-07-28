@@ -7,9 +7,11 @@
 //
 
 #import "LDLoginFlowViewController.h"
+#import "LDLobbyViewController.h"
 
 @interface LDLoginFlowViewController ()
-- (instancetype)initWithTitle:(NSString *)title;
+@property (nonatomic, weak) LDLoginFlowViewController *parent;
+- (instancetype)initWithTitle:(NSString *)title withParent:(LDLoginFlowViewController *)parent;
 @end
 
 @interface _LDLoginInputPhoneNumberViewController : LDLoginFlowViewController
@@ -33,17 +35,28 @@
 
 @implementation LDLoginFlowViewController
 
-- (instancetype)initWithTitle:(NSString *)title
+- (instancetype)initWithTitle:(NSString *)title withParent:(LDLoginFlowViewController *)parent
 {
     if (self = [self init]) {
         self.title = title;
+        _parent = parent;
     }
     return self;
 }
 
 + (instancetype)loginFlowViewController
 {
-    return [[_LDLoginInputPhoneNumberViewController alloc] initWithTitle:LDString("enter-phone-number")];
+    return [[_LDLoginInputPhoneNumberViewController alloc] initWithTitle:LDString("enter-phone-number")
+                                                              withParent:nil];
+}
+
+- (instancetype)rootFlowViewController
+{
+    LDLoginFlowViewController *vc = self;
+    while (vc.parent) {
+        vc = vc.parent;
+    }
+    return vc;
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -186,7 +199,7 @@
 
 - (void)_onPressedSend:(id)sender
 {
-    UIViewController *viewController = [[_LDLoginConfirmationViewController alloc] initWithTitle:LDString("enter-confirmation-code")];
+    UIViewController *viewController = [[_LDLoginConfirmationViewController alloc] initWithTitle:LDString("enter-confirmation-code") withParent:self];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -247,7 +260,7 @@
 
 - (void)_onPressedSend:(id)sender
 {
-    UIViewController *viewController = [[_LDLoginPerfectInformation alloc] initWithTitle:LDString("perfect-information")];
+    UIViewController *viewController = [[_LDLoginPerfectInformation alloc] initWithTitle:LDString("perfect-information") withParent:self];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -283,11 +296,11 @@
         UIView *container = [[UIView alloc] init];
         [self.view addSubview:container];
         [container mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).with.offset(76);
-            make.centerX.equalTo(self.view);
-            make.size.mas_equalTo(CGSizeMake(120, 120));
+            make.top.equalTo(self.view).with.offset(80);
+            make.left.equalTo(self.view).with.offset(30);
+            make.size.mas_equalTo(CGSizeMake(80, 80));
         }];
-        container.layer.cornerRadius = 60;
+        container.layer.cornerRadius = 40;
         container.layer.masksToBounds = YES;
         container.backgroundColor = [UIColor colorWithHexString:@"CCCCCC"];
         container;
@@ -305,6 +318,7 @@
     self.resetIconButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.view addSubview:button];
+        [button setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.left.and.right.equalTo(iconContainer);
         }];
@@ -319,10 +333,9 @@
         field.tintColor = [UIColor blackColor];
         field.font = [UIFont systemFontOfSize:14];
         [field mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).with.offset(248);
-            make.left.equalTo(self.view).with.offset(92);
-            make.right.equalTo(self.view).with.offset(-92);
-            make.centerX.equalTo(self.view);
+            make.top.equalTo(self.view).with.offset(101);
+            make.left.equalTo(iconContainer.mas_right).with.offset(32);
+            make.right.equalTo(self.view).with.offset(-44);
         }];
         field;
     });
@@ -332,9 +345,9 @@
         [self.view addSubview:line];
         line.backgroundColor = [UIColor blackColor];
         [line mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).with.offset(285);
-            make.left.equalTo(self.view).with.offset(92);
-            make.right.equalTo(self.view).with.offset(-92);
+            make.top.equalTo(self.view).with.offset(138);
+            make.left.equalTo(iconContainer.mas_right).with.offset(32);
+            make.right.equalTo(self.view).with.offset(-44);
             make.height.mas_equalTo(1);
         }];
     });
@@ -343,8 +356,10 @@
         UIButton *button = [self _createButton];
         [self.view addSubview:button];
         [button setTitle:LDString("create-account") forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(_onPressedCreateAccount:)
+         forControlEvents:UIControlEventTouchUpInside];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).with.offset(327);
+            make.top.equalTo(self.view).with.offset(194);
             make.centerX.equalTo(self.view);
             make.size.mas_equalTo(CGSizeMake(220, 50));
         }];
@@ -373,6 +388,14 @@
         self.imagePicker.allowsEditing = NO;
         self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         [self presentViewController:self.imagePicker animated:YES completion:nil];
+    }
+}
+
+- (void)_onPressedCreateAccount:(id)sender
+{
+    id<LDLoginFlowViewControllerDelegate> delegate = self.rootFlowViewController.delegate;
+    if ([delegate respondsToSelector:@selector(flowViewControllerComplete:)]) {
+        [delegate flowViewControllerComplete:self];
     }
 }
 
