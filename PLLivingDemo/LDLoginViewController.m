@@ -27,11 +27,10 @@
             CAGradientLayer *gradientLayer = [CAGradientLayer layer];
             gradientLayer.startPoint = CGPointMake(0, 0);
             gradientLayer.endPoint = CGPointMake(0, 1);
-            gradientLayer.locations = @[@0, @0.33, @0.66, @1];
-            gradientLayer.colors = @[(__bridge id) [UIColor colorWithHexString:@"1A000000"].CGColor,
-                                     (__bridge id) [UIColor colorWithHexString:@"005A5A5A"].CGColor,
-                                     (__bridge id) [UIColor colorWithHexString:@"00282828"].CGColor,
-                                     (__bridge id) [UIColor colorWithHexString:@"AB000000"].CGColor,];
+            gradientLayer.locations = @[@0, @0.5, @1];
+            gradientLayer.colors = @[(__bridge id) [UIColor colorWithHexString:@"E6E6E6"].CGColor,
+                                     (__bridge id) [UIColor colorWithHexString:@"F4F4F4"].CGColor,
+                                     (__bridge id) [UIColor colorWithHexString:@"FFFFFF"].CGColor,];
             gradientLayer;
         })];
         [self.view addSubview:backgroundView];
