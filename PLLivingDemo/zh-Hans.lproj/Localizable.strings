@@ -12,6 +12,9 @@
 "login-by-wechat" = "微信登录";
 "I-see" = "知道了";
 
+// Login and Register
+"login-by-phone-number" = "Sign In with Phone Number";
+
 // Permission Request
 "can-not-broadcasting" = "无法进行直播";
 "camera-permission-denied" = "你没有同意 app 获取摄像头，请从 iOS 设置中允许 Living 获取摄像头权限，再重新开始直播。";
