@@ -345,6 +345,7 @@ typedef enum {
                 previewMask.alpha = 0;
                 
             } completion:^(BOOL finished) {
+                [previewMask removeFromSuperview];
                 self.transferCameraButton.enabled = YES;
             }];
         });
@@ -412,12 +413,13 @@ typedef enum {
 - (void)_setupGestureRecognizerForTopBar
 {
     UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_onRecognizeGesture:)];
+    [gestureRecognizer setMaximumNumberOfTouches:1];
     [self.previewContainer addGestureRecognizer:gestureRecognizer];
 }
 
 - (void)_onRecognizeGesture:(UIPanGestureRecognizer *)gestureRecognizer
 {
-    CGPoint vector = [gestureRecognizer translationInView:gestureRecognizer.view.superview];
+    CGPoint vector = [gestureRecognizer translationInView:self.view];
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         [self.previewContainer.layer removeAllAnimations];
