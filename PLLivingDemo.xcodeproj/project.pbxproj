@@ -19,6 +19,9 @@
 		D231620E1D4AFC6C00B239AA /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D231620D1D4AFC6C00B239AA /* libz.1.2.5.tbd */; };
 		D23162101D4AFCE500B239AA /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D231620F1D4AFCE500B239AA /* libsqlite3.0.tbd */; };
 		D23162121D4AFCF900B239AA /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D23162111D4AFCF900B239AA /* libc++.tbd */; };
+		D23162141D4B158B00B239AA /* living.plist in Resources */ = {isa = PBXBuildFile; fileRef = D23162131D4B158B00B239AA /* living.plist */; };
+		D23162171D4B16A900B239AA /* LDLivingConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D23162161D4B16A900B239AA /* LDLivingConfiguration.m */; };
+		D231621A1D4B1BD800B239AA /* LDShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D23162191D4B1BD800B239AA /* LDShareViewController.m */; };
 		D246EB841D41CD1F00510816 /* LDAppearanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = D246EB831D41CD1F00510816 /* LDAppearanceView.m */; };
 		D246EB921D41EEAD00510816 /* icon1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D246EB8F1D41EEAD00510816 /* icon1.jpeg */; };
 		D246EB931D41EEAD00510816 /* icon2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D246EB901D41EEAD00510816 /* icon2.jpg */; };
@@ -122,6 +125,11 @@
 		D231620D1D4AFC6C00B239AA /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		D231620F1D4AFCE500B239AA /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		D23162111D4AFCF900B239AA /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		D23162131D4B158B00B239AA /* living.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = living.plist; sourceTree = "<group>"; };
+		D23162151D4B16A900B239AA /* LDLivingConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDLivingConfiguration.h; sourceTree = "<group>"; };
+		D23162161D4B16A900B239AA /* LDLivingConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDLivingConfiguration.m; sourceTree = "<group>"; };
+		D23162181D4B1BD800B239AA /* LDShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDShareViewController.h; sourceTree = "<group>"; };
+		D23162191D4B1BD800B239AA /* LDShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDShareViewController.m; sourceTree = "<group>"; };
 		D246EB821D41CD1F00510816 /* LDAppearanceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAppearanceView.h; sourceTree = "<group>"; };
 		D246EB831D41CD1F00510816 /* LDAppearanceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAppearanceView.m; sourceTree = "<group>"; };
 		D246EB8F1D41EEAD00510816 /* icon1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = icon1.jpeg; path = DemoIcons/icon1.jpeg; sourceTree = "<group>"; };
@@ -417,8 +425,11 @@
 				D2F907861D3C79F7006C987F /* Views */,
 				D2F907871D3C79FD006C987F /* ViewControllers */,
 				D23009E01D3DF392004A649C /* Utils */,
+				D23162131D4B158B00B239AA /* living.plist */,
 				D2F9076C1D3C705D006C987F /* AppDelegate.h */,
 				D2F9076D1D3C705D006C987F /* AppDelegate.m */,
+				D23162151D4B16A900B239AA /* LDLivingConfiguration.h */,
+				D23162161D4B16A900B239AA /* LDLivingConfiguration.m */,
 				D2F907901D3C7BB4006C987F /* Localizable.strings */,
 				D2F907941D3C7F04006C987F /* PLLivingDemo-Prefix.pch */,
 				D2F907751D3C705D006C987F /* Assets.xcassets */,
@@ -521,6 +532,8 @@
 				D27022C21D421DE000A8B311 /* LDSpectatorListViewController.m */,
 				D23063861D45F635001D3283 /* LDReportViewController.h */,
 				D23063871D45F635001D3283 /* LDReportViewController.m */,
+				D23162181D4B1BD800B239AA /* LDShareViewController.h */,
+				D23162191D4B1BD800B239AA /* LDShareViewController.m */,
 			);
 			name = Room;
 			sourceTree = "<group>";
@@ -636,6 +649,7 @@
 				D246EBC51D41EEE500510816 /* icon-close@3x.png in Resources */,
 				D2AE56461D48AB1C005BB832 /* arrows-right@3x.png in Resources */,
 				D246EBCD1D41EEE500510816 /* planet.png in Resources */,
+				D23162141D4B158B00B239AA /* living.plist in Resources */,
 				D2F9078E1D3C7BB4006C987F /* Localizable.strings in Resources */,
 				D2E654881D471A4100DD7A14 /* live1.png in Resources */,
 				D246EBC21D41EEE500510816 /* icon-big-close@2x.png in Resources */,
@@ -707,6 +721,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2FA978B1D3F699E00ADB180 /* LDTransformTableView.m in Sources */,
+				D23162171D4B16A900B239AA /* LDLivingConfiguration.m in Sources */,
 				D2F907B81D3CD82C006C987F /* LDBroadcastingManager.m in Sources */,
 				D2F9076E1D3C705D006C987F /* AppDelegate.m in Sources */,
 				D2F907A21D3C9D5C006C987F /* LDRoomItem.m in Sources */,
@@ -721,6 +736,7 @@
 				D2FB62231D49B7070009147F /* LDLoginFlowViewController.m in Sources */,
 				D2AE56421D4895E8005BB832 /* LDAgreementsViewController.m in Sources */,
 				D2E654901D47549D00DD7A14 /* LDUserSettingViewController.m in Sources */,
+				D231621A1D4B1BD800B239AA /* LDShareViewController.m in Sources */,
 				D2FA977C1D3F1F6100ADB180 /* LDRoomPanelViewController.m in Sources */,
 				D27022C61D421F4A00A8B311 /* LDSpectatorItem.m in Sources */,
 				D2FA97851D3F468800ADB180 /* LDChatDataSource.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LDLoginViewController.h"
+#import "LDLivingConfiguration.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [PLStreamingEnv initEnv];
+    [[LDLivingConfiguration sharedLivingConfiguration] setupAllConfiguration];
     
     self.window = ({
         UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -33,6 +35,7 @@
     [self.window makeKeyAndVisible];
     [self.window.basicViewController popupViewController:[[LDLoginViewController alloc] init]
                                                 animated:NO completion:nil];
+    
     return YES;
 }
 

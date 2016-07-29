@@ -17,6 +17,8 @@
 #import "LDTransformTableView.h"
 #import "LDAppearanceView.h"
 #import "LDPanGestureHandler.h"
+#import "LDLivingConfiguration.h"
+#import "LDShareViewController.h"
 
 typedef enum {
     LayoutState_Hide,
@@ -31,6 +33,7 @@ typedef enum {
 @property (nonatomic, assign) CGFloat presetKeyboardHeight;
 
 @property (nonatomic, weak) LDSpectatorListViewController *spectatorListViewController;
+@property (nonatomic, weak) LDShareViewController *shareViewController;
 
 @property (nonatomic, strong) LDTouchTransparentView *containerView;
 @property (nonatomic, strong) LDChatDataSource *chatDataSource;
@@ -137,18 +140,24 @@ typedef enum {
         }];
         button;
     });
-    self.sharingButton = ({
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-        [bottomBar addSubview:button];
-        [button setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
-        [button setTintColor:[UIColor whiteColor]];
-        [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(bottomBar).with.offset(27);
-            make.right.equalTo(bottomBar.mas_right).with.offset(-17);
-            make.left.greaterThanOrEqualTo(bottomBar.mas_right).with.offset(-51);
-        }];
-        button;
-    });
+    
+    if ([[LDLivingConfiguration sharedLivingConfiguration] canUseWechat]) {
+        // 只有安装了微信，才显示微信分享的按钮。
+        self.sharingButton = ({
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+            [bottomBar addSubview:button];
+            [button setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+            [button setTintColor:[UIColor whiteColor]];
+            [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(bottomBar).with.offset(27);
+                make.right.equalTo(bottomBar.mas_right).with.offset(-17);
+                make.left.greaterThanOrEqualTo(bottomBar.mas_right).with.offset(-51);
+            }];
+            button;
+        });
+    } else {
+        self.sharingButton = nil;
+    }
     
     if (self.mode == LDRoomPanelViewControllerMode_Spectator) {
         // 主播不能打字，她可以直接通过麦克风说话。只有观众需要打字。
@@ -169,7 +178,11 @@ typedef enum {
                 make.top.equalTo(bottomBar).with.offset(54);
                 make.bottom.equalTo(bottomBar).with.offset(-5);
                 make.left.equalTo(bottomBar).with.offset(70);
-                make.right.equalTo(bottomBar).with.offset(-51);
+                if (self.sharingButton) {
+                    make.right.equalTo(self.sharingButton.mas_left).with.offset(-5);
+                } else {
+                    make.right.equalTo(bottomBar).with.offset(-15);
+                }
             }];
             field;
         });
@@ -258,6 +271,9 @@ typedef enum {
     
     if (self.spectatorListViewController) {
         [self.spectatorListViewController close];
+    }
+    if (self.shareViewController) {
+        [self.shareViewController close];
     }
 }
 
@@ -354,7 +370,11 @@ typedef enum {
 
 - (void)_onPressedSharingButton:(UIButton *)button
 {
-    
+    LDShareViewController *viewController = [[LDShareViewController alloc] initWithPresentOrientation:LDBlurViewControllerPresentOrientation_FromBottom];
+    [self.chatTextField resignFirstResponder];
+    [self.basicViewController popupViewController:viewController animated:NO completion:nil];
+    [viewController playAppearAnimationWithComplete:nil];
+    self.shareViewController = viewController;
 }
 
 @end
