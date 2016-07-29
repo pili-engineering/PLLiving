@@ -41,41 +41,51 @@
         }];
     });
     
+    UIView *viewContainer = ({
+        UIView *container = [[UIView alloc] init];
+        [self.view addSubview:container];
+        [container mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.and.right.equalTo(self.view);
+            make.centerY.equalTo(self.view);
+        }];
+        container;
+    });
+    
     ({
         UIImageView *logImageView = [[UIImageView alloc] init];
         logImageView.image = [UIImage imageNamed:@"logo"];
-        [self.view addSubview:logImageView];
+        [viewContainer addSubview:logImageView];
         [logImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).with.offset(170);
-            make.centerX.equalTo(self.view);
+            make.top.equalTo(viewContainer).with.offset(20);
+            make.centerX.equalTo(viewContainer);
         }];
     });
     
     ({
         UIImageView *titleImageView = [[UIImageView alloc] init];
         titleImageView.image = [UIImage imageNamed:@"LIVING"];
-        [self.view addSubview:titleImageView];
+        [viewContainer addSubview:titleImageView];
         [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).with.offset(335);
-            make.centerX.equalTo(self.view);
+            make.top.equalTo(viewContainer).with.offset(185);
+            make.centerX.equalTo(viewContainer);
         }];
     });
     
     ({
         UILabel *sloganLabel = [[UILabel alloc] init];
-        [self.view addSubview:sloganLabel];
+        [viewContainer addSubview:sloganLabel];
         sloganLabel.text = LDString("slogan");
         sloganLabel.textColor = [UIColor colorWithHexString:@"4E4E4E"];
         sloganLabel.font = [UIFont systemFontOfSize:16];
         [sloganLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).with.offset(398);
-            make.centerX.equalTo(self.view);
+            make.top.equalTo(viewContainer).with.offset(248);
+            make.centerX.equalTo(viewContainer);
         }];
     });
     
     self.loginButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-        [self.view addSubview:button];
+        [viewContainer addSubview:button];
         [button setTitle:LDString("login-by-phone-number") forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
@@ -85,8 +95,9 @@
         
         [button addTarget:self action:@selector(_onPressedLoginButton:) forControlEvents:UIControlEventTouchUpInside];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.view);
-            make.top.equalTo(self.view).with.offset(504);
+            make.centerX.equalTo(viewContainer);
+            make.top.equalTo(viewContainer).with.offset(354);
+            make.bottom.equalTo(viewContainer);
             make.size.mas_equalTo(CGSizeMake(220, 50));
         }];
         button;
