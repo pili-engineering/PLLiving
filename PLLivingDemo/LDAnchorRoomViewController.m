@@ -44,6 +44,7 @@ typedef enum {
 @property (nonatomic, strong) LDRoomPanelViewController *roomPanelViewControoler;
 @property (nonatomic, strong) UIVisualEffectView *blurBackgroundView;
 @property (nonatomic, strong) UIImageView *arrowIconView;
+@property (nonatomic, strong) UIView *previewMask;
 @property (nonatomic, strong) UIView *previewContainer;
 @property (nonatomic, strong) UIView *topBar;
 @property (nonatomic, strong) UIButton *transferCameraButton;
@@ -111,6 +112,17 @@ typedef enum {
         preview;
     });
     
+    self.previewMask = ({
+        UIView *mask = [[UIView alloc] init];
+        [self.previewContainer addSubview:mask];
+        [mask setBackgroundColor:[UIColor blackColor]];
+        [mask setAlpha:0];
+        [mask mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.and.bottom.equalTo(self.previewContainer);
+        }];
+        mask;
+    });
+    
     self.blurBackgroundView = ({
         UIVisualEffectView *view = [[UIVisualEffectView alloc] init];
         [self.view addSubview:view];
@@ -175,7 +187,7 @@ typedef enum {
             preview.frame = self.previewContainer.bounds;
             preview.autoresizingMask = UIViewAutoresizingFlexibleWidth |
             UIViewAutoresizingFlexibleHeight;
-            [self.previewContainer addSubview:preview];
+            [self.previewContainer insertSubview:preview belowSubview:self.previewMask];
             
             UIViewAnimationOptions options = UIViewAnimationCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction;
             
@@ -314,21 +326,11 @@ typedef enum {
     
     // 由于切换摄像头的方法不是一瞬间即可完成的，因此被放置在后台线程执行以防阻塞 UI。
     // 这里的动画效果是为了消除摄像头切换不可避免所得等待造成的焦虑。
-    UIView *previewMask = ({
-        UIView *mask = [[UIView alloc] init];
-        [self.previewContainer addSubview:mask];
-        [mask setBackgroundColor:[UIColor blackColor]];
-        [mask setAlpha:0];
-        [mask mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.right.and.bottom.equalTo(self.previewContainer);
-        }];
-        mask;
-    });
     UIViewAnimationOptions options = UIViewAnimationCurveEaseInOut |
                                      UIViewAnimationOptionAllowUserInteraction;
     
     [UIView animateWithDuration:0.45 delay:0 options:options animations:^{
-        previewMask.alpha = 0.5;
+        self.previewMask.alpha = 0.5;
     } completion:nil];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -342,10 +344,9 @@ typedef enum {
             self.previewContainer.layer.opacity = previewLayer.opacity;
             
             [UIView animateWithDuration:0.55 delay:0 options:options animations:^{
-                previewMask.alpha = 0;
+                self.previewMask.alpha = 0;
                 
             } completion:^(BOOL finished) {
-                [previewMask removeFromSuperview];
                 self.transferCameraButton.enabled = YES;
             }];
         });
