@@ -11,15 +11,40 @@
 
 @interface LDAppSettingViewController ()
 @property (nonatomic, strong) UIBarButtonItem *closeButton;
+@property (nonatomic, strong) UIView *scrollContainer;
 @end
 
 @implementation LDAppSettingViewController
+
+- (void)loadView
+{
+    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    self.view = scrollView;
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    UIScrollView *scrollView = (UIScrollView *)self.view;
+    scrollView.contentSize = self.scrollContainer.frame.size;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"F6F6F6"];
+    
+    self.scrollContainer = ({
+        UIView *container = [[UIView alloc] init];
+        
+        [self.view addSubview:container];
+        [container mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(self.view);
+            make.height.greaterThanOrEqualTo(self.view);
+        }];
+        container;
+    });
     
     [self.navigationItem setTitleView:({
         UILabel *label = [[UILabel alloc] init];
@@ -42,34 +67,34 @@
     
     UIImageView *appIconView = ({
         UIImageView *imageView = [[UIImageView alloc] init];
-        [self.view addSubview:imageView];
+        [self.scrollContainer addSubview:imageView];
         imageView.image = [UIImage imageNamed:@"logo"];
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).with.offset(78);
-            make.centerX.equalTo(self.view);
+            make.top.equalTo(self.scrollContainer).with.offset(78);
+            make.centerX.equalTo(self.scrollContainer);
         }];
         imageView;
     });
     
     UIImageView *titleImageView = ({
         UIImageView *imageView = [[UIImageView alloc] init];
-        [self.view addSubview:imageView];
+        [self.scrollContainer addSubview:imageView];
         imageView.image = [UIImage imageNamed:@"LIVING"];
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(appIconView.mas_bottom).with.offset(7);
-            make.centerX.equalTo(self.view);
+            make.centerX.equalTo(self.scrollContainer);
         }];
         imageView;
     });
     
     UILabel *sloganLabel = ({
         UILabel *label = [[UILabel alloc] init];
-        [self.view addSubview:label];
+        [self.scrollContainer addSubview:label];
         label.text = LDString("slogan");
         label.textColor = [UIColor colorWithHexString:@"4E4E4E"];
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(titleImageView.mas_bottom).with.offset(19);
-            make.centerX.equalTo(self.view);
+            make.centerX.equalTo(self.scrollContainer);
         }];
         label;
     });
@@ -107,13 +132,14 @@
     
     ({
         UILabel *versionLabel = [[UILabel alloc] init];
-        [self.view addSubview:versionLabel];
+        [self.scrollContainer addSubview:versionLabel];
         versionLabel.text = LDString("version");
         versionLabel.textColor = [UIColor colorWithHexString:@"D8D8D8"];
         versionLabel.font = [UIFont systemFontOfSize:12];
         [versionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view).with.offset(-12);
-            make.centerX.equalTo(self.view);
+            make.top.greaterThanOrEqualTo(logoutButton.mas_bottom).with.offset(56);
+            make.bottom.equalTo(self.scrollContainer).with.offset(-12);
+            make.centerX.equalTo(self.scrollContainer);
         }];
     });
     
@@ -129,14 +155,14 @@
 - (UIButton *)_createSelectItemButtonWithTitle:(NSString *)title
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.view addSubview:button];
+    [self.scrollContainer addSubview:button];
     [button setBackgroundColor:[UIColor whiteColor]];
     [button setTitleColor:[UIColor colorWithHexString:@"030303"] forState:UIControlStateNormal];
     [button setTitle:title forState:UIControlStateNormal];
     [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [button setContentEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
     [button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
+        make.left.and.right.equalTo(self.scrollContainer);
         make.height.mas_equalTo(56);
     }];
     return button;
