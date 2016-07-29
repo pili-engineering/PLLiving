@@ -33,7 +33,7 @@
         panel.backgroundColor = [UIColor whiteColor];
         [panel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.and.left.equalTo(self.view);
-            make.width.mas_equalTo(280);
+            make.right.equalTo(self.view).with.offset(-95);
         }];
         panel;
     });
