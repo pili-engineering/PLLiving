@@ -43,7 +43,7 @@ typedef enum {
 @property (nonatomic, strong) LDRoomInfoViewController *roomInfoViewController;
 @property (nonatomic, strong) LDRoomPanelViewController *roomPanelViewControoler;
 @property (nonatomic, strong) UIVisualEffectView *blurBackgroundView;
-@property (nonatomic, strong) UIImageView *arrowIconView;
+@property (nonatomic, strong) UIButton *arrowIconButton;
 @property (nonatomic, strong) UIView *previewMask;
 @property (nonatomic, strong) UIView *previewContainer;
 @property (nonatomic, strong) UIView *topBar;
@@ -252,14 +252,16 @@ typedef enum {
         }];
     });
     
-    self.arrowIconView = ({
-        UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrows-down"]];
-        [self.previewContainer addSubview:icon];
-        [icon mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.arrowIconButton = ({
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"arrows-down"] forState:UIControlStateNormal];
+        [self.previewContainer addSubview:button];
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.previewContainer).with.offset(20);
             make.right.equalTo(self.previewContainer).with.offset(-18);
+            make.size.mas_equalTo(CGSizeMake(31, 21));
         }];
-        icon;
+        button;
     });
     
     self.transferCameraButton = ({
@@ -292,6 +294,8 @@ typedef enum {
         button;
     });
     
+    [self.arrowIconButton addTarget:self action:@selector(_onPressedArrowIconButton:)
+                   forControlEvents:UIControlEventTouchUpInside];
     [self.transferCameraButton addTarget:self action:@selector(_onPressedTransferCameraButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.stopBroadcastingButton addTarget:self action:@selector(_onPressedStopBroadcastingButton:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -418,19 +422,27 @@ typedef enum {
     [self.previewContainer addGestureRecognizer:gestureRecognizer];
 }
 
+- (void)_onPressedArrowIconButton:(UIButton *)button
+{
+    CGRect frame = self.previewContainer.frame;
+    LayoutState targetState = [self.previewConstraints.state intValue] == LayoutState_ShowTopBar?
+                              LayoutState_HideTopBar : LayoutState_ShowTopBar;
+    
+    [self _startTopBarAdjust];
+    [self _finishTopBarAdjustLayoutState:targetState currentPosition:frame.origin.y];
+}
+
 - (void)_onRecognizeGesture:(UIPanGestureRecognizer *)gestureRecognizer
 {
     CGPoint vector = [gestureRecognizer translationInView:self.view];
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        [self.previewContainer.layer removeAllAnimations];
+        
         self.previewContainerBeginPosition = self.previewContainer.frame.origin.y;
         self.originalLayoutStateBeforeGestureBeginning = [self.previewConstraints.state intValue];
         self.previewConstraints.state = @(LayoutState_Float);
         
-        [UIView animateWithDuration:0.3 animations:^{
-            self.arrowIconView.alpha = 0;
-        }];
+        [self _startTopBarAdjust];
     }
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan ||
@@ -462,28 +474,43 @@ typedef enum {
             
             finalState = self.originalLayoutStateBeforeGestureBeginning;
         }
-        
-        NSTimeInterval duration = 0.35;
-        if (finalState == LayoutState_ShowTopBar) {
-            duration *= (ABS(vector.y - kTopBarHeight))/kTopBarHeight;
-            self.arrowIconView.image = [UIImage imageNamed:@"arrows-up"];
-        } else {
-            duration *= ABS(vector.y)/kTopBarHeight;
-            self.arrowIconView.image = [UIImage imageNamed:@"arrows-down"];
-        }
-        duration = MIN(duration, 0.35);
-        
-        UIViewAnimationOptions options = UIViewAnimationCurveEaseInOut |
-                                         UIViewAnimationOptionAllowUserInteraction;
-        [UIView animateWithDuration:duration delay:0 options:options animations:^{
-            self.previewConstraints.state = @(finalState);
-        } completion:nil];
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            self.arrowIconView.alpha = 1;
-        }];
+        [self _finishTopBarAdjustLayoutState:finalState currentPosition:vector.y];
     }
+}
+
+- (void)_startTopBarAdjust
+{
+    [self.previewContainer.layer removeAllAnimations];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.arrowIconButton.alpha = 0;
+    }];
+    self.arrowIconButton.enabled = NO;
+}
+
+- (void)_finishTopBarAdjustLayoutState:(LayoutState)state currentPosition:(CGFloat)currentPosition
+{
+    NSTimeInterval duration = 0.35;
+    if (state == LayoutState_ShowTopBar) {
+        duration *= (ABS(currentPosition - kTopBarHeight))/kTopBarHeight;
+        [self.arrowIconButton setImage:[UIImage imageNamed:@"arrows-up"]
+                              forState:UIControlStateNormal];
+    } else {
+        duration *= ABS(currentPosition)/kTopBarHeight;
+        [self.arrowIconButton setImage:[UIImage imageNamed:@"arrows-down"]
+                              forState:UIControlStateNormal];
+    }
+    duration = MIN(duration, 0.35);
     
+    UIViewAnimationOptions options = UIViewAnimationCurveEaseInOut |
+    UIViewAnimationOptionAllowUserInteraction;
+    [UIView animateWithDuration:duration delay:0 options:options animations:^{
+        self.previewConstraints.state = @(state);
+    } completion:nil];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.arrowIconButton.alpha = 1;
+    }];
+    self.arrowIconButton.enabled = YES;
 }
 
 @end
