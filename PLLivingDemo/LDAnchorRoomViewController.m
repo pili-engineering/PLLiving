@@ -289,7 +289,8 @@ typedef enum {
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.topBar).with.offset(12);
             make.left.equalTo(self.topBar).with.offset(22);
-            make.size.mas_equalTo(CGSizeMake(260, 44));
+            make.right.equalTo(self.transferCameraButton.mas_left).with.offset(-24);
+            make.height.mas_equalTo(44);
         }];
         button;
     });
