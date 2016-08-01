@@ -31,8 +31,17 @@ typedef enum {
 - (instancetype)initWithURL:(NSURL *)url
 {
     if (self = [super init]) {
-        self.player = [PLPlayer playerWithURL:url option:[PLPlayerOption defaultOption]];
-        self.player.delegate = self;
+        self.player = ({
+            PLPlayer *player = [PLPlayer playerWithURL:url option:[PLPlayerOption defaultOption]];
+            player.delegate = self;
+            // 允许播放器后台播放。
+            player.backgroundPlayEnable = YES;
+            // 设置 AVAudioSession 的 Category。
+            // 特别注意：禁止在推流过程中修改 AVAudioSession 的 Category。
+            // 由于观众房间是不会推流的，所以这里可以安心修改。
+            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+            player;
+        });
         self.roomPanelViewControoler = [[LDRoomPanelViewController alloc] initWithMode:LDRoomPanelViewControllerMode_Spectator];
         self.roomPanelViewControoler.delegate = self;
         self.constraints = [[LDViewConstraintsStateManager alloc] init];
