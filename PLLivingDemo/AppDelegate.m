@@ -24,7 +24,6 @@
     
     self.window = ({
         UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         window.rootViewController = [[LDBasicViewController alloc] init];
         window.backgroundColor = [UIColor whiteColor];
         window.rootViewController.view.frame = self.window.bounds;
