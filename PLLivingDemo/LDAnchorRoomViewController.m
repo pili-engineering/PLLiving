@@ -362,7 +362,7 @@ typedef enum {
 {
     if (!self.didClosed) {
         if (self.cameraStreamingSession.isRunning) {
-            [self.cameraStreamingSession stop];
+            [self.cameraStreamingSession destroy];
         }
         [self _close];
     }
