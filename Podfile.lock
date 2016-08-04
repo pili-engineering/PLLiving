@@ -25,6 +25,7 @@ PODS:
     - HappyDNS
     - pili-librtmp
   - RegexKitLite-NoWarning (1.1.0)
+  - SocketRocket (0.5.1)
   - Toast (3.0)
 
 DEPENDENCIES:
@@ -32,6 +33,7 @@ DEPENDENCIES:
   - PLCameraStreamingKit (~> 1.8)
   - PLPlayerKit (~> 2.2)
   - RegexKitLite-NoWarning
+  - SocketRocket
   - Toast
 
 SPEC CHECKSUMS:
@@ -43,8 +45,9 @@ SPEC CHECKSUMS:
   PLPlayerKit: d0b902dccfbbc39519096b4f86e4e393c5f87bc3
   PLStreamingKit: c8574decbacb981e36e5b95314c991a3b5d02125
   RegexKitLite-NoWarning: 365d208f8187997e33d9de8baeddfc00728596d8
+  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   Toast: 32c59229abfcf41850162b83bb9259dc84372473
 
-PODFILE CHECKSUM: 14e55a7982d30ab233636587516ee712a1856f7f
+PODFILE CHECKSUM: 4e0836483caf20d0521ddaad2b79f08091b0c36b
 
 COCOAPODS: 1.1.0.beta.1
