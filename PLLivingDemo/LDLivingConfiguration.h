@@ -11,6 +11,7 @@
 @interface LDLivingConfiguration : NSObject
 
 @property (nonatomic, assign, readonly) BOOL canUseWechat;
+@property (nonatomic, readonly) NSString *chatRoomWebsocketURL;
 
 + (instancetype)sharedLivingConfiguration;
 - (void)setupAllConfiguration;
