@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ChatRoomWebsocketURL</key>
+	<string>fill_your_chat_room_websocket_url</string>
 	<key>WechatAppID</key>
 	<string>fill_your_wechat_app_id</string>
 </dict>
