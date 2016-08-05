@@ -119,6 +119,7 @@ typedef enum {
     [self.closeButton addTarget:self action:@selector(_onPressedCloseButton:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.player play];
+    [self.roomPanelViewControoler connectToWebSocket];
 }
 
 - (void)viewDidAppear:(BOOL)animated

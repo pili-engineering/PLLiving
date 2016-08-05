@@ -30,5 +30,6 @@ typedef enum {
 
 - (instancetype)initWithMode:(LDRoomPanelViewControllerMode)mode;
 - (void)playCloseRoomPanelViewControllerAnimation;
+- (void)connectToWebSocket;
 
 @end

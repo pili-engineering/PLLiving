@@ -64,10 +64,9 @@ typedef enum {
         self.roomPanelViewControoler = [[LDRoomPanelViewController alloc] initWithMode:LDRoomPanelViewControllerMode_Anchor];
         self.roomPanelViewControoler.delegate = self;
         
-        // 需要等待 3 个信号后才能开始推流（信号都是异步的，先后完全不可预测）
+        // 需要等待 2 个信号后才能开始推流（信号都是异步的，先后完全不可预测）
         // 1. 主播输入完 title，构造好 subivews。
         // 2. 等待服务器返回 PLStream 对象。
-        // 3. 等待服务器返回房间信息。
         NSInteger semaphoreValue = 2;
         self.broadcastingSemaphore = [[LDAsyncSemaphore alloc] initWithValue:semaphoreValue];
         [self.broadcastingSemaphore waitWithTarget:self withAction:@selector(_beginBroadcasting)];
@@ -219,6 +218,7 @@ typedef enum {
         if (strongSelf && !strongSelf.didClosed) {
             
             if (error == LDBroadcastingStreamObjectError_NoError) {
+                [self.roomPanelViewControoler connectToWebSocket];
                 strongSelf.cameraStreamingSession.stream = streamObject;
                 [strongSelf.broadcastingSemaphore signal]; //接收到了 PLStream 对象。
             } else {
@@ -301,7 +301,7 @@ typedef enum {
     [self.stopBroadcastingButton addTarget:self action:@selector(_onPressedStopBroadcastingButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-// 当允许推流开始的 3 个必要条件（对应 3 个信号）全部满足时，这个方法被回调。
+// 当允许推流开始的 2 个必要条件（对应 2 个信号）全部满足时，这个方法被回调。
 - (void)_beginBroadcasting
 {
     if (!self.didClosed) {

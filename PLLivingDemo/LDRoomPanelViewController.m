@@ -7,6 +7,7 @@
 //
 
 #import "LDRoomPanelViewController.h"
+#import "LDLivingConfiguration.h"
 #import "LDViewConstraintsStateManager.h"
 #import "LDSpectatorListViewController.h"
 #import "LDTouchTransparentView.h"
@@ -26,7 +27,7 @@ typedef enum {
 } LayoutState;
 
 
-@interface LDRoomPanelViewController () <UITableViewDelegate, UITextFieldDelegate>
+@interface LDRoomPanelViewController () <UITableViewDelegate, UITextFieldDelegate, SRWebSocketDelegate>
 
 @property (nonatomic, assign) LDRoomPanelViewControllerMode mode;
 @property (nonatomic, strong) LDViewConstraintsStateManager *constraints;
@@ -34,6 +35,8 @@ typedef enum {
 
 @property (nonatomic, weak) LDSpectatorListViewController *spectatorListViewController;
 @property (nonatomic, weak) LDShareViewController *shareViewController;
+
+@property (nonatomic, strong) SRWebSocket *webSocket;
 
 @property (nonatomic, strong) LDTouchTransparentView *containerView;
 @property (nonatomic, strong) LDChatDataSource *chatDataSource;
@@ -163,6 +166,7 @@ typedef enum {
         // 主播不能打字，她可以直接通过麦克风说话。只有观众需要打字。
         self.chatTextField = ({
             UITextField *field = [[UITextField alloc] init];
+            field.enabled = NO; //一开始禁用，当弹幕的 websocket 连接建立后才开启。
             field.delegate = self;
             field.textColor = [UIColor whiteColor];
             field.tintColor = [UIColor whiteColor];
@@ -251,7 +255,7 @@ typedef enum {
         [self.chatTextField resignFirstResponder];
     }];
     
-    [self addNotifications];
+    [self _addNotifications];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -264,6 +268,7 @@ typedef enum {
 - (void)playCloseRoomPanelViewControllerAnimation
 {
     [self.chatTextField resignFirstResponder];
+    [self.webSocket close];
     
     [UIView animateWithDuration:0.65 animations:^{
         self.constraints.state = @(LayoutState_Hide);
@@ -277,13 +282,21 @@ typedef enum {
     }
 }
 
-- (void)addNotifications
+- (void)_addNotifications
 {
     NSNotificationCenter *notificationCenger = [NSNotificationCenter defaultCenter];
     [notificationCenger addObserver:self selector:@selector(_onFoundKeyboardWasShown:)
                                name:UIKeyboardWillShowNotification object:nil];
     [notificationCenger addObserver:self selector:@selector(_onFoundKeyboardWillBeHidden:)
                                name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)connectToWebSocket
+{
+    NSString *webSocketURL = [LDLivingConfiguration sharedLivingConfiguration].chatRoomWebsocketURL;
+    self.webSocket = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:webSocketURL]];
+    [self.webSocket setDelegate:self];
+    [self.webSocket open];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -375,6 +388,24 @@ typedef enum {
     [self.basicViewController popupViewController:viewController animated:NO completion:nil];
     [viewController playAppearAnimationWithComplete:nil];
     self.shareViewController = viewController;
+}
+
+#pragma mark - websocket delete
+
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket
+{
+    NSLog(@"connected to chat room...");
+    self.chatTextField.enabled = YES; // 连接建立了，允许用户打字了。
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error
+{
+    NSLog(@"websocket found error %@", error);
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
+{
+    NSLog(@"--> %@", message);
 }
 
 @end
