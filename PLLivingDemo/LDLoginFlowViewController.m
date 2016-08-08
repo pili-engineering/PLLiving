@@ -21,6 +21,7 @@
 @end
 
 @interface _LDLoginConfirmationViewController : LDLoginFlowViewController <UITextFieldDelegate>
+@property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) UITextField *confirmationField;
 @property (nonatomic, strong) UIButton *sendButton;
 @end
@@ -205,8 +206,10 @@
     
     [[LDServer sharedServer] requestMobileCaptchaWithPhoneNumber:self.phoneNumber.text withComplete:^{
         
-        UIViewController *viewController = [[_LDLoginConfirmationViewController alloc] initWithTitle:LDString("enter-confirmation-code") withParent:self];
+        _LDLoginConfirmationViewController *viewController = [[_LDLoginConfirmationViewController alloc] initWithTitle:LDString("enter-confirmation-code") withParent:self];
         [self.navigationController pushViewController:viewController animated:YES];
+        
+        viewController.phoneNumber = self.phoneNumber.text;
         
         self.sendButton.enabled = YES;
         self.phoneNumber.enabled = YES;
@@ -216,7 +219,6 @@
         self.sendButton.enabled = YES;
         self.phoneNumber.enabled = YES;
     }];
-    
 }
 
 @end
@@ -276,8 +278,19 @@
 
 - (void)_onPressedSend:(id)sender
 {
-    UIViewController *viewController = [[_LDLoginPerfectInformation alloc] initWithTitle:LDString("perfect-information") withParent:self];
-    [self.navigationController pushViewController:viewController animated:YES];
+    self.sendButton.enabled = NO;
+    
+    [[LDServer sharedServer] postMobileCaptcha:self.confirmationField.text withPhoneNumber:self.phoneNumber withComplete:^(BOOL valid) {
+        
+        self.sendButton.enabled = YES;
+        
+        if (valid) {
+            UIViewController *viewController = [[_LDLoginPerfectInformation alloc] initWithTitle:LDString("perfect-information") withParent:self];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+    } withFail:^(NSError * _Nullable responseError) {
+        self.sendButton.enabled = YES;
+    }];
 }
 
 - (void)_onConfirmationFieldChanged

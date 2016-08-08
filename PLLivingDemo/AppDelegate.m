@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "LDCookies.h"
 #import "LDLoginViewController.h"
 #import "LDLivingConfiguration.h"
 
@@ -21,6 +22,7 @@
 {
     [PLStreamingEnv initEnv];
     [[LDLivingConfiguration sharedLivingConfiguration] setupAllConfiguration];
+    [[LDCookies sharedCookies] revert];
     
     self.window = ({
         UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

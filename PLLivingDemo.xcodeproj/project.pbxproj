@@ -67,6 +67,7 @@
 		D27022C01D4214CA00A8B311 /* LDBlurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27022BF1D4214CA00A8B311 /* LDBlurViewController.m */; };
 		D27022C31D421DE000A8B311 /* LDSpectatorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27022C21D421DE000A8B311 /* LDSpectatorListViewController.m */; };
 		D27022C61D421F4A00A8B311 /* LDSpectatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D27022C51D421F4A00A8B311 /* LDSpectatorItem.m */; };
+		D293D80F1D586A0800F8E255 /* LDCookies.m in Sources */ = {isa = PBXBuildFile; fileRef = D293D80E1D586A0800F8E255 /* LDCookies.m */; };
 		D2AE56391D486852005BB832 /* LDAppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AE56381D486852005BB832 /* LDAppSettingViewController.m */; };
 		D2AE563C1D4871EF005BB832 /* LDSettingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AE563B1D4871EF005BB832 /* LDSettingNavigationController.m */; };
 		D2AE563F1D487331005BB832 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AE563E1D487331005BB832 /* UIImage+Color.m */; };
@@ -181,6 +182,8 @@
 		D27022C21D421DE000A8B311 /* LDSpectatorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSpectatorListViewController.m; sourceTree = "<group>"; };
 		D27022C41D421F4A00A8B311 /* LDSpectatorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDSpectatorItem.h; sourceTree = "<group>"; };
 		D27022C51D421F4A00A8B311 /* LDSpectatorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSpectatorItem.m; sourceTree = "<group>"; };
+		D293D80D1D586A0800F8E255 /* LDCookies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDCookies.h; sourceTree = "<group>"; };
+		D293D80E1D586A0800F8E255 /* LDCookies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDCookies.m; sourceTree = "<group>"; };
 		D2AE56371D486852005BB832 /* LDAppSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAppSettingViewController.h; sourceTree = "<group>"; };
 		D2AE56381D486852005BB832 /* LDAppSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAppSettingViewController.m; sourceTree = "<group>"; };
 		D2AE563A1D4871EF005BB832 /* LDSettingNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDSettingNavigationController.h; sourceTree = "<group>"; };
@@ -326,6 +329,8 @@
 			children = (
 				D23B96511D581D4F00B3A72C /* LDServer.h */,
 				D23B96521D581D4F00B3A72C /* LDServer.m */,
+				D293D80D1D586A0800F8E255 /* LDCookies.h */,
+				D293D80E1D586A0800F8E255 /* LDCookies.m */,
 			);
 			name = Server;
 			sourceTree = "<group>";
@@ -738,6 +743,7 @@
 				D2F907B81D3CD82C006C987F /* LDBroadcastingManager.m in Sources */,
 				D2F9076E1D3C705D006C987F /* AppDelegate.m in Sources */,
 				D2F907A21D3C9D5C006C987F /* LDRoomItem.m in Sources */,
+				D293D80F1D586A0800F8E255 /* LDCookies.m in Sources */,
 				D2FA977F1D3F2F6800ADB180 /* LDTouchTransparentView.m in Sources */,
 				D27022C01D4214CA00A8B311 /* LDBlurViewController.m in Sources */,
 				D2FA97881D3F4AF600ADB180 /* LDChatBubbleView.m in Sources */,
