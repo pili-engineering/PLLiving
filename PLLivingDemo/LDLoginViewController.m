@@ -6,13 +6,12 @@
 //  Copyright © 2016年 com.pili-engineering. All rights reserved.
 //
 
+#import "AppDelegate.h"
 #import "LDLoginViewController.h"
 #import "LDLoginFlowViewController.h"
 #import "LDLobbyViewController.h"
 #import "LDAppearanceView.h"
 #import "UIImage+Color.h"
-
-#define kLDUserDefaultsKey_DidLogin @"DidLogin"
 
 @interface LDLoginViewController () <LDLoginFlowViewControllerDelegate>
 

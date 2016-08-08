@@ -93,6 +93,13 @@
     }
 }
 
+- (void)removeAllViewControllersExceptTop
+{
+    for (NSUInteger i = 0; i < self.viewControllers.count - 1; i ++) {
+        [self removeViewController:self.viewControllers[i] animated:NO completion:nil];
+    }
+}
+
 - (void)removeViewController:(UIViewController * __nonnull)viewController
                     animated:(BOOL)animatedFlag
                   completion:(void (^ __nullable)(void))completion

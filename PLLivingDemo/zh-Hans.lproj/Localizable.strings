@@ -53,8 +53,11 @@
 "report-broadcast" = "Report Broadcast";
 
 // Dialog
+"confirm-logout" = "确定要注销用户？";
+"logout-would-reset-username" = "你将重新登陆。";
 "sure-to-report-this-broadcast" = "Are you sure you want to report this broadcast?";
 "report-content" = "Report Inappropriate Content";
+"logout" = "Logout";
 "cancel" = "Cancel";
 "share" = "Share";
 "setting" = "Setting";

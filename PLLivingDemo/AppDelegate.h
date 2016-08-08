@@ -10,6 +10,8 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+#define kLDUserDefaultsKey_DidLogin @"DidLogin"
+
 @property (strong, nonatomic) UIWindow *window;
 
 

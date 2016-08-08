@@ -6,8 +6,10 @@
 //  Copyright © 2016年 com.pili-engineering. All rights reserved.
 //
 
+#import "AppDelegate.h"
 #import "LDAppSettingViewController.h"
 #import "LDAgreementsViewController.h"
+#import "LDLoginViewController.h"
 
 @interface LDAppSettingViewController ()
 @property (nonatomic, strong) UIBarButtonItem *closeButton;
@@ -145,6 +147,7 @@
     
     [agreementsButton addTarget:self action:@selector(_pressedAgreementsButton)
                forControlEvents:UIControlEventTouchUpInside];
+    [logoutButton addTarget:self action:@selector(_pressedLogoutButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -177,6 +180,38 @@
 {
     LDAgreementsViewController *viewController = [[LDAgreementsViewController alloc] init];
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)_pressedLogoutButton:(id)sender
+{
+    [self _confirmLogout:^(BOOL willLogout) {
+        if (willLogout) {
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kLDUserDefaultsKey_DidLogin];
+            [self.view.window.basicViewController popupViewController:[[LDLoginViewController alloc] init] animated:NO completion:^{
+                [self dismissViewControllerAnimated:NO completion:nil];
+                [self.basicViewController removeAllViewControllersExceptTop];
+            }];
+        }
+    }];
+}
+
+- (void)_confirmLogout:(void (^)(BOOL willLogout))confirmBlock
+{
+    
+    UIAlertController *av = [UIAlertController alertControllerWithTitle:LDString("confirm-logout")
+                                                                message:LDString("logout-would-reset-username")
+                                                         preferredStyle:UIAlertControllerStyleAlert];
+    [av addAction:[UIAlertAction actionWithTitle:LDString("logout")
+                                           style:UIAlertActionStyleDestructive
+                                         handler:^(UIAlertAction * _Nonnull action) {
+                                             confirmBlock(YES);
+                                         }]];
+    [av addAction:[UIAlertAction actionWithTitle:LDString("cancel")
+                                           style:UIAlertActionStyleCancel
+                                         handler:^(UIAlertAction * _Nonnull action) {
+                                             confirmBlock(NO);
+                                         }]];
+    [self presentViewController:av animated:true completion:nil];
 }
 
 @end
