@@ -56,6 +56,20 @@ static LDServer *_sharedInstance;
     } fail:failBlock];
 }
 
+- (void)postUserName:(NSString *)username withComplete:(void (^)())complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
+{
+    [self _url:[self _httpURLWithPath:@"/name"] request:^(NSMutableURLRequest *request) {
+        
+        request.HTTPMethod = @"POST";
+        [self _setRequest:request WithHttpBodyParams:@{@"name": username}];
+        
+    } success:^(NSData * _Nullable data, NSHTTPURLResponse * _Nullable response) {
+        
+        complete();
+        
+    } fail:failBlock];
+}
+
 - (NSURL *)_httpURLWithPath:(NSString *)path
 {
     NSString *serverURL = [LDLivingConfiguration sharedLivingConfiguration].httpServerURL;
@@ -111,13 +125,6 @@ static LDServer *_sharedInstance;
                     successBlock(data, httpResponse);
                 }
                 [[LDCookies sharedCookies] store];
-                
-                NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-                for (NSHTTPCookie *cookie in [cookieJar cookies]) {
-                    
-                    NSLog(@"    %@", cookie);
-                }
-                NSLog(@"}");
             }
         });
     }];

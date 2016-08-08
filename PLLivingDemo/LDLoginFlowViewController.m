@@ -287,6 +287,9 @@
         if (valid) {
             UIViewController *viewController = [[_LDLoginPerfectInformation alloc] initWithTitle:LDString("perfect-information") withParent:self];
             [self.navigationController pushViewController:viewController animated:YES];
+            
+        } else {
+            [self.view makeToast:LDString("confirm-fail") duration:1.2 position:CSToastPositionCenter];
         }
     } withFail:^(NSError * _Nullable responseError) {
         self.sendButton.enabled = YES;
@@ -422,10 +425,15 @@
 
 - (void)_onPressedCreateAccount:(id)sender
 {
-    id<LDLoginFlowViewControllerDelegate> delegate = self.rootFlowViewController.delegate;
-    if ([delegate respondsToSelector:@selector(flowViewControllerComplete:)]) {
-        [delegate flowViewControllerComplete:self];
-    }
+    [[LDServer sharedServer] postUserName:self.userNameField.text withComplete:^{
+        
+        id<LDLoginFlowViewControllerDelegate> delegate = self.rootFlowViewController.delegate;
+        if ([delegate respondsToSelector:@selector(flowViewControllerComplete:)]) {
+            [delegate flowViewControllerComplete:self];
+        }
+    } withFail:^(NSError * _Nullable responseError) {
+        
+    }];
 }
 
 - (BOOL)_checkCameraAuthorizationStatus

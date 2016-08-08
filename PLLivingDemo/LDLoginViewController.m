@@ -12,6 +12,8 @@
 #import "LDAppearanceView.h"
 #import "UIImage+Color.h"
 
+#define kLDUserDefaultsKey_DidLogin @"DidLogin"
+
 @interface LDLoginViewController () <LDLoginFlowViewControllerDelegate>
 
 @property (nonatomic, strong) UIButton *loginButton;
@@ -106,28 +108,37 @@
 
 - (void)_onPressedLoginButton:(UIButton *)button
 {
-    
-    UINavigationController *navigationController = ({
-        UINavigationController *nc = [[UINavigationController alloc] init];
-        UINavigationBar *bar = nc.navigationBar;
-        bar.barStyle = UIBarStyleDefault;
-        bar.translucent = NO;
-        bar.barTintColor = [UIColor whiteColor];
-        bar.tintColor = [UIColor blackColor];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kLDUserDefaultsKey_DidLogin]) {
         
-        [bar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]]
-                 forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-        [bar setShadowImage:[[UIImage alloc] init]];
-        nc;
-    });
-    LDLoginFlowViewController *flowViewController = [LDLoginFlowViewController loginFlowViewController];
-    flowViewController.delegate = self;
-    [navigationController pushViewController:flowViewController animated:NO];
-    [self.view.window.rootViewController presentViewController:navigationController animated:YES completion:nil];
+        LDLobbyViewController *lobbyViewController = [[LDLobbyViewController alloc] init];
+        [self.basicViewController popupViewController:lobbyViewController animated:YES completion:^{
+            [self.basicViewController removeViewController:self animated:NO completion:nil];
+        }];
+    } else {
+        UINavigationController *navigationController = ({
+            UINavigationController *nc = [[UINavigationController alloc] init];
+            UINavigationBar *bar = nc.navigationBar;
+            bar.barStyle = UIBarStyleDefault;
+            bar.translucent = NO;
+            bar.barTintColor = [UIColor whiteColor];
+            bar.tintColor = [UIColor blackColor];
+            
+            [bar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]]
+                     forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+            [bar setShadowImage:[[UIImage alloc] init]];
+            nc;
+        });
+        LDLoginFlowViewController *flowViewController = [LDLoginFlowViewController loginFlowViewController];
+        flowViewController.delegate = self;
+        [navigationController pushViewController:flowViewController animated:NO];
+        [self.view.window.rootViewController presentViewController:navigationController animated:YES completion:nil];
+    }
 }
 
 - (void)flowViewControllerComplete:(LDLoginFlowViewController *)flowViewController
 {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kLDUserDefaultsKey_DidLogin];
+    
     LDLobbyViewController *lobbyViewController = [[LDLobbyViewController alloc] init];
     [self.basicViewController popupViewController:lobbyViewController animated:NO completion:^{
         [self.basicViewController removeViewController:self animated:NO completion:nil];

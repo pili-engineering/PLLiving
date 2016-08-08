@@ -20,6 +20,8 @@
 "perfect-information" = "Perfect information";
 "user-name" = "Username";
 "create-account" = "Create Account";
+"confirm-fail" = "手机验证码错误";
+"user-name-length" = "用户名仅支持3～15位英文字母和数字";
 
 // Permission Request
 "can-not-broadcasting" = "无法进行直播";
@@ -31,6 +33,7 @@
 "microphone-restricted" = "麦克风设备受限，请关闭家长模式，再重新开始直播。";
 
 // Broadcasting
+"broadcasting-placeholder" = "输入直播标题……";
 "please-input-any-messages-as_broadcasting-title" = "直播内容不能为空，随便说一点吧。";
 "connected-and-is-broadcasting" = "连接成功！直播中……";
 "found-error-while-broadcasting-and-have-to-close" = "直播中发生错误，即将关闭直播！";
