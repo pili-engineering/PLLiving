@@ -107,31 +107,23 @@
 
 - (void)_onPressedLoginButton:(UIButton *)button
 {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kLDUserDefaultsKey_DidLogin]) {
+    UINavigationController *navigationController = ({
+        UINavigationController *nc = [[UINavigationController alloc] init];
+        UINavigationBar *bar = nc.navigationBar;
+        bar.barStyle = UIBarStyleDefault;
+        bar.translucent = NO;
+        bar.barTintColor = [UIColor whiteColor];
+        bar.tintColor = [UIColor blackColor];
         
-        LDLobbyViewController *lobbyViewController = [[LDLobbyViewController alloc] init];
-        [self.basicViewController popupViewController:lobbyViewController animated:YES completion:^{
-            [self.basicViewController removeViewController:self animated:NO completion:nil];
-        }];
-    } else {
-        UINavigationController *navigationController = ({
-            UINavigationController *nc = [[UINavigationController alloc] init];
-            UINavigationBar *bar = nc.navigationBar;
-            bar.barStyle = UIBarStyleDefault;
-            bar.translucent = NO;
-            bar.barTintColor = [UIColor whiteColor];
-            bar.tintColor = [UIColor blackColor];
-            
-            [bar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]]
-                     forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-            [bar setShadowImage:[[UIImage alloc] init]];
-            nc;
-        });
-        LDLoginFlowViewController *flowViewController = [LDLoginFlowViewController loginFlowViewController];
-        flowViewController.delegate = self;
-        [navigationController pushViewController:flowViewController animated:NO];
-        [self.view.window.rootViewController presentViewController:navigationController animated:YES completion:nil];
-    }
+        [bar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]]
+                 forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+        [bar setShadowImage:[[UIImage alloc] init]];
+        nc;
+    });
+    LDLoginFlowViewController *flowViewController = [LDLoginFlowViewController loginFlowViewController];
+    flowViewController.delegate = self;
+    [navigationController pushViewController:flowViewController animated:NO];
+    [self.view.window.rootViewController presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)flowViewControllerComplete:(LDLoginFlowViewController *)flowViewController

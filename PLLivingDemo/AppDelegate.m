@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "LDLobbyViewController.h"
 #import "LDCookies.h"
 #import "LDLoginViewController.h"
 #import "LDLivingConfiguration.h"
@@ -34,8 +35,14 @@
         window;
     });
     [self.window makeKeyAndVisible];
-    [self.window.basicViewController popupViewController:[[LDLoginViewController alloc] init]
-                                                animated:NO completion:nil];
+    
+    UIViewController *viewController;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kLDUserDefaultsKey_DidLogin]) {
+        viewController = [[LDLobbyViewController alloc] init];
+    } else {
+        viewController = [[LDLoginViewController alloc] init];
+    }
+    [self.window.basicViewController popupViewController:viewController animated:NO completion:nil];
     
     return YES;
 }
