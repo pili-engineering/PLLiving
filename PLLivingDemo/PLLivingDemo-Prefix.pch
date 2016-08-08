@@ -8,7 +8,7 @@
 
 #define LDString(str) NSLocalizedString(@str, @"")
 
-#import <PLCameraStreamingKit/PLCameraStreamingKit.h>
+#import "PLCameraStreamingKit.h"
 #import <PLPlayerKit/PLPlayer.h>
 
 #import <RegexKitLite-NoWarning/RegexKitLite.h>

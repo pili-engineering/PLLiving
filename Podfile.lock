@@ -2,23 +2,22 @@ PODS:
   - HappyDNS (0.3.10)
   - Masonry (1.0.1)
   - pili-librtmp (1.0.3.1)
-  - PLCameraStreamingKit (1.8.1):
-    - PLCameraStreamingKit/precompiled (= 1.8.1)
-    - PLStreamingKit (= 1.2.5)
-  - PLCameraStreamingKit/precompiled (1.8.1):
-    - PLStreamingKit (= 1.2.5)
+  - PLMediaStreamingKit (2.0.0):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.3.1)
+    - PLMediaStreamingKit/PLCameraStreamingKit (= 2.0.0)
+    - PLMediaStreamingKit/PLStreamingKit (= 2.0.0)
+  - PLMediaStreamingKit/PLCameraStreamingKit (2.0.0):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.3.1)
+  - PLMediaStreamingKit/PLStreamingKit (2.0.0):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.3.1)
   - PLPlayerKit (2.2.2):
     - HappyDNS
     - pili-librtmp (= 1.0.3.1)
     - PLPlayerKit/precompiled (= 2.2.2)
   - PLPlayerKit/precompiled (2.2.2):
-    - HappyDNS
-    - pili-librtmp (= 1.0.3.1)
-  - PLStreamingKit (1.2.5):
-    - HappyDNS
-    - pili-librtmp (= 1.0.3.1)
-    - PLStreamingKit/precompiled (= 1.2.5)
-  - PLStreamingKit/precompiled (1.2.5):
     - HappyDNS
     - pili-librtmp (= 1.0.3.1)
   - RegexKitLite-NoWarning (1.1.0)
@@ -27,7 +26,7 @@ PODS:
 
 DEPENDENCIES:
   - Masonry
-  - PLCameraStreamingKit (~> 1.8)
+  - PLMediaStreamingKit (~> 2.0)
   - PLPlayerKit (~> 2.2)
   - RegexKitLite-NoWarning
   - SocketRocket
@@ -37,13 +36,12 @@ SPEC CHECKSUMS:
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   pili-librtmp: 0adf2516f4b5958b3cb079a4c3d4f6a4a9f49ce9
-  PLCameraStreamingKit: 12b672cbef9ba15bbb28ec543fb77f7d4cea66dc
+  PLMediaStreamingKit: f4b42bf5baeac328f1991a6024841fa789ebbb4e
   PLPlayerKit: b5182ef942dce71678c9db07c2e1959df91e81cc
-  PLStreamingKit: 4b46739689d020b8e2eb755827ec86447c0291b7
   RegexKitLite-NoWarning: 365d208f8187997e33d9de8baeddfc00728596d8
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   Toast: 32c59229abfcf41850162b83bb9259dc84372473
 
-PODFILE CHECKSUM: 4e0836483caf20d0521ddaad2b79f08091b0c36b
+PODFILE CHECKSUM: ce62686dfde4ceed4a279c22c96f352eb6ef9aad
 
 COCOAPODS: 1.1.0.beta.1
