@@ -303,12 +303,7 @@ typedef enum {
 {
     NSString *message = [textField.text stringByReplacingOccurrencesOfRegex:@"(^\\s+|\\s+$)" withString:@""];
     if (![message isEqualToString:@""]) {
-        LDChatItem *chatItem = [[LDChatItem alloc] init];
-        chatItem.message = message;
-        [self.chatDataSource addChatItemToFirst:chatItem];
-        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.chatTableView insertRowsAtIndexPaths:@[newIndexPath]
-                                  withRowAnimation:UITableViewRowAnimationLeft];
+        [self.webSocket send:message];
     } else {
         [self.chatTextField resignFirstResponder];
     }
@@ -405,7 +400,12 @@ typedef enum {
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
-    NSLog(@"--> %@", message);
+    LDChatItem *chatItem = [[LDChatItem alloc] init];
+    chatItem.message = message;
+    [self.chatDataSource addChatItemToFirst:chatItem];
+    NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.chatTableView insertRowsAtIndexPaths:@[newIndexPath]
+                              withRowAnimation:UITableViewRowAnimationLeft];
 }
 
 @end

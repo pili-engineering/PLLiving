@@ -22,6 +22,7 @@
 		D23162141D4B158B00B239AA /* living.plist in Resources */ = {isa = PBXBuildFile; fileRef = D23162131D4B158B00B239AA /* living.plist */; };
 		D23162171D4B16A900B239AA /* LDLivingConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D23162161D4B16A900B239AA /* LDLivingConfiguration.m */; };
 		D231621A1D4B1BD800B239AA /* LDShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D23162191D4B1BD800B239AA /* LDShareViewController.m */; };
+		D23B96531D581D4F00B3A72C /* LDServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D23B96521D581D4F00B3A72C /* LDServer.m */; };
 		D246EB841D41CD1F00510816 /* LDAppearanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = D246EB831D41CD1F00510816 /* LDAppearanceView.m */; };
 		D246EB921D41EEAD00510816 /* icon1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D246EB8F1D41EEAD00510816 /* icon1.jpeg */; };
 		D246EB931D41EEAD00510816 /* icon2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D246EB901D41EEAD00510816 /* icon2.jpg */; };
@@ -130,6 +131,8 @@
 		D23162161D4B16A900B239AA /* LDLivingConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDLivingConfiguration.m; sourceTree = "<group>"; };
 		D23162181D4B1BD800B239AA /* LDShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDShareViewController.h; sourceTree = "<group>"; };
 		D23162191D4B1BD800B239AA /* LDShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDShareViewController.m; sourceTree = "<group>"; };
+		D23B96511D581D4F00B3A72C /* LDServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDServer.h; sourceTree = "<group>"; };
+		D23B96521D581D4F00B3A72C /* LDServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDServer.m; sourceTree = "<group>"; };
 		D246EB821D41CD1F00510816 /* LDAppearanceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAppearanceView.h; sourceTree = "<group>"; };
 		D246EB831D41CD1F00510816 /* LDAppearanceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAppearanceView.m; sourceTree = "<group>"; };
 		D246EB8F1D41EEAD00510816 /* icon1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = icon1.jpeg; path = DemoIcons/icon1.jpeg; sourceTree = "<group>"; };
@@ -318,6 +321,15 @@
 			name = WechatSDK;
 			sourceTree = "<group>";
 		};
+		D23B96501D581D0E00B3A72C /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				D23B96511D581D4F00B3A72C /* LDServer.h */,
+				D23B96521D581D4F00B3A72C /* LDServer.m */,
+			);
+			name = Server;
+			sourceTree = "<group>";
+		};
 		D246EB881D41EE1D00510816 /* DemoIcons */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,6 +433,7 @@
 				D2F6B31E1D40A6230000B6C7 /* Assets */,
 				D2F907A71D3CA662006C987F /* Globals */,
 				D2F907B21D3CD3C5006C987F /* PiliSDK */,
+				D23B96501D581D0E00B3A72C /* Server */,
 				D2F907851D3C79EA006C987F /* Modules */,
 				D2F907861D3C79F7006C987F /* Views */,
 				D2F907871D3C79FD006C987F /* ViewControllers */,
@@ -744,6 +757,7 @@
 				D2FA97791D3F199300ADB180 /* LDAlertUtil.m in Sources */,
 				D2AE56391D486852005BB832 /* LDAppSettingViewController.m in Sources */,
 				D23009DF1D3DC2BA004A649C /* LDDevicePermissionManager.m in Sources */,
+				D23B96531D581D4F00B3A72C /* LDServer.m in Sources */,
 				D27022C31D421DE000A8B311 /* LDSpectatorListViewController.m in Sources */,
 				D2AE563F1D487331005BB832 /* UIImage+Color.m in Sources */,
 				D2F9078B1D3C7A56006C987F /* LDLoginViewController.m in Sources */,

@@ -2,8 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>HttpServerURL</key>
+	<string>http://192.168.200.103:8010</string>
 	<key>ChatRoomWebsocketURL</key>
-	<string>fill_your_chat_room_websocket_url</string>
+	<string>http://192.168.200.103:8010/ws</string>
 	<key>WechatAppID</key>
 	<string>fill_your_wechat_app_id</string>
 </dict>

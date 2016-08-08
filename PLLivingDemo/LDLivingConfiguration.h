@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign, readonly) BOOL canUseWechat;
 @property (nonatomic, readonly) NSString *chatRoomWebsocketURL;
+@property (nonatomic, readonly) NSString *httpServerURL;
 
 + (instancetype)sharedLivingConfiguration;
 - (void)setupAllConfiguration;

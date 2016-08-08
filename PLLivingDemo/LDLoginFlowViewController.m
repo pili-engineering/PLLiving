@@ -8,6 +8,7 @@
 
 #import "LDLoginFlowViewController.h"
 #import "LDLobbyViewController.h"
+#import "LDServer.h"
 
 @interface LDLoginFlowViewController ()
 @property (nonatomic, weak) LDLoginFlowViewController *parent;
@@ -199,8 +200,23 @@
 
 - (void)_onPressedSend:(id)sender
 {
-    UIViewController *viewController = [[_LDLoginConfirmationViewController alloc] initWithTitle:LDString("enter-confirmation-code") withParent:self];
-    [self.navigationController pushViewController:viewController animated:YES];
+    self.sendButton.enabled = NO;
+    self.phoneNumber.enabled = NO;
+    
+    [[LDServer sharedServer] requestMobileCaptchaWithPhoneNumber:self.phoneNumber.text withComplete:^{
+        
+        UIViewController *viewController = [[_LDLoginConfirmationViewController alloc] initWithTitle:LDString("enter-confirmation-code") withParent:self];
+        [self.navigationController pushViewController:viewController animated:YES];
+        
+        self.sendButton.enabled = YES;
+        self.phoneNumber.enabled = YES;
+        
+    } withFail:^(NSError * _Nullable responseError) {
+        
+        self.sendButton.enabled = YES;
+        self.phoneNumber.enabled = YES;
+    }];
+    
 }
 
 @end
