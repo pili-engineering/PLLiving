@@ -129,6 +129,7 @@
 - (void)flowViewControllerComplete:(LDLoginFlowViewController *)flowViewController
 {
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kLDUserDefaultsKey_DidLogin];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     LDLobbyViewController *lobbyViewController = [[LDLobbyViewController alloc] init];
     [self.basicViewController popupViewController:lobbyViewController animated:NO completion:^{

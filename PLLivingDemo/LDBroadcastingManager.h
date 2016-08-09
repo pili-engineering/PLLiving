@@ -21,6 +21,5 @@ typedef void (^LDBroadcastingComplete)(PLStream *streamObject, LDBroadcastingStr
 @property (nonatomic, strong) PLCameraStreamingSession *cameraStreamingSession;
 
 - (PLCameraStreamingSession *)generateCameraStreamingSession;
-- (void)generateStreamObject:(NSURL *)streamCloudURL withComplete:(LDBroadcastingComplete)completeBlock;
 
 @end

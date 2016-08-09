@@ -13,5 +13,6 @@
 + (instancetype)sharedCookies;
 - (void)revert;
 - (void)store;
+- (NSDictionary *)headerFields;
 
 @end

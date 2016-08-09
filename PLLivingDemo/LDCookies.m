@@ -7,9 +7,7 @@
 //
 
 #import "LDCookies.h"
-
-#define kLDUserDefaultsKey_Cookies @"Cookies"
-#define kLDUserDefaultsKey_StoredCookies @"StoredCookies"
+#import "AppDelegate.h"
 
 @implementation LDCookies
 
@@ -32,10 +30,13 @@ static LDCookies *_sharedInstance;
         NSMutableArray* cookies = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:kLDUserDefaultsKey_Cookies];
         NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
         
+        NSLog(@"REVERT COOKIES {");
         for (NSDictionary* cookieData in cookies) {
-            NSLog(@"revert cookies - %@", cookieData);
-            [cookieStorage setCookie:[NSHTTPCookie cookieWithProperties:cookieData]];
+            NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:cookieData];
+            [cookieStorage setCookie:cookie];
+            NSLog(@"    %@", cookie);
         }
+        NSLog(@"}");
     }
 }
 
@@ -43,6 +44,8 @@ static LDCookies *_sharedInstance;
 {
     NSMutableArray* cookieData = [NSMutableArray new];
     NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    
+    NSLog(@"REVERT COOKIES {");
     for (NSHTTPCookie* cookie in [cookieStorage cookies]) {
         NSMutableDictionary* cookieDictionary = [NSMutableDictionary new];
         cookieDictionary[NSHTTPCookieName] = cookie.name;
@@ -53,9 +56,17 @@ static LDCookies *_sharedInstance;
         cookieDictionary[NSHTTPCookieVersion] = [NSString stringWithFormat:@"%lu", cookie.version];
         if (cookie.expiresDate) cookieDictionary[NSHTTPCookieExpires] = cookie.expiresDate;
         [cookieData addObject:cookieDictionary];
+        NSLog(@"    %@", cookieDictionary);
     }
+    NSLog(@"}");
     [[NSUserDefaults standardUserDefaults] setObject:cookieData forKey:kLDUserDefaultsKey_Cookies];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kLDUserDefaultsKey_StoredCookies];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSDictionary *)headerFields
+{
+    return [NSHTTPCookie requestHeaderFieldsWithCookies:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
 }
 
 @end

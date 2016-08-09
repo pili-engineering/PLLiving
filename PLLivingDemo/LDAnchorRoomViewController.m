@@ -16,6 +16,7 @@
 #import "LDDevicePermissionManager.h"
 #import "LDAsyncSemaphore.h"
 #import "LDAlertUtil.h"
+#import "LDServer.h"
 
 #define kTopBarHeight 70
 
@@ -33,6 +34,8 @@ typedef enum {
 @property (nonatomic, assign) BOOL didShowAlertView;
 @property (nonatomic, assign) CGFloat previewContainerBeginPosition;
 @property (nonatomic, assign) LayoutState originalLayoutStateBeforeGestureBeginning;
+
+@property (nonatomic, assign) NSURL *pushingURL;
 
 @property (nonatomic, strong) PLCameraStreamingSession *cameraStreamingSession;
 @property (nonatomic, strong) LDAsyncSemaphore *broadcastingSemaphore;
@@ -202,29 +205,26 @@ typedef enum {
         }
     }];
     
+    __weak typeof(self) weakSelf = self;
     // 异步获取 PLStream 对象。
     // 我之所以要异步获取，是为了让主播在输入 title 的同时，也在等待服务器返回 PLStream 对象。
     // 很可能主播输入完 title 之前，PLStream 就已经拿到了。
     // 这样会减少主播等待的时间，体验会好一点。
-    NSURL *streamCloudURL = [NSURL URLWithString:@"http://pili-demo.qiniu.com/api/stream"];
-    __weak typeof(self) weakSelf = self;
-    
-    [self.broadcastingManager generateStreamObject:streamCloudURL withComplete:^(PLStream *streamObject, LDBroadcastingStreamObjectError error) {
+    [[LDServer sharedServer] createNewRoomWithComplete:^(NSString *pushingURL) {
         
         __strong typeof(self) strongSelf = weakSelf;
         // 在获取 PLStream 的过程中，self 随时可能被关闭，甚至 dealloc。
         // 因为主播随时可以叉掉，然后返回上一级界面。
         // 在关闭之后，也没有必要对 PLStream 进行处理了。
         if (strongSelf && !strongSelf.didClosed) {
-            
-            if (error == LDBroadcastingStreamObjectError_NoError) {
-                [self.roomPanelViewControoler connectToWebSocket];
-                strongSelf.cameraStreamingSession.stream = streamObject;
-                [strongSelf.broadcastingSemaphore signal]; //接收到了 PLStream 对象。
-            } else {
-                // TODO
-            }
+            NSLog(@"get pushing url %@", pushingURL);
+            [strongSelf.roomPanelViewControoler connectToWebSocket];
+            [strongSelf setPushingURL:[NSURL URLWithString:pushingURL]];
+            [strongSelf.broadcastingSemaphore signal]; //接收到了 PLStream 对象。
         }
+        
+    } withFail:^(NSError * _Nullable responseError) {
+        //TODO
     }];
 }
 
@@ -305,10 +305,11 @@ typedef enum {
 - (void)_beginBroadcasting
 {
     if (!self.didClosed) {
-        [self.cameraStreamingSession startWithCompleted:^(BOOL success) {
+        
+        [self.cameraStreamingSession startWithPushURL:self.pushingURL feedback:^(PLStreamStartStateFeedback feedback) {
             // 这个回调方法不在 Main 线程中，如果涉及 UI 操作需转到 Main 线程中处理。
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (success) {
+                if (feedback == PLStreamStartStateSuccess) {
                     [self.view makeToast:LDString("connected-and-is-broadcasting")
                                 duration:1.2 position:CSToastPositionCenter];
                 } else {
@@ -316,6 +317,7 @@ typedef enum {
                 }
             });
         }];
+        
         [UIView animateWithDuration:0.45 animations:^{
             self.blurBackgroundView.effect = nil;
             self.view.backgroundColor = [UIColor blackColor];

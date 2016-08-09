@@ -70,7 +70,7 @@ static LDServer *_sharedInstance;
     } fail:failBlock];
 }
 
-- (void)createNewRoomWithComplete:(void (^)())complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
+- (void)createNewRoomWithComplete:(void (^)(NSString *pushingURL))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
 {
     [self _url:[self _httpURLWithPath:@"/stream"] request:^(NSMutableURLRequest *request) {
         
@@ -78,6 +78,8 @@ static LDServer *_sharedInstance;
         
     } success:^(NSData * _Nullable data, NSHTTPURLResponse * _Nullable response) {
         
+        NSString *url = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        complete(url);
         
     } fail:failBlock];
 }
@@ -115,6 +117,7 @@ static LDServer *_sharedInstance;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setTimeoutInterval:10];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setAllHTTPHeaderFields:[[LDCookies sharedCookies] headerFields]];
     
     if (requestSettingBlock) {
         requestSettingBlock(request);

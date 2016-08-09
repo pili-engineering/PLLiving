@@ -77,30 +77,4 @@
                                                               videoOrientation:captureOrientation];
 }
 
-- (void)generateStreamObject:(NSURL *)streamCloudURL withComplete:(LDBroadcastingComplete)completeBlock
-{
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:streamCloudURL];
-    request.HTTPMethod = @"POST";
-    request.timeoutInterval = 10;
-    
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable responseError) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSError *error = responseError;
-            if (error != nil || response == nil || data == nil) {
-                // 获取 stream JSON 失败
-                completeBlock(nil, LDBroadcastingStreamObjectError_CanNotGetJSON);
-                return;
-            }
-            NSDictionary *streamJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
-            if (error != nil || streamJSON == nil) {
-                // 解析 JSON 失败
-                completeBlock(nil, LDBroadcastingStreamObjectError_ParseJSONFail);
-                return;
-            }
-            completeBlock([PLStream streamWithJSON:streamJSON], LDBroadcastingStreamObjectError_NoError);
-        });
-    }];
-    [task resume];
-}
-
 @end

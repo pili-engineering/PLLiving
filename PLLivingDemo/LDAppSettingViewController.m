@@ -187,6 +187,9 @@
     [self _confirmLogout:^(BOOL willLogout) {
         if (willLogout) {
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kLDUserDefaultsKey_DidLogin];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:kLDUserDefaultsKey_StoredCookies];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
             UIWindow *window = self.view.window;
             [self dismissViewControllerAnimated:YES completion:^{
                 [window.basicViewController popupViewController:[[LDLoginViewController alloc] init] animated:YES completion:^{
