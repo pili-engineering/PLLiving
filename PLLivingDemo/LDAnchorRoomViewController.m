@@ -35,7 +35,7 @@ typedef enum {
 @property (nonatomic, assign) CGFloat previewContainerBeginPosition;
 @property (nonatomic, assign) LayoutState originalLayoutStateBeforeGestureBeginning;
 
-@property (nonatomic, assign) NSURL *pushingURL;
+@property (nonatomic, strong) NSURL *pushingURL;
 
 @property (nonatomic, strong) PLCameraStreamingSession *cameraStreamingSession;
 @property (nonatomic, strong) LDAsyncSemaphore *broadcastingSemaphore;
@@ -206,6 +206,7 @@ typedef enum {
     }];
     
     __weak typeof(self) weakSelf = self;
+    
     // 异步获取 PLStream 对象。
     // 我之所以要异步获取，是为了让主播在输入 title 的同时，也在等待服务器返回 PLStream 对象。
     // 很可能主播输入完 title 之前，PLStream 就已经拿到了。
@@ -305,6 +306,8 @@ typedef enum {
 - (void)_beginBroadcasting
 {
     if (!self.didClosed) {
+        
+        NSLog(@"start pushing %@", self.pushingURL);
         
         [self.cameraStreamingSession startWithPushURL:self.pushingURL feedback:^(PLStreamStartStateFeedback feedback) {
             // 这个回调方法不在 Main 线程中，如果涉及 UI 操作需转到 Main 线程中处理。
