@@ -312,6 +312,7 @@ typedef enum {
         [self.cameraStreamingSession startWithPushURL:self.pushingURL feedback:^(PLStreamStartStateFeedback feedback) {
             // 这个回调方法不在 Main 线程中，如果涉及 UI 操作需转到 Main 线程中处理。
             dispatch_async(dispatch_get_main_queue(), ^{
+                
                 if (feedback == PLStreamStartStateSuccess) {
                     [self.view makeToast:LDString("connected-and-is-broadcasting")
                                 duration:1.2 position:CSToastPositionCenter];

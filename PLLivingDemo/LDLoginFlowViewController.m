@@ -28,11 +28,15 @@
 
 @interface _LDLoginPerfectInformation : LDLoginFlowViewController <UINavigationControllerDelegate,
                                                                    UIImagePickerControllerDelegate>
+@property (nonatomic, strong) NSString *uploadToken;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @property (nonatomic, strong) UIImageView *iconImageView;
 @property (nonatomic, strong) UIButton *resetIconButton;
 @property (nonatomic, strong) UITextField *userNameField;
 @property (nonatomic, strong) UIButton *createUserButton;
+
+- (instancetype)initWithTitle:(NSString *)title withUploadToken:(NSString *)uploadToken withParent:(LDLoginFlowViewController *)parent;
+
 @end
 
 @implementation LDLoginFlowViewController
@@ -280,12 +284,12 @@
 {
     self.sendButton.enabled = NO;
     
-    [[LDServer sharedServer] postMobileCaptcha:self.confirmationField.text withPhoneNumber:self.phoneNumber withComplete:^(BOOL valid) {
+    [[LDServer sharedServer] postMobileCaptcha:self.confirmationField.text withPhoneNumber:self.phoneNumber withComplete:^(NSString *uploadToken) {
         
         self.sendButton.enabled = YES;
         
-        if (valid) {
-            UIViewController *viewController = [[_LDLoginPerfectInformation alloc] initWithTitle:LDString("perfect-information") withParent:self];
+        if (uploadToken) {
+            UIViewController *viewController = [[_LDLoginPerfectInformation alloc] initWithTitle:LDString("perfect-information") withUploadToken:uploadToken withParent:self];
             [self.navigationController pushViewController:viewController animated:YES];
             
         } else {
@@ -319,6 +323,14 @@
 @end
 
 @implementation _LDLoginPerfectInformation
+
+- (instancetype)initWithTitle:(NSString *)title withUploadToken:(NSString *)uploadToken withParent:(LDLoginFlowViewController *)parent
+{
+    if (self = [self initWithTitle:title withParent:parent]) {
+        _uploadToken = uploadToken;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {

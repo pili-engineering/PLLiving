@@ -38,7 +38,7 @@ static LDServer *_sharedInstance;
     } fail:failBlock];
 }
 
-- (void)postMobileCaptcha:(NSString *)captcha withPhoneNumber:(NSString *)phoneNumber withComplete:(void (^)(BOOL valid))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
+- (void)postMobileCaptcha:(NSString *)captcha withPhoneNumber:(NSString *)phoneNumber withComplete:(void (^)(NSString *uploadToken))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
 {
     [self _url:[self _httpURLWithPath:@"/mobile_verify"] request:^(NSMutableURLRequest *request) {
         
@@ -48,11 +48,19 @@ static LDServer *_sharedInstance;
         
     } success:^(NSData * _Nullable data, NSHTTPURLResponse * _Nullable response) {
         
+        NSString *token = nil;
         if (response.statusCode == 200) {
-            complete(YES);
-        } else if (response.statusCode == 400) {
-            complete(NO);
+            
+            NSError *error = nil;
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
+                                                                 options:NSJSONReadingMutableLeaves
+                                                                   error:&error];
+            if (!error) {
+                token = json[@"token"];
+            }
         }
+        complete(token);
+        
     } fail:failBlock];
 }
 
