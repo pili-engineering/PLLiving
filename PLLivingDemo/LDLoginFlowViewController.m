@@ -207,7 +207,7 @@
 
 - (void)_onPressedSend:(id)sender
 {
-    self.sendButton.enabled = NO;
+    [self _setEnable:NO withButton:self.sendButton];
     self.phoneNumber.enabled = NO;
     
     [[LDServer sharedServer] requestMobileCaptchaWithPhoneNumber:self.phoneNumber.text withComplete:^{
@@ -217,12 +217,12 @@
         
         viewController.phoneNumber = self.phoneNumber.text;
         
-        self.sendButton.enabled = YES;
+        [self _setEnable:YES withButton:self.sendButton];
         self.phoneNumber.enabled = YES;
         
     } withFail:^(NSError * _Nullable responseError) {
         
-        self.sendButton.enabled = YES;
+        [self _setEnable:YES withButton:self.sendButton];
         self.phoneNumber.enabled = YES;
     }];
 }
@@ -414,6 +414,8 @@
     
     [self.resetIconButton addTarget:self action:@selector(_onPressedResetIconImage:)
                    forControlEvents:UIControlEventTouchUpInside];
+    [self.userNameField addTarget:self action:@selector(_onUserNameChanged:)
+               forControlEvents:UIControlEventEditingChanged];
     [self _checkCreateAccountCondition];
 }
 
@@ -429,7 +431,12 @@
 
 - (void)_checkCreateAccountCondition
 {
-    self.createUserButton.enabled = [self _enableCreateAccount];
+    [self _setEnable:[self _enableCreateAccount] withButton:self.createUserButton];
+}
+
+- (void)_onUserNameChanged:(id)sender
+{
+    [self _checkCreateAccountCondition];
 }
 
 - (BOOL)_enableCreateAccount
