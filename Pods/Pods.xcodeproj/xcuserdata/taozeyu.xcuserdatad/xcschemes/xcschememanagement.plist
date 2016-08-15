@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>HappyDNS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -15,6 +20,11 @@
 			<false/>
 		</dict>
 		<key>Pods-PLLivingDemo.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Qiniu.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,17 +52,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>03C5ABB11428AC238A1739EFF2E8DDD0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>081ECED0ED7CFE0A3AD80CC5D82F859E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>2BAC7CF49C86172B8F10A9ADFC08EF59</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4C956AEB62E5465130FD3DD3E4F7EFE0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,7 +67,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8FC745C9A8DBC5CB8B99FBB100F19890</key>
+		<key>928353533005A4198EBDA5B700D37B64</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BCE5865E68C7973B077043E0512CDFAD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C89043CF032B828444E8659EBE63F994</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,7 +87,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FFFF9A80B71C3288F15CA49BE7B59F4E</key>
+		<key>F1BD099FC9BA6C02956F677DA4CB28D1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F1FDBF73AD62E6281977273E237D608C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

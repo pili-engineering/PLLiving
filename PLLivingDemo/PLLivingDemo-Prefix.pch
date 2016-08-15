@@ -10,6 +10,7 @@
 
 #import "PLCameraStreamingKit.h"
 #import <PLPlayerKit/PLPlayer.h>
+#import <QiniuSDK.h>
 
 #import <RegexKitLite-NoWarning/RegexKitLite.h>
 #import <Masonry/Masonry.h>

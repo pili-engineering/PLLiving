@@ -4,7 +4,9 @@ target 'PLLivingDemo' do
     pod "PLMediaStreamingKit", '~> 2.0'
     # 七牛直播云 - 播放端
     pod "PLPlayerKit", '~> 2.2'
-    
+    # 七牛云存储
+    pod "Qiniu", "~> 7.0"
+
     pod 'SocketRocket'
     
     pod 'RegexKitLite-NoWarning'
