@@ -8,5 +8,7 @@
 	<string>http://192.168.200.103:8010/ws</string>
 	<key>WechatAppID</key>
 	<string>fill_your_wechat_app_id</string>
+	<key>ImageDomain</key>
+	<string>fill_your_image_domain</string>
 </dict>
 </plist>
