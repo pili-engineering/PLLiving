@@ -22,6 +22,9 @@
 "create-account" = "Create Account";
 "confirm-fail" = "手机验证码错误";
 "user-name-length" = "用户名仅支持3～15位英文字母和数字";
+"start-uploading-icon" = "正在上传头像";
+"finish-uploading-icon" = "头像上传完毕";
+"failed-to-upload-icon" = "头像上传失败";
 
 // Permission Request
 "can-not-broadcasting" = "无法进行直播";

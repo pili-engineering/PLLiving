@@ -9,6 +9,7 @@
 #import "LDLoginFlowViewController.h"
 #import "LDLobbyViewController.h"
 #import "LDServer.h"
+#import "LDLivingConfiguration.h"
 
 @interface LDLoginFlowViewController ()
 @property (nonatomic, weak) LDLoginFlowViewController *parent;
@@ -413,6 +414,7 @@
     
     [self.resetIconButton addTarget:self action:@selector(_onPressedResetIconImage:)
                    forControlEvents:UIControlEventTouchUpInside];
+    [self _checkCreateAccountCondition];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -427,7 +429,22 @@
 
 - (void)_checkCreateAccountCondition
 {
-    
+    self.createUserButton.enabled = [self _enableCreateAccount];
+}
+
+- (BOOL)_enableCreateAccount
+{
+    if (!self.iconURL) {
+        return NO;
+    }
+    NSString *userName = self.userNameField.text;
+    if (![userName isMatchedByRegex:@"(\\w|_|\\d)+"]) {
+        return NO;
+    }
+    if (!(userName.length > 5 && userName.length <= 20)) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)_onPressedResetIconImage:(id)sender
@@ -496,23 +513,49 @@
         }
         [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationRight];
     });
-    QNUploadManager *upManager = [[QNUploadManager alloc] initWithConfiguration:[QNConfiguration build:^(QNConfigurationBuilder *builder) {
-        builder.zone = [QNZone zone1]; //华北存储区域入口
-    }]];
+    
+    [self _uploadImage:self.iconImageView.image];
+    
+    [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
+    self.imagePicker = nil;
+}
+
+- (void)_uploadImage:(UIImage *)image
+{
     [self setIconURL:nil];
     [self _checkCreateAccountCondition];
     
     NSLog(@"token : %@", self.uploadToken);
     
-    [upManager putFile:[self _imagePath:self.iconImageView.image] key:nil token:self.uploadToken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-        
-        NSLog(@"info : %@", info);
-        NSLog(@"resp : %@", resp);
-        
-    } option:nil];
+    [self.view makeToast:LDString("start-uploading-icon") duration:1.2 position:CSToastPositionCenter];
     
-    [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
-    self.imagePicker = nil;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        QNUploadManager *upManager = [[QNUploadManager alloc] initWithConfiguration:[QNConfiguration build:^(QNConfigurationBuilder *builder) {
+            builder.zone = [QNZone zone1]; //华北存储区域入口
+        }]];
+        
+        [upManager putFile:[self _imagePath:image] key:nil token:self.uploadToken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+            
+            if (info.statusCode == 200) {
+                NSString *imageKey = resp[@"key"];
+                NSString *imageDomain = [LDLivingConfiguration sharedLivingConfiguration].imageDomain;
+                NSString *imageURL = [NSString stringWithFormat:@"%@/%@", imageDomain, imageKey];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self setIconURL:imageURL];
+                    [self _checkCreateAccountCondition];
+                    [self.view makeToast:LDString("finish-uploading-icon") duration:1.2
+                                position:CSToastPositionCenter];
+                    
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.view makeToast:LDString("failed-to-upload-icon") duration:1.2
+                                position:CSToastPositionCenter];
+                });
+            }
+        } option:nil];
+    });
 }
 
 - (NSString *)_imagePath:(UIImage *)Image {

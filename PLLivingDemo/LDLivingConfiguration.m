@@ -39,6 +39,7 @@ static LDLivingConfiguration *_instance;
 {
     _chatRoomWebsocketURL = self.configurationDictionary[@"ChatRoomWebsocketURL"];
     _httpServerURL = self.configurationDictionary[@"HttpServerURL"];
+    _imageDomain = self.configurationDictionary[@"ImageDomain"];
     
     NSString *wechatAppID = self.configurationDictionary[@"WechatAppID"];
     _canUseWechat = [WXApi registerApp:wechatAppID withDescription:@"LIVING 1.0"] &&
