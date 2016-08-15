@@ -29,6 +29,7 @@
 @interface _LDLoginPerfectInformation : LDLoginFlowViewController <UINavigationControllerDelegate,
                                                                    UIImagePickerControllerDelegate>
 @property (nonatomic, strong) NSString *uploadToken;
+@property (nonatomic, strong) NSString *iconURL;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @property (nonatomic, strong) UIImageView *iconImageView;
 @property (nonatomic, strong) UIButton *resetIconButton;
@@ -424,6 +425,11 @@
     [self.userNameField resignFirstResponder];
 }
 
+- (void)_checkCreateAccountCondition
+{
+    
+}
+
 - (void)_onPressedResetIconImage:(id)sender
 {
     if ([self _checkCameraAuthorizationStatus]) {
@@ -490,8 +496,49 @@
         }
         [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationRight];
     });
+    QNUploadManager *upManager = [[QNUploadManager alloc] initWithConfiguration:[QNConfiguration build:^(QNConfigurationBuilder *builder) {
+        builder.zone = [QNZone zone1]; //华北存储区域入口
+    }]];
+    [self setIconURL:nil];
+    [self _checkCreateAccountCondition];
+    
+    NSLog(@"token : %@", self.uploadToken);
+    
+    [upManager putFile:[self _imagePath:self.iconImageView.image] key:nil token:self.uploadToken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        
+        NSLog(@"info : %@", info);
+        NSLog(@"resp : %@", resp);
+        
+    } option:nil];
+    
     [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
     self.imagePicker = nil;
+}
+
+- (NSString *)_imagePath:(UIImage *)Image {
+    NSString *filePath = nil;
+    NSData *data = nil;
+    if (UIImagePNGRepresentation(Image) == nil) {
+        data = UIImageJPEGRepresentation(Image, 1.0);
+    } else {
+        data = UIImagePNGRepresentation(Image);
+    }
+    
+    //图片保存的路径
+    //这里将图片放在沙盒的documents文件夹中
+    NSString *DocumentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    
+    //文件管理器
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    //把刚刚图片转换的data对象拷贝至沙盒中
+    [fileManager createDirectoryAtPath:DocumentsPath withIntermediateDirectories:YES attributes:nil error:nil];
+    NSString *ImagePath = [[NSString alloc] initWithFormat:@"/upload_icon.png"];
+    [fileManager createFileAtPath:[DocumentsPath stringByAppendingString:ImagePath] contents:data attributes:nil];
+    
+    //得到选择后沙盒中图片的完整路径
+    filePath = [[NSString alloc] initWithFormat:@"%@%@", DocumentsPath, ImagePath];
+    return filePath;
 }
 
 @end
