@@ -7,6 +7,7 @@
 //
 
 #import "LDUser.h"
+#import "AppDelegate.h"
 
 @implementation LDUser
 
@@ -22,10 +23,25 @@ static LDUser *_instance;
     return _instance;
 }
 
+- (BOOL)hasSetUserInfo
+{
+    return [[NSUserDefaults standardUserDefaults] dictionaryForKey:kLDUserDefaultsKey_User] != nil;
+}
+
+- (void)loadFromUserDefaults
+{
+    NSDictionary *users = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kLDUserDefaultsKey_User];
+    _userName = users[@"userName"];
+    _iconURL = users[@"iconURL"];
+}
+
 - (void)resetUserName:(NSString *)userName andIconURL:(NSString *)iconURL
 {
     _userName = userName;
     _iconURL = iconURL;
+    [[NSUserDefaults standardUserDefaults] setObject:@{@"userName": userName,
+                                                       @"iconURL": iconURL
+                                                       } forKey:kLDUserDefaultsKey_User];
 }
 
 @end

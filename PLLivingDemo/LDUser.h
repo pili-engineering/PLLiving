@@ -15,5 +15,7 @@
 
 + (instancetype)sharedUser;
 - (void)resetUserName:(NSString *)userName andIconURL:(NSString *)iconURL;
+- (BOOL)hasSetUserInfo;
+- (void)loadFromUserDefaults;
 
 @end

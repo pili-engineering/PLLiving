@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "LDLobbyViewController.h"
 #import "LDCookies.h"
+#import "LDUser.h"
 #import "LDLoginViewController.h"
 #import "LDLivingConfiguration.h"
 
@@ -17,7 +18,6 @@
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -35,9 +35,10 @@
         window;
     });
     [self.window makeKeyAndVisible];
+    [[LDUser sharedUser] loadFromUserDefaults];
     
     UIViewController *viewController;
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kLDUserDefaultsKey_DidLogin]) {
+    if ([[LDUser sharedUser] hasSetUserInfo]) {
         viewController = [[LDLobbyViewController alloc] init];
     } else {
         viewController = [[LDLoginViewController alloc] init];
