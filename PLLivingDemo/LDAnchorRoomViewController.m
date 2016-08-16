@@ -314,6 +314,7 @@ typedef enum {
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 if (feedback == PLStreamStartStateSuccess) {
+                    NSLog(@"push success.");
                     [self.view makeToast:LDString("connected-and-is-broadcasting")
                                 duration:1.2 position:CSToastPositionCenter];
                 } else {
