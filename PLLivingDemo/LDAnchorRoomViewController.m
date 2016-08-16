@@ -379,6 +379,7 @@ typedef enum {
 - (void)cameraStreamingSession:(PLCameraStreamingSession *)session didDisconnectWithError:(NSError *)error
 {
     if (!self.didClosed) {
+        NSLog(@"catch error : %@", error);
         [self _closeAndAlertErrorMessage:LDString("broadcast-disconnected-because-found-error")];
     }
 }
