@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8BC73B27C5C0A7EC2410CF25 /* libPods-PLLivingDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A4A305236244101D84161AC /* libPods-PLLivingDemo.a */; };
 		D204E5161D62B5D600E987D6 /* LDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D204E5151D62B5D600E987D6 /* LDUser.m */; };
+		D204E51D1D62C5A400E987D6 /* LDURLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D204E51C1D62C5A400E987D6 /* LDURLImageView.m */; };
 		D23009DF1D3DC2BA004A649C /* LDDevicePermissionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009DE1D3DC2BA004A649C /* LDDevicePermissionManager.m */; };
 		D23009E31D3DF3CD004A649C /* LDAsyncSemaphore.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009E21D3DF3CD004A649C /* LDAsyncSemaphore.m */; };
 		D23009E61D3E208C004A649C /* LDSpectatorRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009E51D3E208C004A649C /* LDSpectatorRoomViewController.m */; };
@@ -112,6 +113,8 @@
 		CF0CF65ADD9F85E3E7F76D97 /* Pods-PLLivingDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLLivingDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PLLivingDemo/Pods-PLLivingDemo.release.xcconfig"; sourceTree = "<group>"; };
 		D204E5141D62B5D600E987D6 /* LDUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDUser.h; sourceTree = "<group>"; };
 		D204E5151D62B5D600E987D6 /* LDUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDUser.m; sourceTree = "<group>"; };
+		D204E51B1D62C5A400E987D6 /* LDURLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDURLImageView.h; sourceTree = "<group>"; };
+		D204E51C1D62C5A400E987D6 /* LDURLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDURLImageView.m; sourceTree = "<group>"; };
 		D23009DD1D3DC2BA004A649C /* LDDevicePermissionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDDevicePermissionManager.h; sourceTree = "<group>"; };
 		D23009DE1D3DC2BA004A649C /* LDDevicePermissionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDDevicePermissionManager.m; sourceTree = "<group>"; };
 		D23009E11D3DF3CD004A649C /* LDAsyncSemaphore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAsyncSemaphore.h; sourceTree = "<group>"; };
@@ -312,6 +315,8 @@
 				D2F6B31C1D40A00F0000B6C7 /* UIColor+HexString.m */,
 				D2AE563D1D487331005BB832 /* UIImage+Color.h */,
 				D2AE563E1D487331005BB832 /* UIImage+Color.m */,
+				D204E51B1D62C5A400E987D6 /* LDURLImageView.h */,
+				D204E51C1D62C5A400E987D6 /* LDURLImageView.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -772,6 +777,7 @@
 				D27022C31D421DE000A8B311 /* LDSpectatorListViewController.m in Sources */,
 				D2AE563F1D487331005BB832 /* UIImage+Color.m in Sources */,
 				D2F9078B1D3C7A56006C987F /* LDLoginViewController.m in Sources */,
+				D204E51D1D62C5A400E987D6 /* LDURLImageView.m in Sources */,
 				D2F907AB1D3CB271006C987F /* LDAnchorRoomViewController.m in Sources */,
 				D2E6548C1D4733EE00DD7A14 /* LDPanGestureHandler.m in Sources */,
 				D23063881D45F635001D3283 /* LDReportViewController.m in Sources */,

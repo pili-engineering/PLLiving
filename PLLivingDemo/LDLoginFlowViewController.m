@@ -551,7 +551,7 @@
             if (info.statusCode == 200) {
                 NSString *imageKey = resp[@"key"];
                 NSString *imageDomain = [LDLivingConfiguration sharedLivingConfiguration].imageDomain;
-                NSString *imageURL = [NSString stringWithFormat:@"%@/%@", imageDomain, imageKey];
+                NSString *imageURL = [NSString stringWithFormat:@"http://%@/%@", imageDomain, imageKey];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self setIconURL:imageURL];
                     [self _checkCreateAccountCondition];

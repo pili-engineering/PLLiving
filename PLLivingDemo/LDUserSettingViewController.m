@@ -9,6 +9,8 @@
 #import "LDUserSettingViewController.h"
 #import "LDSettingNavigationController.h"
 #import "LDAppSettingViewController.h"
+#import "LDURLImageView.h"
+#import "LDUser.h"
 
 @interface LDUserSettingViewController()
 @property (nonatomic, strong) UIImageView *userIconImageView;
@@ -63,9 +65,9 @@
     });
     
     self.userIconImageView = ({
-        UIImageView *imageView = [[UIImageView alloc] init];
+        NSURL *iconURL = [NSURL URLWithString:[LDUser sharedUser].iconURL];
+        LDURLImageView *imageView = [[LDURLImageView alloc] initWithURL:iconURL withDefaultImageName:@"icon2.jpg"];
         [userIconContainer addSubview:imageView];
-        imageView.image = [UIImage imageNamed:@"icon2.jpg"];
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.left.and.right.equalTo(userIconContainer);
         }];
@@ -77,7 +79,7 @@
         [panel addSubview:label];
         label.textColor = [UIColor colorWithHexString:@"383838"];
         label.font = [UIFont systemFontOfSize:16];
-        label.text = @"Lydia Ray";
+        label.text = [LDUser sharedUser].userName;
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.userIconImageView.mas_bottom).with.offset(26);
             make.centerX.equalTo(self.userIconImageView);
