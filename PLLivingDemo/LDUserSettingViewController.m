@@ -66,7 +66,7 @@
     
     self.userIconImageView = ({
         NSURL *iconURL = [NSURL URLWithString:[LDUser sharedUser].iconURL];
-        LDURLImageView *imageView = [[LDURLImageView alloc] initWithURL:iconURL withDefaultImageName:@"icon2.jpg"];
+        LDURLImageView *imageView = [[LDURLImageView alloc] initWithURL:iconURL withDefaultImageName:@"user"];
         [userIconContainer addSubview:imageView];
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.left.and.right.equalTo(userIconContainer);

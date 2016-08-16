@@ -10,6 +10,10 @@
 		8BC73B27C5C0A7EC2410CF25 /* libPods-PLLivingDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A4A305236244101D84161AC /* libPods-PLLivingDemo.a */; };
 		D204E5161D62B5D600E987D6 /* LDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D204E5151D62B5D600E987D6 /* LDUser.m */; };
 		D204E51D1D62C5A400E987D6 /* LDURLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D204E51C1D62C5A400E987D6 /* LDURLImageView.m */; };
+		D204E5201D62DA2700E987D6 /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = D204E51F1D62DA2700E987D6 /* UIImage+FixOrientation.m */; };
+		D204E5241D62DA7900E987D6 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = D204E5211D62DA7900E987D6 /* user.png */; };
+		D204E5251D62DA7900E987D6 /* user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D204E5221D62DA7900E987D6 /* user@2x.png */; };
+		D204E5261D62DA7900E987D6 /* user@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D204E5231D62DA7900E987D6 /* user@3x.png */; };
 		D23009DF1D3DC2BA004A649C /* LDDevicePermissionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009DE1D3DC2BA004A649C /* LDDevicePermissionManager.m */; };
 		D23009E31D3DF3CD004A649C /* LDAsyncSemaphore.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009E21D3DF3CD004A649C /* LDAsyncSemaphore.m */; };
 		D23009E61D3E208C004A649C /* LDSpectatorRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009E51D3E208C004A649C /* LDSpectatorRoomViewController.m */; };
@@ -115,6 +119,11 @@
 		D204E5151D62B5D600E987D6 /* LDUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDUser.m; sourceTree = "<group>"; };
 		D204E51B1D62C5A400E987D6 /* LDURLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDURLImageView.h; sourceTree = "<group>"; };
 		D204E51C1D62C5A400E987D6 /* LDURLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDURLImageView.m; sourceTree = "<group>"; };
+		D204E51E1D62DA2700E987D6 /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
+		D204E51F1D62DA2700E987D6 /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
+		D204E5211D62DA7900E987D6 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user.png; path = Assets/user.png; sourceTree = "<group>"; };
+		D204E5221D62DA7900E987D6 /* user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "user@2x.png"; path = "Assets/user@2x.png"; sourceTree = "<group>"; };
+		D204E5231D62DA7900E987D6 /* user@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "user@3x.png"; path = "Assets/user@3x.png"; sourceTree = "<group>"; };
 		D23009DD1D3DC2BA004A649C /* LDDevicePermissionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDDevicePermissionManager.h; sourceTree = "<group>"; };
 		D23009DE1D3DC2BA004A649C /* LDDevicePermissionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDDevicePermissionManager.m; sourceTree = "<group>"; };
 		D23009E11D3DF3CD004A649C /* LDAsyncSemaphore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAsyncSemaphore.h; sourceTree = "<group>"; };
@@ -317,6 +326,8 @@
 				D2AE563E1D487331005BB832 /* UIImage+Color.m */,
 				D204E51B1D62C5A400E987D6 /* LDURLImageView.h */,
 				D204E51C1D62C5A400E987D6 /* LDURLImageView.m */,
+				D204E51E1D62DA2700E987D6 /* UIImage+FixOrientation.h */,
+				D204E51F1D62DA2700E987D6 /* UIImage+FixOrientation.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -373,6 +384,9 @@
 		D2F6B31E1D40A6230000B6C7 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				D204E5211D62DA7900E987D6 /* user.png */,
+				D204E5221D62DA7900E987D6 /* user@2x.png */,
+				D204E5231D62DA7900E987D6 /* user@3x.png */,
 				D2AE56431D48AB1C005BB832 /* arrows-right@2x.png */,
 				D2AE56441D48AB1C005BB832 /* arrows-right@3x.png */,
 				D23063891D4610A4001D3283 /* Group@2x.png */,
@@ -665,12 +679,15 @@
 				D246EBBD1D41EEE500510816 /* arrows-left@3x.png in Resources */,
 				D27022B91D41F8D800A8B311 /* arrows-up@3x.png in Resources */,
 				D246EBCF1D41EEE500510816 /* share-link@2x.png in Resources */,
+				D204E5241D62DA7900E987D6 /* user.png in Resources */,
 				D246EBD81D41EEE500510816 /* share@3x.png in Resources */,
 				D246EBCA1D41EEE500510816 /* logo@2x.png in Resources */,
 				D246EBBF1D41EEE500510816 /* audience@3x.png in Resources */,
 				D246EBC61D41EEE500510816 /* icon-menu@2x.png in Resources */,
 				D230638C1D4610A4001D3283 /* Group@3x.png in Resources */,
+				D204E5251D62DA7900E987D6 /* user@2x.png in Resources */,
 				D246EBD01D41EEE500510816 /* share-link@3x.png in Resources */,
+				D204E5261D62DA7900E987D6 /* user@3x.png in Resources */,
 				D246EBD91D41EEE500510816 /* toggle-camera@2x.png in Resources */,
 				D246EBC71D41EEE500510816 /* icon-menu@3x.png in Resources */,
 				D2F907791D3C705D006C987F /* LaunchScreen.storyboard in Resources */,
@@ -755,6 +772,7 @@
 				D2F907A21D3C9D5C006C987F /* LDRoomItem.m in Sources */,
 				D293D80F1D586A0800F8E255 /* LDCookies.m in Sources */,
 				D2FA977F1D3F2F6800ADB180 /* LDTouchTransparentView.m in Sources */,
+				D204E5201D62DA2700E987D6 /* UIImage+FixOrientation.m in Sources */,
 				D27022C01D4214CA00A8B311 /* LDBlurViewController.m in Sources */,
 				D2FA97881D3F4AF600ADB180 /* LDChatBubbleView.m in Sources */,
 				D2F907A51D3CA066006C987F /* LDLobbyRoomView.m in Sources */,

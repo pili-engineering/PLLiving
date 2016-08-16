@@ -7,6 +7,7 @@
 //
 
 #import "LDLoginFlowViewController.h"
+#import "UIImage+FixOrientation.h"
 #import "LDLobbyViewController.h"
 #import "LDServer.h"
 #import "LDUser.h"
@@ -355,6 +356,7 @@
     
     self.iconImageView = ({
         UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.image = [UIImage imageNamed:@"user"];
         [iconContainer addSubview:imageView];
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.left.and.right.equalTo(iconContainer);
@@ -499,6 +501,8 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)pickedImage editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo
 {
+    pickedImage = [pickedImage fixOrientation];
+    
     self.iconImageView.image = ({
         
         CGSize imageSize = CGSizeMake(160, 160);
