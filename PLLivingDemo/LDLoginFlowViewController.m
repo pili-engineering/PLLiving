@@ -501,28 +501,30 @@
 {
     self.iconImageView.image = ({
         
-        CGImageRef imageRef = pickedImage.CGImage;
-        CGImageRef subimageRef = NULL;
+        CGSize imageSize = CGSizeMake(160, 160);
+        UIImage *image = pickedImage;
         
-        CGRect pickedRect = CGRectMake(0, 0, CGImageGetWidth(imageRef), CGImageGetHeight(imageRef));
-        
-        if (pickedRect.size.width > pickedRect.size.height) {
-            pickedRect.origin.x = (pickedRect.size.width - pickedRect.size.height)/2;
-            pickedRect.size.width = pickedRect.size.height;
+        if (!CGSizeEqualToSize(imageSize, pickedImage.size)) {
+            CGImageRef imageRef = pickedImage.CGImage;
+            CGRect pickedRect = CGRectMake(0, 0, CGImageGetWidth(imageRef), CGImageGetHeight(imageRef));
             
-        } else if (pickedRect.size.width < pickedRect.size.height) {
-            pickedRect.origin.y = (pickedRect.size.height - pickedRect.size.width)/2;
-            pickedRect.size.height = pickedRect.size.width;
-        }
-        
-        if (CGSizeEqualToSize(pickedRect.size, pickedImage.size)) {
-            imageRef = pickedImage.CGImage;
+            if (pickedRect.size.width > pickedRect.size.height) {
+                pickedRect.origin.x = (pickedRect.size.width - pickedRect.size.height)/2;
+                pickedRect.size.width = pickedRect.size.height;
+                
+            } else if (pickedRect.size.width < pickedRect.size.height) {
+                pickedRect.origin.y = (pickedRect.size.height - pickedRect.size.width)/2;
+                pickedRect.size.height = pickedRect.size.width;
+            }
+            imageRef = CGImageCreateWithImageInRect(pickedImage.CGImage, pickedRect);
             
-        } else {
-            subimageRef = CGImageCreateWithImageInRect(pickedImage.CGImage, pickedRect);
-            imageRef = subimageRef;
+            UIGraphicsBeginImageContext(imageSize);
+            CGContextRef context = UIGraphicsGetCurrentContext();
+            CGContextDrawImage(context, CGRectMake(0, 0, imageSize.width, imageSize.height), imageRef);
+            image = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
         }
-        [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationRight];
+        image;
     });
     
     [self _uploadImage:self.iconImageView.image];
