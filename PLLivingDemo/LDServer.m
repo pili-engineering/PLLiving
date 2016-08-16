@@ -79,11 +79,12 @@ static LDServer *_sharedInstance;
     } fail:failBlock];
 }
 
-- (void)createNewRoomWithComplete:(void (^)(NSString *pushingURL))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
+- (void)createNewRoomWithTitle:(NSString *)title withComplete:(void (^)(NSString *pushingURL))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
 {
-    [self _url:[self _httpURLWithPath:@"/stream"] request:^(NSMutableURLRequest *request) {
+    [self _url:[self _httpURLWithPath:@"/create_stream"] request:^(NSMutableURLRequest *request) {
         
         request.HTTPMethod = @"POST";
+        [self _setRequest:request WithHttpBodyParams:@{@"title": title,}];
         
     } success:^(NSData * _Nullable data, NSHTTPURLResponse * _Nullable response) {
         

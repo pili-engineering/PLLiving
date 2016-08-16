@@ -211,7 +211,7 @@ typedef enum {
     // 我之所以要异步获取，是为了让主播在输入 title 的同时，也在等待服务器返回 PLStream 对象。
     // 很可能主播输入完 title 之前，PLStream 就已经拿到了。
     // 这样会减少主播等待的时间，体验会好一点。
-    [[LDServer sharedServer] createNewRoomWithComplete:^(NSString *pushingURL) {
+    [[LDServer sharedServer] createNewRoomWithTitle:@"testROOM" withComplete:^(NSString *pushingURL) {
         
         __strong typeof(self) strongSelf = weakSelf;
         // 在获取 PLStream 的过程中，self 随时可能被关闭，甚至 dealloc。
