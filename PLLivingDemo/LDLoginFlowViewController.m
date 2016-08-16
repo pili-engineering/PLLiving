@@ -9,6 +9,7 @@
 #import "LDLoginFlowViewController.h"
 #import "LDLobbyViewController.h"
 #import "LDServer.h"
+#import "LDUser.h"
 #import "LDLivingConfiguration.h"
 
 @interface LDLoginFlowViewController ()
@@ -467,7 +468,10 @@
 
 - (void)_onPressedCreateAccount:(id)sender
 {
-    [[LDServer sharedServer] postUserName:self.userNameField.text withComplete:^{
+    LDUser *user = [LDUser sharedUser];
+    [user resetUserName:self.userNameField.text andIconURL:self.iconURL];
+    
+    [[LDServer sharedServer] postUserName:user.userName withIconURL:user.iconURL withComplete:^{
         
         id<LDLoginFlowViewControllerDelegate> delegate = self.rootFlowViewController.delegate;
         if ([delegate respondsToSelector:@selector(flowViewControllerComplete:)]) {

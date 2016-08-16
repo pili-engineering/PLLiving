@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8BC73B27C5C0A7EC2410CF25 /* libPods-PLLivingDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A4A305236244101D84161AC /* libPods-PLLivingDemo.a */; };
+		D204E5161D62B5D600E987D6 /* LDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D204E5151D62B5D600E987D6 /* LDUser.m */; };
 		D23009DF1D3DC2BA004A649C /* LDDevicePermissionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009DE1D3DC2BA004A649C /* LDDevicePermissionManager.m */; };
 		D23009E31D3DF3CD004A649C /* LDAsyncSemaphore.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009E21D3DF3CD004A649C /* LDAsyncSemaphore.m */; };
 		D23009E61D3E208C004A649C /* LDSpectatorRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D23009E51D3E208C004A649C /* LDSpectatorRoomViewController.m */; };
@@ -109,6 +110,8 @@
 		5A4A305236244101D84161AC /* libPods-PLLivingDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PLLivingDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AFCD06CD632ECCE56BC2242 /* Pods-PLLivingDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLLivingDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PLLivingDemo/Pods-PLLivingDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		CF0CF65ADD9F85E3E7F76D97 /* Pods-PLLivingDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLLivingDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PLLivingDemo/Pods-PLLivingDemo.release.xcconfig"; sourceTree = "<group>"; };
+		D204E5141D62B5D600E987D6 /* LDUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDUser.h; sourceTree = "<group>"; };
+		D204E5151D62B5D600E987D6 /* LDUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDUser.m; sourceTree = "<group>"; };
 		D23009DD1D3DC2BA004A649C /* LDDevicePermissionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDDevicePermissionManager.h; sourceTree = "<group>"; };
 		D23009DE1D3DC2BA004A649C /* LDDevicePermissionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDDevicePermissionManager.m; sourceTree = "<group>"; };
 		D23009E11D3DF3CD004A649C /* LDAsyncSemaphore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAsyncSemaphore.h; sourceTree = "<group>"; };
@@ -448,6 +451,8 @@
 				D2F9076D1D3C705D006C987F /* AppDelegate.m */,
 				D23162151D4B16A900B239AA /* LDLivingConfiguration.h */,
 				D23162161D4B16A900B239AA /* LDLivingConfiguration.m */,
+				D204E5141D62B5D600E987D6 /* LDUser.h */,
+				D204E5151D62B5D600E987D6 /* LDUser.m */,
 				D2F907901D3C7BB4006C987F /* Localizable.strings */,
 				D2F907941D3C7F04006C987F /* PLLivingDemo-Prefix.pch */,
 				D2F907751D3C705D006C987F /* Assets.xcassets */,
@@ -775,6 +780,7 @@
 				D2F9076B1D3C705D006C987F /* main.m in Sources */,
 				D2F6B3141D407B160000B6C7 /* LDViewConstraintsStateManager.m in Sources */,
 				D246EB841D41CD1F00510816 /* LDAppearanceView.m in Sources */,
+				D204E5161D62B5D600E987D6 /* LDUser.m in Sources */,
 				D23009E31D3DF3CD004A649C /* LDAsyncSemaphore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

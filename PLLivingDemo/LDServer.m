@@ -64,12 +64,13 @@ static LDServer *_sharedInstance;
     } fail:failBlock];
 }
 
-- (void)postUserName:(NSString *)username withComplete:(void (^)())complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
+- (void)postUserName:(NSString *)username withIconURL:(NSString *)iconURL withComplete:(void (^)())complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
 {
-    [self _url:[self _httpURLWithPath:@"/name"] request:^(NSMutableURLRequest *request) {
+    [self _url:[self _httpURLWithPath:@"/register"] request:^(NSMutableURLRequest *request) {
         
         request.HTTPMethod = @"POST";
-        [self _setRequest:request WithHttpBodyParams:@{@"name": username}];
+        [self _setRequest:request WithHttpBodyParams:@{@"name": username,
+                                                       @"iconURL": iconURL,}];
         
     } success:^(NSData * _Nullable data, NSHTTPURLResponse * _Nullable response) {
         
