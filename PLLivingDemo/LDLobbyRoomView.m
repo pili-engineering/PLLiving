@@ -9,10 +9,11 @@
 #import "LDLobbyRoomView.h"
 #import "LDAppearanceView.h"
 #import "LDRoomItem.h"
+#import "LDURLImageView.h"
 
 @interface LDLobbyRoomView ()
-@property (nonatomic, strong) UIImageView *previewImageView;
-@property (nonatomic, strong) UIImageView *anchorImageView;
+@property (nonatomic, strong) LDURLImageView *previewImageView;
+@property (nonatomic, strong) LDURLImageView *anchorImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *authorNameLabel;
 @end
@@ -26,7 +27,7 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.previewImageView = ({
-            UIImageView *imageView = [[UIImageView alloc] init];
+            LDURLImageView *imageView = [[LDURLImageView alloc] init];
             [self.contentView addSubview:imageView];
             [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.left.right.and.bottom.equalTo(self.contentView);
@@ -54,7 +55,7 @@
         });
         
         self.anchorImageView = ({
-            UIImageView *imageView = [[UIImageView alloc] init];
+            LDURLImageView *imageView = [[LDURLImageView alloc] init];
             [self.contentView addSubview:imageView];
             imageView.layer.cornerRadius = 10;
             [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -99,9 +100,7 @@
 
 - (void)resetViewWithRoomItem:(LDRoomItem *)roomItem at:(NSUInteger)index
 {
-    NSArray <NSString *> *previewNames = @[@"live1", @"live2"];
-    self.previewImageView.image = [UIImage imageNamed:previewNames[index % previewNames.count]];
-    self.anchorImageView.image = roomItem.anchorIcon;
+    self.previewImageView.url = [NSURL URLWithString:roomItem.previewURL];
     self.titleLabel.text = roomItem.title;
     self.authorNameLabel.text = roomItem.authorName;
 }

@@ -79,6 +79,23 @@ static LDServer *_sharedInstance;
     } fail:failBlock];
 }
 
+- (void)getRoomsWithComplete:(void (^)(NSArray *jsonArray))compete withFail:(void (^)(NSError * _Nullable responseError))failBlock
+{
+    [self _url:[self _httpURLWithPath:@"/streams"] request:^(NSMutableURLRequest *request) {
+        
+        request.HTTPMethod = @"GET";
+        
+    } success:^(NSData * _Nullable data, NSHTTPURLResponse * _Nullable response) {
+        
+        NSError *error = nil;
+        NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data
+                                                             options:NSJSONReadingMutableLeaves
+                                                               error:&error];
+        compete(jsonArray);
+        
+    } fail:failBlock];
+}
+
 - (void)createNewRoomWithTitle:(NSString *)title withComplete:(void (^)(NSString *pushingURL))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
 {
     [self _url:[self _httpURLWithPath:@"/create_stream"] request:^(NSMutableURLRequest *request) {

@@ -8,16 +8,35 @@
 
 #import "LDURLImageView.h"
 
+@interface LDURLImageView ()
+@property (nonatomic, strong) NSString *defaultImageName;
+@end
+
 @implementation LDURLImageView
+
+- (instancetype)initWithDefaultImageName:(NSString *)defaultImageName
+{
+    if (self = [self init]) {
+        _defaultImageName = defaultImageName;
+        self.image = [UIImage imageNamed:defaultImageName];
+    }
+    return self;
+}
 
 - (instancetype)initWithURL:(NSURL *)url withDefaultImageName:(NSString *)defaultImageName
 {
-    if (self = [self init]) {
+    if (self = [self initWithDefaultImageName:defaultImageName]) {
         _url = url;
-        self.image = [UIImage imageNamed:defaultImageName];
         [self _loadFromURL];
     }
     return self;
+}
+
+- (void)setUrl:(NSURL *)url
+{
+    _url = url;
+    self.image = [UIImage imageNamed:_defaultImageName];
+    [self _loadFromURL];
 }
 
 - (void)_loadFromURL

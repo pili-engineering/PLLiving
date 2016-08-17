@@ -10,6 +10,7 @@
 #import "LDViewConstraintsStateManager.h"
 #import "LDLobbyRoomView.h"
 #import "LDRoomItem.h"
+#import "LDServer.h"
 #import "LDAnchorRoomViewController.h"
 #import "LDSpectatorRoomViewController.h"
 #import "LDPanGestureHandler.h"
@@ -43,41 +44,7 @@ typedef enum {
         
         self.navigationConstraints = [[LDViewConstraintsStateManager alloc] init];
         self.startBroadcastingConstraints = [[LDViewConstraintsStateManager alloc] init];
-        
-        self.roomItems = ({
-            NSMutableArray<LDRoomItem *> *array = [[NSMutableArray alloc] init];
-            LDRoomItem *roomItem;
-            
-            roomItem = [[LDRoomItem alloc] init];
-            roomItem.title = @"大家快点来看我直播";
-            roomItem.authorName = @"一个人的勇敢";
-            roomItem.anchorIcon = [UIImage imageNamed:@"icon1.jpeg"];
-            roomItem.createdTime = [[NSDate alloc] init];
-            [array addObject:roomItem];
-            
-            roomItem = [[LDRoomItem alloc] init];
-            roomItem.title = @"礼仪培训";
-            roomItem.authorName = @"Honney";
-            roomItem.anchorIcon = [UIImage imageNamed:@"icon2.jpg"];
-            roomItem.createdTime = [[NSDate alloc] init];
-            [array addObject:roomItem];
-            
-            roomItem = [[LDRoomItem alloc] init];
-            roomItem.title = @"我以为我会很快乐";
-            roomItem.authorName = @"菲";
-            roomItem.anchorIcon = [UIImage imageNamed:@"icon3.jpg"];
-            roomItem.createdTime = [[NSDate alloc] init];
-            [array addObject:roomItem];
-            
-            roomItem = [[LDRoomItem alloc] init];
-            roomItem.title = @"我的直播";
-            roomItem.authorName = @"大王亲自来巡山";
-            roomItem.anchorIcon = [UIImage imageNamed:@"icon1.jpeg"];
-            roomItem.createdTime = [[NSDate alloc] init];
-            [array addObject:roomItem];
-            
-            array;
-        });
+        self.roomItems = @[];
     }
     return self;
 }
@@ -182,10 +149,33 @@ typedef enum {
     }];
     self.startBroadcastingConstraints.state = @(ComponentState_Show);
     
-    [self setupEventHandler];
+    [self _setupEventHandler];
+    [self _refreshRooms];
 }
 
-- (void)setupEventHandler
+- (void)_refreshRooms
+{
+    [[LDServer sharedServer] getRoomsWithComplete:^(NSArray *jsonArray) {
+        
+        NSMutableArray<LDRoomItem *> *roomItems = [[NSMutableArray alloc] init];
+        for (NSDictionary *roomJson in jsonArray) {
+            NSLog(@">> %@", roomJson);
+            LDRoomItem *roomItem = [[LDRoomItem alloc] init];
+            roomItem.title = roomJson[@"Title"];
+            roomItem.previewURL = roomJson[@"PreviewURL"];
+            roomItem.playURL = roomJson[@"PlayURL"];
+            roomItem.authorName = @"一个人的勇敢";
+            [roomItems addObject:roomItem];
+        }
+        self.roomItems = roomItems;
+        [self.tableView reloadData];
+        
+    } withFail:^(NSError * _Nullable responseError) {
+        
+    }];
+}
+
+- (void)_setupEventHandler
 {
     __weak typeof(self) weakSelf = self;
     UIViewAnimationOptions options = UIViewAnimationCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction;
@@ -261,7 +251,8 @@ typedef enum {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.basicViewController popupViewController:[[LDSpectatorRoomViewController alloc] initWithURL:[NSURL URLWithString:@"rtmp://live.hkstv.hk.lxdns.com/live/hks"]] animated:NO completion:nil];
+    LDRoomItem *roomItem = self.roomItems[indexPath.row];
+    [self.basicViewController popupViewController:[[LDSpectatorRoomViewController alloc] initWithURL:[NSURL URLWithString:roomItem.playURL]] animated:NO completion:nil];
 }
 
 @end

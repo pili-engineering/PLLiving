@@ -10,8 +10,9 @@
 
 @interface LDURLImageView : UIImageView
 
-@property (nonatomic, readonly) NSURL *url;
+@property (nonatomic, strong) NSURL *url;
 
+- (instancetype)initWithDefaultImageName:(NSString *)defaultImageName;
 - (instancetype)initWithURL:(NSURL *)url withDefaultImageName:(NSString *)defaultImageName;
 
 @end
