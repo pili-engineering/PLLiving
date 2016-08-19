@@ -466,6 +466,7 @@
 				D2F907871D3C79FD006C987F /* ViewControllers */,
 				D23009E01D3DF392004A649C /* Utils */,
 				D23162131D4B158B00B239AA /* living.plist */,
+				D2F9077A1D3C705D006C987F /* Info.plist */,
 				D2F9076C1D3C705D006C987F /* AppDelegate.h */,
 				D2F9076D1D3C705D006C987F /* AppDelegate.m */,
 				D23162151D4B16A900B239AA /* LDLivingConfiguration.h */,
@@ -476,7 +477,6 @@
 				D2F907941D3C7F04006C987F /* PLLivingDemo-Prefix.pch */,
 				D2F907751D3C705D006C987F /* Assets.xcassets */,
 				D2F907771D3C705D006C987F /* LaunchScreen.storyboard */,
-				D2F9077A1D3C705D006C987F /* Info.plist */,
 				D2F907691D3C705D006C987F /* Supporting Files */,
 			);
 			path = PLLivingDemo;
