@@ -161,10 +161,12 @@ typedef enum {
         for (NSDictionary *roomJson in jsonArray) {
             NSLog(@">> %@", roomJson);
             LDRoomItem *roomItem = [[LDRoomItem alloc] init];
+            roomItem.authorID = roomJson[@"AnchorID"];
+            roomItem.authorName = roomJson[@"AuthorName"];
+            roomItem.authorIconURL = roomJson[@"AuthorIconURL"];
             roomItem.title = roomJson[@"Title"];
             roomItem.previewURL = roomJson[@"PreviewURL"];
             roomItem.playURL = roomJson[@"PlayURL"];
-            roomItem.authorName = @"一个人的勇敢";
             [roomItems addObject:roomItem];
         }
         self.roomItems = roomItems;

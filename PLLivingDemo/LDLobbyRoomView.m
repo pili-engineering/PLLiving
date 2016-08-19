@@ -100,6 +100,7 @@
 
 - (void)resetViewWithRoomItem:(LDRoomItem *)roomItem at:(NSUInteger)index
 {
+    self.anchorImageView.url = [NSURL URLWithString:roomItem.authorIconURL];
     self.previewImageView.url = [NSURL URLWithString:roomItem.previewURL];
     self.titleLabel.text = roomItem.title;
     self.authorNameLabel.text = roomItem.authorName;

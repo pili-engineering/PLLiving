@@ -10,10 +10,12 @@
 
 @interface LDRoomItem : NSObject
 
+@property (nonatomic, strong) NSString *authorID;
+@property (nonatomic, strong) NSString *authorName;
+@property (nonatomic, strong) NSString *authorIconURL;
 @property (nonatomic, strong) NSString *previewURL;
 @property (nonatomic, strong) NSString *playURL;
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *authorName;
 @property (nonatomic, strong) NSDate *createdTime;
 
 @end
