@@ -229,7 +229,7 @@ typedef enum {
 
 - (BOOL)isTilteBlank:(NSString *)title
 {
-    return !title || [title isMatchedByRegex:@"^\\s*$"];
+    return !title || [title componentsMatchedByRegex:@"^\\s*$"].count;
 }
 
 @end
