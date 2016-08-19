@@ -35,6 +35,10 @@
 "camera-restricted" = "摄像头设备受限，请关闭家长模式，再重新开始直播。";
 "microphone-restricted" = "麦克风设备受限，请关闭家长模式，再重新开始直播。";
 
+// Lobby
+"no-broadcasting-now" = "No broadcasting now";
+"you-can-begin-to-live" = "You can click below button to begin to live.";
+
 // Broadcasting
 "broadcasting-placeholder" = "输入直播标题……";
 "please-input-any-messages-as_broadcasting-title" = "直播内容不能为空，随便说一点吧。";

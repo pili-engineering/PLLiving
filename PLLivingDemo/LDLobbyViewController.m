@@ -31,6 +31,7 @@ typedef enum {
 @property (nonatomic, assign) BOOL tableViewTouchBottom;
 
 @property (nonatomic, strong) NSArray<LDRoomItem *> *roomItems;
+@property (nonatomic, strong) UIView *emptyBackgroundView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIBarButtonItem *settingButton;
 @property (nonatomic, strong) UIButton *startBroadcastingButton;
@@ -82,6 +83,50 @@ typedef enum {
         UIView *header = [[UIView alloc] init];
         header.frame = CGRectMake(0, 0, 0, 48); //占位
         header;
+    });
+    
+    self.emptyBackgroundView = ({
+        UIView *backgroundView = [[UIView alloc] init];
+        backgroundView.hidden = YES;
+        
+        [self.view addSubview:backgroundView];
+        
+        UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-illustration"]];
+        [backgroundView addSubview:image];
+        [image mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(backgroundView);
+            make.size.mas_equalTo(image.image.size);
+            make.centerX.equalTo(backgroundView);
+        }];
+        
+        UILabel *mainLabel = [[UILabel alloc] init];
+        [mainLabel setText:LDString("no-broadcasting-now")];
+        [mainLabel setFont:[UIFont systemFontOfSize:18]];
+        [mainLabel setTextColor:[UIColor colorWithHexString:@"99FFFFFF"]];
+        
+        [backgroundView addSubview:mainLabel];
+        [mainLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(image.mas_bottom).with.offset(33);
+            make.centerX.equalTo(backgroundView);
+        }];
+        
+        UILabel *descriptionLabel = [[UILabel alloc] init];
+        [descriptionLabel setText:LDString("you-can-begin-to-live")];
+        [descriptionLabel setFont:[UIFont systemFontOfSize:12]];
+        [descriptionLabel setTextColor:[UIColor colorWithHexString:@"4CFFFFFF"]];
+        
+        [backgroundView addSubview:descriptionLabel];
+        [descriptionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(mainLabel.mas_bottom).with.offset(19);
+            make.bottom.equalTo(backgroundView);
+            make.centerX.equalTo(backgroundView);
+        }];
+        
+        [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.and.right.equalTo(self.view);
+            make.centerY.equalTo(self.view);
+        }];
+        backgroundView;
     });
     
     UINavigationBar *navigationBar = ({
@@ -169,6 +214,7 @@ typedef enum {
             [roomItems addObject:roomItem];
         }
         self.roomItems = roomItems;
+        self.emptyBackgroundView.hidden = roomItems.count > 0;
         [self.tableView reloadData];
         
     } withFail:^(NSError * _Nullable responseError) {
