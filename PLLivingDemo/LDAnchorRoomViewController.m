@@ -211,7 +211,7 @@ typedef enum {
     // 我之所以要异步获取，是为了让主播在输入 title 的同时，也在等待服务器返回 PLStream 对象。
     // 很可能主播输入完 title 之前，PLStream 就已经拿到了。
     // 这样会减少主播等待的时间，体验会好一点。
-    [[LDServer sharedServer] createNewRoomWithTitle:@"testROOM" withComplete:^(NSString *pushingURL) {
+    [[LDServer sharedServer] createNewRoomWithComplete:^(NSString *pushingURL) {
         
         __strong typeof(self) strongSelf = weakSelf;
         // 在获取 PLStream 的过程中，self 随时可能被关闭，甚至 dealloc。
@@ -237,7 +237,15 @@ typedef enum {
         self.roomInfoViewController = nil;
         [self _setupAnchorSubviews];
         [self _setupGestureRecognizerForTopBar];
-        [self.broadcastingSemaphore signal]; //主播输入完 title，构造好 subivews
+        
+        [[LDServer sharedServer] postRoomIsReadyWithTitle:self.livingTitle WithComplete:^{
+            
+            // 将房间的 title 交给服务端，此时这个房间才会出现在大厅列表中。
+            [self.broadcastingSemaphore signal];
+            
+        } withFail:^(NSError * _Nullable responseError) {
+            // TODO
+        }];
     } else {
         [self _close];
     }

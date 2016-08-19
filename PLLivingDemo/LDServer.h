@@ -15,7 +15,8 @@
 - (void)postMobileCaptcha:(NSString *)captcha withPhoneNumber:(NSString *)phoneNumber withComplete:(void (^)(NSString *uploadToken))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock;
 - (void)postUserName:(NSString *)username withIconURL:(NSString *)iconURL withComplete:(void (^)())complete withFail:(void (^)(NSError * _Nullable responseError))failBlock;
 - (void)getRoomsWithComplete:(void (^)(NSArray *jsonArray))compete withFail:(void (^)(NSError * _Nullable responseError))failBlock;
-- (void)createNewRoomWithTitle:(NSString *)title withComplete:(void (^)(NSString *pushingURL))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock;
+- (void)createNewRoomWithComplete:(void (^)(NSString *pushingURL))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock;
+- (void)postRoomIsReadyWithTitle:(NSString *)title WithComplete:(void (^)())complete withFail:(void (^)(NSError * _Nullable responseError))failBlock;
 - (void)deleteRoomWithComplete:(void (^)())complete withFail:(void (^)(NSError * _Nullable responseError))failBlock;
 
 @end

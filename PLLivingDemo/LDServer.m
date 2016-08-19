@@ -96,17 +96,30 @@ static LDServer *_sharedInstance;
     } fail:failBlock];
 }
 
-- (void)createNewRoomWithTitle:(NSString *)title withComplete:(void (^)(NSString *pushingURL))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
+- (void)createNewRoomWithComplete:(void (^)(NSString *pushingURL))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
 {
     [self _url:[self _httpURLWithPath:@"/create_stream"] request:^(NSMutableURLRequest *request) {
+        
+        request.HTTPMethod = @"POST";
+        
+    } success:^(NSData * _Nullable data, NSHTTPURLResponse * _Nullable response) {
+        
+        NSString *url = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        complete(url);
+        
+    } fail:failBlock];
+}
+
+- (void)postRoomIsReadyWithTitle:(NSString *)title WithComplete:(void (^)())complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
+{
+    [self _url:[self _httpURLWithPath:@"/ready_stream"] request:^(NSMutableURLRequest *request) {
         
         request.HTTPMethod = @"POST";
         [self _setRequest:request WithHttpBodyParams:@{@"title": title,}];
         
     } success:^(NSData * _Nullable data, NSHTTPURLResponse * _Nullable response) {
         
-        NSString *url = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        complete(url);
+        complete();
         
     } fail:failBlock];
 }
