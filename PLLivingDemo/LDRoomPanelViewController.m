@@ -20,6 +20,7 @@
 #import "LDPanGestureHandler.h"
 #import "LDLivingConfiguration.h"
 #import "LDShareViewController.h"
+#import "LDChatParser.h"
 
 typedef enum {
     LayoutState_Hide,
@@ -303,7 +304,8 @@ typedef enum {
 {
     NSString *message = [textField.text stringByReplacingOccurrencesOfRegex:@"(^\\s+|\\s+$)" withString:@""];
     if (![message isEqualToString:@""]) {
-        [self.webSocket send:message];
+        NSString *messageJSON = [[LDChatParser sharedChatParser] messageJSON:message];
+        [self.webSocket send:messageJSON];
     } else {
         [self.chatTextField resignFirstResponder];
     }
@@ -400,12 +402,13 @@ typedef enum {
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
-    LDChatItem *chatItem = [[LDChatItem alloc] init];
-    chatItem.message = message;
-    [self.chatDataSource addChatItemToFirst:chatItem];
-    NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.chatTableView insertRowsAtIndexPaths:@[newIndexPath]
-                              withRowAnimation:UITableViewRowAnimationLeft];
+    LDChatItem *chatItem = [[LDChatParser sharedChatParser] chatItemWithMessage:message];
+    if (chatItem) { //收到的信息不一定是聊天信息，所以只有当返回了 chatItem 时才将其显示出来。
+        [self.chatDataSource addChatItemToFirst:chatItem];
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.chatTableView insertRowsAtIndexPaths:@[newIndexPath]
+                                  withRowAnimation:UITableViewRowAnimationLeft];
+    }
 }
 
 @end

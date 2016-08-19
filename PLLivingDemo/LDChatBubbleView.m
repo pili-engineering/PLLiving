@@ -8,9 +8,10 @@
 
 #import "LDChatBubbleView.h"
 #import "LDChatItem.h"
+#import "LDURLImageView.h"
 
 @interface LDChatBubbleView ()
-@property (nonatomic, strong) UIImageView *userIconView;
+@property (nonatomic, strong) LDURLImageView *userIconView;
 @property (nonatomic, strong) UILabel *chatContentlabel;
 @end
 
@@ -24,7 +25,7 @@
         self.backgroundColor = [UIColor clearColor];
         
         self.userIconView = ({
-            UIImageView *iconView = [[UIImageView alloc] init];
+            LDURLImageView *iconView = [[LDURLImageView alloc] init];
             [self.contentView addSubview:iconView];
             [iconView.layer setCornerRadius:16];
             [iconView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -76,9 +77,8 @@
 
 - (void)resetViewWith:(LDChatItem *)chatItem
 {
-    NSArray *array = @[@"icon1.jpeg", @"icon2.jpg", @"icon3.jpg"];
     [self.chatContentlabel setText:chatItem.message];
-    [self.userIconView setImage:[UIImage imageNamed:array[chatItem.message.hash % array.count]]];
+    [self.userIconView setUrl:[NSURL URLWithString:chatItem.iconURL]];
 }
 
 @end

@@ -10,6 +10,8 @@
 
 @interface LDChatItem : NSObject
 
+@property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *message;
+@property (nonatomic, strong) NSString *iconURL;
 
 @end
