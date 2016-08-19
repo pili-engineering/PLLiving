@@ -159,7 +159,6 @@ typedef enum {
         
         NSMutableArray<LDRoomItem *> *roomItems = [[NSMutableArray alloc] init];
         for (NSDictionary *roomJson in jsonArray) {
-            NSLog(@">> %@", roomJson);
             LDRoomItem *roomItem = [[LDRoomItem alloc] init];
             roomItem.authorID = roomJson[@"AnchorID"];
             roomItem.authorName = roomJson[@"AuthorName"];
