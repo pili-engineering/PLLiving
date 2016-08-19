@@ -17,6 +17,7 @@
 #import "LDUserSettingViewController.h"
 
 #define kComponentAnimationDuration 0.45
+#define kRefreshRoomItemsInterval 10
 
 typedef enum {
     ComponentState_Show,
@@ -24,6 +25,9 @@ typedef enum {
 } ComponentState;
 
 @interface LDLobbyViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) NSTimer *refreshTimer;
+@property (nonatomic, assign) BOOL isNotEnterAnyRoom;
 
 @property (nonatomic, strong) LDViewConstraintsStateManager *navigationConstraints;
 @property (nonatomic, strong) LDViewConstraintsStateManager *startBroadcastingConstraints;
@@ -42,10 +46,12 @@ typedef enum {
 - (instancetype)init
 {
     if (self = [super init]) {
-        
         self.navigationConstraints = [[LDViewConstraintsStateManager alloc] init];
         self.startBroadcastingConstraints = [[LDViewConstraintsStateManager alloc] init];
         self.roomItems = @[];
+        self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:kRefreshRoomItemsInterval
+                                                             target:self selector:@selector(_fireTimer:)
+                                                           userInfo:nil repeats:YES];
     }
     return self;
 }
@@ -198,8 +204,22 @@ typedef enum {
     [self _refreshRooms];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.refreshTimer invalidate];
+}
+
+- (void)_fireTimer:(id)sender
+{
+    if (!self.isNotEnterAnyRoom) {
+        [self _refreshRooms];
+    }
+}
+
 - (void)_refreshRooms
 {
+    NSLog(@"refresh rooms...");
     [[LDServer sharedServer] getRoomsWithComplete:^(NSArray *jsonArray) {
         
         NSMutableArray<LDRoomItem *> *roomItems = [[NSMutableArray alloc] init];
@@ -213,13 +233,54 @@ typedef enum {
             roomItem.playURL = roomJson[@"PlayURL"];
             [roomItems addObject:roomItem];
         }
+        NSArray<LDRoomItem *> *originalRoomItems = self.roomItems;
         self.roomItems = roomItems;
         self.emptyBackgroundView.hidden = roomItems.count > 0;
-        [self.tableView reloadData];
+        [self _playRefreshRoomsAnimationWithOriginalList:originalRoomItems withTargetList:roomItems];
         
     } withFail:^(NSError * _Nullable responseError) {
         
     }];
+}
+
+- (void)_playRefreshRoomsAnimationWithOriginalList:(NSArray<LDRoomItem *> *)originalList
+                                    withTargetList:(NSArray<LDRoomItem *> *)targetList
+{
+    NSMutableArray *originalIDs = [[NSMutableArray alloc] initWithCapacity:originalList.count];
+    for (LDRoomItem *roomItem in originalList) {
+        [originalIDs addObject:roomItem.authorID];
+    }
+    NSMutableArray *targetIDs = [[NSMutableArray alloc] initWithCapacity:targetList.count];
+    for (LDRoomItem *roomItem in targetList) {
+        [targetIDs addObject:roomItem.authorID];
+    }
+    
+    NSMutableArray<NSIndexPath *> *deleteRows = [[NSMutableArray alloc] init];
+    NSMutableArray<NSIndexPath *> *insertRows = [[NSMutableArray alloc] init];
+    
+    for (NSUInteger i = 0; i < originalIDs.count; i++) {
+        NSString *ID = originalIDs[i];
+        if (![targetIDs containsObject:ID]) {
+            // 已经消失了的房间 authorID。
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            [deleteRows addObject:indexPath];
+        }
+    }
+    if (deleteRows.count > 0) {
+        [self.tableView deleteRowsAtIndexPaths:deleteRows withRowAnimation:UITableViewRowAnimationRight];
+    }
+    
+    for (NSUInteger i = 0; i < targetIDs.count; i++) {
+        NSString *ID = targetIDs[i];
+        if (![originalIDs containsObject:ID]) {
+            // 新出现的房间 authorID
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            [insertRows addObject:indexPath];
+        }
+    }
+    if (insertRows.count > 0) {
+        [self.tableView insertRowsAtIndexPaths:insertRows withRowAnimation:UITableViewRowAnimationLeft];
+    }
 }
 
 - (void)_setupEventHandler
