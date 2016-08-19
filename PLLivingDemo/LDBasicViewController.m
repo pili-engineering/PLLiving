@@ -60,12 +60,18 @@
                  completion:(void (^ __nullable)(void))completion
 {
     if (![self.viewControllers containsObject:viewController]) {
+        
+        UIViewController *originalViewController = self.topViewController;
+        
         [self.viewControllers addObject:viewController];
         UIView *view = viewController.view;
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth |
                                 UIViewAutoresizingFlexibleHeight;
         [self.view addSubview:view];
         CGRect targetFrame = self.view.bounds;
+        
+        [originalViewController viewWillDisappear:animatedFlag];
+        [viewController viewWillAppear:animatedFlag];
         
         if (animatedFlag) {
             _maskAllTouchEvents = YES;
@@ -82,12 +88,16 @@
                 if (completion) {
                     completion();
                 }
+                [originalViewController viewDidDisappear:animatedFlag];
+                [viewController viewDidAppear:animatedFlag];
             }];
         } else {
             view.frame = targetFrame;
             if (completion) {
                 completion();
             }
+            [originalViewController viewDidDisappear:animatedFlag];
+            [viewController viewDidAppear:animatedFlag];
         }
         [self setNeedsStatusBarAppearanceUpdate];
     }
@@ -105,8 +115,17 @@
                   completion:(void (^ __nullable)(void))completion
 {
     if ([self.viewControllers containsObject:viewController]) {
+        
+        UIViewController *originalTopViewController = self.topViewController;
         [self.viewControllers removeObject:viewController];
+        UIViewController *newTopViewController = self.topViewController;
+        
         UIView *view = viewController.view;
+        
+        if (originalTopViewController == viewController) {
+            [viewController viewWillDisappear:animatedFlag];
+            [newTopViewController viewWillAppear:animatedFlag];
+        }
         
         if (animatedFlag) {
             _maskAllTouchEvents = YES;
@@ -121,11 +140,20 @@
                 if (completion) {
                     completion();
                 }
+                
+                if (originalTopViewController == viewController) {
+                    [viewController viewDidDisappear:animatedFlag];
+                    [newTopViewController viewDidAppear:animatedFlag];
+                }
             }];
         } else {
             [view removeFromSuperview];
             if (completion) {
                 completion();
+            }
+            if (originalTopViewController == viewController) {
+                [viewController viewDidDisappear:animatedFlag];
+                [newTopViewController viewDidAppear:animatedFlag];
             }
         }
         [self setNeedsStatusBarAppearanceUpdate];

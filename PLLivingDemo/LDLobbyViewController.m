@@ -24,9 +24,11 @@ typedef enum {
     ComponentState_Hide
 } ComponentState;
 
+@class _LDLobbyTimerKeeper;
+
 @interface LDLobbyViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSTimer *refreshTimer;
+@property (nonatomic, strong) _LDLobbyTimerKeeper *timerKeeper;
 @property (nonatomic, assign) BOOL isNotEnterAnyRoom;
 
 @property (nonatomic, strong) LDViewConstraintsStateManager *navigationConstraints;
@@ -41,6 +43,11 @@ typedef enum {
 @property (nonatomic, strong) UIButton *startBroadcastingButton;
 @end
 
+@interface _LDLobbyTimerKeeper : NSObject
+- (instancetype)initWithLobbyViewController:(LDLobbyViewController *)lobbyViewController;
+- (NSTimer *)timer;
+@end
+
 @implementation LDLobbyViewController
 
 - (instancetype)init
@@ -49,11 +56,14 @@ typedef enum {
         self.navigationConstraints = [[LDViewConstraintsStateManager alloc] init];
         self.startBroadcastingConstraints = [[LDViewConstraintsStateManager alloc] init];
         self.roomItems = @[];
-        self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:kRefreshRoomItemsInterval
-                                                             target:self selector:@selector(_fireTimer:)
-                                                           userInfo:nil repeats:YES];
+        self.timerKeeper = [[_LDLobbyTimerKeeper alloc] initWithLobbyViewController:self];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [self.timerKeeper.timer invalidate];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -204,11 +214,18 @@ typedef enum {
     [self _refreshRooms];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self.refreshTimer invalidate];
-}
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    self.isNotEnterAnyRoom = NO;
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+//    self.isNotEnterAnyRoom = YES;
+//    [self _refreshRooms];
+//}
 
 - (void)_fireTimer:(id)sender
 {
@@ -361,6 +378,35 @@ typedef enum {
 {
     LDRoomItem *roomItem = self.roomItems[indexPath.row];
     [self.basicViewController popupViewController:[[LDSpectatorRoomViewController alloc] initWithURL:[NSURL URLWithString:roomItem.playURL]] animated:NO completion:nil];
+}
+
+@end
+
+@implementation _LDLobbyTimerKeeper
+{
+    NSTimer *_refreshTimer;
+    __weak LDLobbyViewController *_lobbyViewController;
+}
+
+- (instancetype)initWithLobbyViewController:(LDLobbyViewController *)lobbyViewController;
+{
+    if (self = [self init]) {
+        _lobbyViewController = lobbyViewController;
+        _refreshTimer = [NSTimer scheduledTimerWithTimeInterval:kRefreshRoomItemsInterval
+                                                         target:self selector:@selector(_fireTimer:)
+                                                       userInfo:nil repeats:YES];
+    }
+    return self;
+}
+
+- (void)_fireTimer:(id)sender
+{
+    [_lobbyViewController _fireTimer:_refreshTimer];
+}
+
+- (NSTimer *)timer
+{
+    return _refreshTimer;
 }
 
 @end
