@@ -420,6 +420,12 @@ typedef enum {
             [self.basicViewController removeViewController:self animated:NO completion:nil];
         }];
     }];
+    
+    [[LDServer sharedServer] deleteRoomWithComplete:^(NSString *pushingURL) {
+        NSLog(@"did exit room.");
+    } withFail:^(NSError * _Nullable responseError) {
+        
+    }];
 }
 
 # pragma mark - move preview to show top bar

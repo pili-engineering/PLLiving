@@ -111,6 +111,15 @@ static LDServer *_sharedInstance;
     } fail:failBlock];
 }
 
+- (void)deleteRoomWithComplete:(void (^)())complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
+{
+    [self _url:[self _httpURLWithPath:@"/delete_stream"] request:^(NSMutableURLRequest *request) {
+        request.HTTPMethod = @"POST";
+    } success:^(NSData * _Nullable data, NSHTTPURLResponse * _Nullable response) {
+        complete();
+    } fail:failBlock];
+}
+
 - (NSURL *)_httpURLWithPath:(NSString *)path
 {
     NSString *serverURL = [LDLivingConfiguration sharedLivingConfiguration].httpServerURL;

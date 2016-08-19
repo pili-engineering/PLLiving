@@ -16,5 +16,6 @@
 - (void)postUserName:(NSString *)username withIconURL:(NSString *)iconURL withComplete:(void (^)())complete withFail:(void (^)(NSError * _Nullable responseError))failBlock;
 - (void)getRoomsWithComplete:(void (^)(NSArray *jsonArray))compete withFail:(void (^)(NSError * _Nullable responseError))failBlock;
 - (void)createNewRoomWithTitle:(NSString *)title withComplete:(void (^)(NSString *pushingURL))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock;
+- (void)deleteRoomWithComplete:(void (^)())complete withFail:(void (^)(NSError * _Nullable responseError))failBlock;
 
 @end
