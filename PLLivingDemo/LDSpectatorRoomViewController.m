@@ -10,6 +10,7 @@
 #import "LDRoomPanelViewController.h"
 #import "LDViewConstraintsStateManager.h"
 #import "LDAlertUtil.h"
+#import "LDRoomItem.h"
 
 typedef enum {
     PanelState_Show,
@@ -28,10 +29,11 @@ typedef enum {
 
 @implementation LDSpectatorRoomViewController
 
-- (instancetype)initWithURL:(NSURL *)url
+- (instancetype)initWithRoomItem:(LDRoomItem *)roomItem
 {
     if (self = [super init]) {
         self.player = ({
+            NSURL *url = [NSURL URLWithString:roomItem.rtmpPlayURL];
             PLPlayer *player = [PLPlayer playerWithURL:url option:[PLPlayerOption defaultOption]];
             player.delegate = self;
             // 允许播放器后台播放。

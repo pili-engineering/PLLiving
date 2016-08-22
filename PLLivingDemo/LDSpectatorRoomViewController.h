@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class LDRoomItem;
+
 @interface LDSpectatorRoomViewController : UIViewController
 
-- (instancetype)initWithURL:(NSURL *)url;
+- (instancetype)initWithRoomItem:(LDRoomItem *)roomItem;
 
 @end

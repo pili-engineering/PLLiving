@@ -16,6 +16,7 @@
 #import "LDDevicePermissionManager.h"
 #import "LDAsyncSemaphore.h"
 #import "LDAlertUtil.h"
+#import "LDRoomItem.h"
 #import "LDServer.h"
 
 #define kTopBarHeight 70
@@ -36,6 +37,7 @@ typedef enum {
 @property (nonatomic, assign) LayoutState originalLayoutStateBeforeGestureBeginning;
 
 @property (nonatomic, strong) NSURL *pushingURL;
+@property (nonatomic, strong) LDRoomItem *roomItem;
 
 @property (nonatomic, strong) PLCameraStreamingSession *cameraStreamingSession;
 @property (nonatomic, strong) LDAsyncSemaphore *broadcastingSemaphore;
@@ -212,20 +214,24 @@ typedef enum {
     
     __weak typeof(self) weakSelf = self;
     
-    // 异步获取 PLStream 对象。
-    // 我之所以要异步获取，是为了让主播在输入 title 的同时，也在等待服务器返回 PLStream 对象。
-    // 很可能主播输入完 title 之前，PLStream 就已经拿到了。
+    // 异步获取推流地址。
+    // 我之所以要异步获取，是为了让主播在输入 title 的同时，也在等待服务器返回推流地址。
+    // 很可能主播输入完 title 之前，推流地址就已经拿到了。
     // 这样会减少主播等待的时间，体验会好一点。
-    [[LDServer sharedServer] createNewRoomWithComplete:^(NSString *pushingURL) {
+    [[LDServer sharedServer] createNewRoomWithComplete:^(NSDictionary *resultJSON) {
         
         __strong typeof(self) strongSelf = weakSelf;
-        // 在获取 PLStream 的过程中，self 随时可能被关闭，甚至 dealloc。
+        // 在获取 resultJSON 的过程中，self 随时可能被关闭，甚至 dealloc。
         // 因为主播随时可以叉掉，然后返回上一级界面。
-        // 在关闭之后，也没有必要对 PLStream 进行处理了。
+        // 在关闭之后，也没有必要对推流地址进行处理了。
         if (strongSelf && !strongSelf.didClosed) {
-            NSLog(@"get pushing url %@", pushingURL);
+            
+            self.pushingURL = [NSURL URLWithString:resultJSON[@"PushURL"]];
+            self.roomItem = [self _roomItemWithJSON:resultJSON[@"Stream"]];
+            
+            NSLog(@"get pushing url %@", self.pushingURL);
             [strongSelf.roomPanelViewControoler connectToWebSocket];
-            [strongSelf setPushingURL:[NSURL URLWithString:pushingURL]];
+            [strongSelf setPushingURL:self.pushingURL];
             [strongSelf.broadcastingSemaphore signal]; //接收到了 PLStream 对象。
             [strongSelf.createRoomSemaphore signal]; //房间已经创建好了。
         }
@@ -233,6 +239,20 @@ typedef enum {
     } withFail:^(NSError * _Nullable responseError) {
         //TODO
     }];
+}
+
+- (LDRoomItem *)_roomItemWithJSON:(NSDictionary *)streamJSON
+{
+    LDRoomItem *roomItem = [[LDRoomItem alloc] init];
+    roomItem.authorID = streamJSON[@"AnchorID"];
+    roomItem.authorName = streamJSON[@"AuthorName"];
+    roomItem.authorIconURL = streamJSON[@"AuthorIconURL"];
+    roomItem.title = streamJSON[@"Title"];
+    roomItem.rtmpPlayURL = streamJSON[@"RTMPPlayURL"];
+    roomItem.m3u8PlayURL = streamJSON[@"M3U8PlayURL"];
+    roomItem.flvPlayURL = streamJSON[@"FlvPlayURL"];
+    roomItem.previewURL = streamJSON[@"PreviewURL"];
+    return roomItem;
 }
 
 - (void)onReciveRoomInfoWithTitle:(NSString *)title

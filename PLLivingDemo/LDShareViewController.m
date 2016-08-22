@@ -130,7 +130,7 @@
     [urlMessage setThumbImage:[UIImage imageNamed:@"logo"]];
     
     WXWebpageObject *webObj = [WXWebpageObject object];
-    webObj.webpageUrl = @"http://www.qiniu.com";
+    webObj.webpageUrl = [self _generateURL];
     
     urlMessage.mediaObject = webObj;
     sendReq.message = urlMessage;
@@ -149,7 +149,7 @@
     [urlMessage setThumbImage:[UIImage imageNamed:@"logo"]];
     
     WXWebpageObject *webObj = [WXWebpageObject object];
-    webObj.webpageUrl = @"http://www.qiniu.com";
+    webObj.webpageUrl = [self _generateURL];
     
     urlMessage.mediaObject = webObj;
     sendReq.message = urlMessage;
@@ -159,12 +159,17 @@
 
 - (void)_pressedShareURLButton:(id)sender
 {
-    
+    [[UIPasteboard generalPasteboard] setString:[self _generateURL]];
 }
 
 - (void)_pressedCancelButton:(id)sender
 {
     [self close];
+}
+
+- (NSString *)_generateURL
+{
+    return @"http://www.qiniu.com?flv=%@&m3u8=%@&poster=%@";
 }
 
 - (void)close

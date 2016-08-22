@@ -14,7 +14,9 @@
 @property (nonatomic, strong) NSString *authorName;
 @property (nonatomic, strong) NSString *authorIconURL;
 @property (nonatomic, strong) NSString *previewURL;
-@property (nonatomic, strong) NSString *playURL;
+@property (nonatomic, strong) NSString *rtmpPlayURL;
+@property (nonatomic, strong) NSString *m3u8PlayURL;
+@property (nonatomic, strong) NSString *flvPlayURL;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSDate *createdTime;
 

@@ -247,7 +247,9 @@ typedef enum {
             roomItem.authorIconURL = roomJson[@"AuthorIconURL"];
             roomItem.title = roomJson[@"Title"];
             roomItem.previewURL = roomJson[@"PreviewURL"];
-            roomItem.playURL = roomJson[@"PlayURL"];
+            roomItem.rtmpPlayURL = roomJson[@"RTMPPlayURL"];
+            roomItem.m3u8PlayURL = roomJson[@"M3U8PlayURL"];
+            roomItem.flvPlayURL = roomJson[@"FlvPlayURL"];
             [roomItems addObject:roomItem];
         }
         NSArray<LDRoomItem *> *originalRoomItems = self.roomItems;
@@ -377,7 +379,8 @@ typedef enum {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     LDRoomItem *roomItem = self.roomItems[indexPath.row];
-    [self.basicViewController popupViewController:[[LDSpectatorRoomViewController alloc] initWithURL:[NSURL URLWithString:roomItem.playURL]] animated:NO completion:nil];
+    UIViewController *viewController = [[LDSpectatorRoomViewController alloc] initWithRoomItem:roomItem];
+    [self.basicViewController popupViewController:viewController animated:NO completion:nil];
 }
 
 @end

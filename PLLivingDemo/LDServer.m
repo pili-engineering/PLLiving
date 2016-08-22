@@ -96,16 +96,24 @@ static LDServer *_sharedInstance;
     } fail:failBlock];
 }
 
-- (void)createNewRoomWithComplete:(void (^)(NSString *pushingURL))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
+- (void)createNewRoomWithComplete:(void (^)(NSDictionary *resultJSON))complete withFail:(void (^)(NSError * _Nullable responseError))failBlock
 {
     [self _url:[self _httpURLWithPath:@"/create_stream"] request:^(NSMutableURLRequest *request) {
         
         request.HTTPMethod = @"POST";
         
     } success:^(NSData * _Nullable data, NSHTTPURLResponse * _Nullable response) {
-        
-        NSString *url = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        complete(url);
+        NSDictionary *resultJSON = nil;
+        if (response.statusCode == 200) {
+            NSError *error = nil;
+            resultJSON = [NSJSONSerialization JSONObjectWithData:data
+                                                         options:NSJSONReadingMutableLeaves
+                                                           error:&error];
+            if (!error) {
+                NSLog(@"error : %@", error);
+            }
+        }
+        complete(resultJSON);
         
     } fail:failBlock];
 }
