@@ -28,6 +28,9 @@
         
         self.previewImageView = ({
             LDURLImageView *imageView = [[LDURLImageView alloc] init];
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.layer.masksToBounds = YES;
+            
             [self.contentView addSubview:imageView];
             [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.left.right.and.bottom.equalTo(self.contentView);
