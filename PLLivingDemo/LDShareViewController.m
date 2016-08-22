@@ -137,7 +137,7 @@
     sendReq.scene = WXSceneSession;
     
     WXMediaMessage *urlMessage = [WXMediaMessage message];
-    urlMessage.title = @"LIVING 七牛直播测试内容";
+    urlMessage.title = [NSString stringWithFormat:@"LIVING %@", self.roomItem.title];
     [urlMessage setThumbImage:[UIImage imageNamed:@"logo"]];
     
     WXWebpageObject *webObj = [WXWebpageObject object];
@@ -156,7 +156,7 @@
     sendReq.scene = WXSceneTimeline;
     
     WXMediaMessage *urlMessage = [WXMediaMessage message];
-    urlMessage.title = @"LIVING 七牛直播测试内容";
+    urlMessage.title = [NSString stringWithFormat:@"LIVING %@", self.roomItem.title];
     [urlMessage setThumbImage:[UIImage imageNamed:@"logo"]];
     
     WXWebpageObject *webObj = [WXWebpageObject object];

@@ -43,7 +43,6 @@ typedef enum {
 @property (nonatomic, strong) LDAsyncSemaphore *broadcastingSemaphore;
 @property (nonatomic, strong) LDAsyncSemaphore *createRoomSemaphore;
 @property (nonatomic, strong) LDBroadcastingManager *broadcastingManager;
-@property (nonatomic, strong) NSString *livingTitle;
 @property (nonatomic, strong) LDViewConstraintsStateManager *previewConstraints;
 
 @property (nonatomic, strong) LDRoomInfoViewController *roomInfoViewController;
@@ -259,7 +258,7 @@ typedef enum {
 - (void)onReciveRoomInfoWithTitle:(NSString *)title
 {
     if (title) {
-        self.livingTitle = title;
+        self.roomItem.title = title;
         [self.roomInfoViewController.view removeFromSuperview];
         self.roomInfoViewController = nil;
         [self _setupAnchorSubviews];
@@ -270,7 +269,7 @@ typedef enum {
         [self.createRoomSemaphore waitWithBlock:^{
             __strong typeof(self) strongSelf = weakSelf;
             if (strongSelf) {
-                [[LDServer sharedServer] postRoomIsReadyWithTitle:strongSelf.livingTitle WithComplete:^{
+                [[LDServer sharedServer] postRoomIsReadyWithTitle:strongSelf.roomItem.title WithComplete:^{
                     
                     // 将房间的 title 交给服务端，此时这个房间才会出现在大厅列表中。
                     [strongSelf.broadcastingSemaphore signal];
