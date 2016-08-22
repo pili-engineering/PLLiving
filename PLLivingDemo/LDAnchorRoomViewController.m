@@ -74,7 +74,7 @@ typedef enum {
         
         // 需要等待 2 个信号后才能开始推流（信号都是异步的，先后完全不可预测）
         // 1. 主播输入完 title，构造好 subivews。
-        // 2. 等待服务器返回 PLStream 对象。
+        // 2. 等待服务器返回推流地址。
         NSInteger semaphoreValue = 2;
         self.broadcastingSemaphore = [[LDAsyncSemaphore alloc] initWithValue:semaphoreValue];
         [self.broadcastingSemaphore waitWithTarget:self withAction:@selector(_beginBroadcasting)];
@@ -233,7 +233,7 @@ typedef enum {
             strongSelf.roomPanelViewControoler.roomItem = self.roomItem;
             [strongSelf.roomPanelViewControoler connectToWebSocket];
             [strongSelf setPushingURL:self.pushingURL];
-            [strongSelf.broadcastingSemaphore signal]; //接收到了 PLStream 对象。
+            [strongSelf.broadcastingSemaphore signal]; //接收到了推流地址。
             [strongSelf.createRoomSemaphore signal]; //房间已经创建好了。
         }
         
