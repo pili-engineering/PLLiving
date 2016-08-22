@@ -14,6 +14,7 @@ typedef enum {
 } LDRoomPanelViewControllerMode;
 
 @class LDRoomPanelViewController;
+@class LDRoomItem;
 
 @protocol LDRoomPanelViewControllerDelegate <NSObject>
 
@@ -26,6 +27,7 @@ typedef enum {
 
 @interface LDRoomPanelViewController : UIViewController
 
+@property (nonatomic, strong) LDRoomItem *roomItem;
 @property (nonatomic, weak) id<LDRoomPanelViewControllerDelegate> delegate;
 
 - (instancetype)initWithMode:(LDRoomPanelViewControllerMode)mode;

@@ -8,9 +8,11 @@
 
 #import "LDShareViewController.h"
 #import "LDPanGestureHandler.h"
+#import "LDRoomItem.h"
 
 @interface LDShareViewController ()
 @property (nonatomic, assign) BOOL didClosed;
+@property (nonatomic, strong) LDRoomItem *roomItem;
 @property (nonatomic, strong) UIButton *shareToFriendsButton;
 @property (nonatomic, strong) UIButton *shareToTimelineButton;
 @property (nonatomic, strong) UIButton *shareURLButton;
@@ -18,6 +20,15 @@
 @end
 
 @implementation LDShareViewController
+
+- (instancetype)initWithPresentOrientation:(LDBlurViewControllerPresentOrientation)presentOrientation
+                              withRoomItem:(LDRoomItem *)roomItem
+{
+    if (self = [self initWithPresentOrientation:presentOrientation]) {
+        _roomItem = roomItem;
+    }
+    return self;
+}
 
 - (BOOL)prefersStatusBarHidden
 {
@@ -159,6 +170,7 @@
 
 - (void)_pressedShareURLButton:(id)sender
 {
+    
     [[UIPasteboard generalPasteboard] setString:[self _generateURL]];
 }
 
@@ -169,7 +181,10 @@
 
 - (NSString *)_generateURL
 {
-    return @"http://www.qiniu.com?flv=%@&m3u8=%@&poster=%@";
+    NSString *flvURL = self.roomItem.flvPlayURL;
+    NSString *m3u8URL = self.roomItem.m3u8PlayURL;
+    NSString *poster = self.roomItem.previewURL;
+    return [NSString stringWithFormat:@"http://www.qiniu.com?flv=%@&m3u8=%@&poster=%@", flvURL, m3u8URL, poster];
 }
 
 - (void)close

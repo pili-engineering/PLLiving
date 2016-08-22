@@ -109,7 +109,7 @@ static LDServer *_sharedInstance;
             resultJSON = [NSJSONSerialization JSONObjectWithData:data
                                                          options:NSJSONReadingMutableLeaves
                                                            error:&error];
-            if (!error) {
+            if (error) {
                 NSLog(@"error : %@", error);
             }
         }

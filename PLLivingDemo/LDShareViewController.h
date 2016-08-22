@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "LDBlurViewController.h"
+
+@class LDRoomItem;
 
 @interface LDShareViewController : LDBlurViewController
 
+- (instancetype)initWithPresentOrientation:(LDBlurViewControllerPresentOrientation)presentOrientation withRoomItem:(LDRoomItem *)roomItem;
 - (void)close;
 
 @end

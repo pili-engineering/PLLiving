@@ -45,6 +45,7 @@ typedef enum {
             player;
         });
         self.roomPanelViewControoler = [[LDRoomPanelViewController alloc] initWithMode:LDRoomPanelViewControllerMode_Spectator];
+        self.roomPanelViewControoler.roomItem = roomItem;
         self.roomPanelViewControoler.delegate = self;
         self.constraints = [[LDViewConstraintsStateManager alloc] init];
     }

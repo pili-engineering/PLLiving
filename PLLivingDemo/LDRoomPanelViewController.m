@@ -380,7 +380,7 @@ typedef enum {
 
 - (void)_onPressedSharingButton:(UIButton *)button
 {
-    LDShareViewController *viewController = [[LDShareViewController alloc] initWithPresentOrientation:LDBlurViewControllerPresentOrientation_FromBottom];
+    LDShareViewController *viewController = [[LDShareViewController alloc] initWithPresentOrientation:LDBlurViewControllerPresentOrientation_FromBottom withRoomItem:self.roomItem];
     [self.chatTextField resignFirstResponder];
     [self.basicViewController popupViewController:viewController animated:NO completion:nil];
     [viewController playAppearAnimationWithComplete:nil];

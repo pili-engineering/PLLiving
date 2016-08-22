@@ -230,6 +230,7 @@ typedef enum {
             self.roomItem = [self _roomItemWithJSON:resultJSON[@"Stream"]];
             
             NSLog(@"get pushing url %@", self.pushingURL);
+            strongSelf.roomPanelViewControoler.roomItem = self.roomItem;
             [strongSelf.roomPanelViewControoler connectToWebSocket];
             [strongSelf setPushingURL:self.pushingURL];
             [strongSelf.broadcastingSemaphore signal]; //接收到了 PLStream 对象。
