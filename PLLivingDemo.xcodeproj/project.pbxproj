@@ -81,8 +81,6 @@
 		D2AE56421D4895E8005BB832 /* LDAgreementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AE56411D4895E8005BB832 /* LDAgreementsViewController.m */; };
 		D2AE56451D48AB1C005BB832 /* arrows-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2AE56431D48AB1C005BB832 /* arrows-right@2x.png */; };
 		D2AE56461D48AB1C005BB832 /* arrows-right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2AE56441D48AB1C005BB832 /* arrows-right@3x.png */; };
-		D2E654881D471A4100DD7A14 /* live1.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E654861D471A4100DD7A14 /* live1.png */; };
-		D2E654891D471A4100DD7A14 /* live2.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E654871D471A4100DD7A14 /* live2.png */; };
 		D2E6548C1D4733EE00DD7A14 /* LDPanGestureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E6548B1D4733EE00DD7A14 /* LDPanGestureHandler.m */; };
 		D2E654901D47549D00DD7A14 /* LDUserSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E6548F1D47549D00DD7A14 /* LDUserSettingViewController.m */; };
 		D2F6B3141D407B160000B6C7 /* LDViewConstraintsStateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F6B3131D407B160000B6C7 /* LDViewConstraintsStateManager.m */; };
@@ -212,8 +210,6 @@
 		D2AE56411D4895E8005BB832 /* LDAgreementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAgreementsViewController.m; sourceTree = "<group>"; };
 		D2AE56431D48AB1C005BB832 /* arrows-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrows-right@2x.png"; path = "Assets/arrows-right@2x.png"; sourceTree = "<group>"; };
 		D2AE56441D48AB1C005BB832 /* arrows-right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrows-right@3x.png"; path = "Assets/arrows-right@3x.png"; sourceTree = "<group>"; };
-		D2E654861D471A4100DD7A14 /* live1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = live1.png; path = DemoIcons/live1.png; sourceTree = "<group>"; };
-		D2E654871D471A4100DD7A14 /* live2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = live2.png; path = DemoIcons/live2.png; sourceTree = "<group>"; };
 		D2E6548A1D4733EE00DD7A14 /* LDPanGestureHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDPanGestureHandler.h; sourceTree = "<group>"; };
 		D2E6548B1D4733EE00DD7A14 /* LDPanGestureHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDPanGestureHandler.m; sourceTree = "<group>"; };
 		D2E6548E1D47549D00DD7A14 /* LDUserSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDUserSettingViewController.h; sourceTree = "<group>"; };
@@ -362,8 +358,6 @@
 		D246EB881D41EE1D00510816 /* DemoIcons */ = {
 			isa = PBXGroup;
 			children = (
-				D2E654861D471A4100DD7A14 /* live1.png */,
-				D2E654871D471A4100DD7A14 /* live2.png */,
 				D246EB8F1D41EEAD00510816 /* icon1.jpeg */,
 				D246EB901D41EEAD00510816 /* icon2.jpg */,
 				D246EB911D41EEAD00510816 /* icon3.jpg */,
@@ -659,7 +653,6 @@
 			files = (
 				D246EBD11D41EEE500510816 /* share-moment@2x.png in Resources */,
 				D246EBB81D41EEE500510816 /* add-button@2x.png in Resources */,
-				D2E654891D471A4100DD7A14 /* live2.png in Resources */,
 				D246EBD41D41EEE500510816 /* share-wechat.pdf in Resources */,
 				D27022B81D41F8D800A8B311 /* arrows-up@2x.png in Resources */,
 				D246EBBC1D41EEE500510816 /* arrows-left@2x.png in Resources */,
@@ -701,7 +694,6 @@
 				D246EBCD1D41EEE500510816 /* planet.png in Resources */,
 				D23162141D4B158B00B239AA /* living.plist in Resources */,
 				D2F9078E1D3C7BB4006C987F /* Localizable.strings in Resources */,
-				D2E654881D471A4100DD7A14 /* live1.png in Resources */,
 				D246EBC21D41EEE500510816 /* icon-big-close@2x.png in Resources */,
 				D246EBBA1D41EEE500510816 /* arrows-down@2x.png in Resources */,
 				D246EBC01D41EEE500510816 /* empty-illustration@2x.png in Resources */,
