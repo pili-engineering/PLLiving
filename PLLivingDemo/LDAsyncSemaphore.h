@@ -12,6 +12,7 @@
 
 - (instancetype)initWithValue:(NSInteger)value;
 - (void)signal;
+- (void)waitWithBlock:(void (^)())block;
 - (void)waitWithTarget:(id)target withAction:(SEL)action;
 
 @end

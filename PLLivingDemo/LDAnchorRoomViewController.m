@@ -39,6 +39,7 @@ typedef enum {
 
 @property (nonatomic, strong) PLCameraStreamingSession *cameraStreamingSession;
 @property (nonatomic, strong) LDAsyncSemaphore *broadcastingSemaphore;
+@property (nonatomic, strong) LDAsyncSemaphore *createRoomSemaphore;
 @property (nonatomic, strong) LDBroadcastingManager *broadcastingManager;
 @property (nonatomic, strong) NSString *livingTitle;
 @property (nonatomic, strong) LDViewConstraintsStateManager *previewConstraints;
@@ -66,6 +67,8 @@ typedef enum {
         
         self.roomPanelViewControoler = [[LDRoomPanelViewController alloc] initWithMode:LDRoomPanelViewControllerMode_Anchor];
         self.roomPanelViewControoler.delegate = self;
+        
+        self.createRoomSemaphore = [[LDAsyncSemaphore alloc] initWithValue:1];
         
         // 需要等待 2 个信号后才能开始推流（信号都是异步的，先后完全不可预测）
         // 1. 主播输入完 title，构造好 subivews。
@@ -165,8 +168,10 @@ typedef enum {
     // 这个过程如果放在 Main 线程进行，会阻塞 UI 几百毫秒，这个操作放在另一个线程进行可以让体验好一点。
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
+        NSLog(@"begin to create streaming session");
         self.cameraStreamingSession = [self.broadcastingManager generateCameraStreamingSession];
         self.cameraStreamingSession.delegate = self;
+        NSLog(@"did create stremaing sesison");
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self _setupAfterGetCameraStreamingSession];
@@ -222,6 +227,7 @@ typedef enum {
             [strongSelf.roomPanelViewControoler connectToWebSocket];
             [strongSelf setPushingURL:[NSURL URLWithString:pushingURL]];
             [strongSelf.broadcastingSemaphore signal]; //接收到了 PLStream 对象。
+            [strongSelf.createRoomSemaphore signal]; //房间已经创建好了。
         }
         
     } withFail:^(NSError * _Nullable responseError) {
@@ -238,13 +244,20 @@ typedef enum {
         [self _setupAnchorSubviews];
         [self _setupGestureRecognizerForTopBar];
         
-        [[LDServer sharedServer] postRoomIsReadyWithTitle:self.livingTitle WithComplete:^{
-            
-            // 将房间的 title 交给服务端，此时这个房间才会出现在大厅列表中。
-            [self.broadcastingSemaphore signal];
-            
-        } withFail:^(NSError * _Nullable responseError) {
-            // TODO
+        __weak typeof(self) weakSelf = self;
+        
+        [self.createRoomSemaphore waitWithBlock:^{
+            __strong typeof(self) strongSelf = weakSelf;
+            if (strongSelf) {
+                [[LDServer sharedServer] postRoomIsReadyWithTitle:strongSelf.livingTitle WithComplete:^{
+                    
+                    // 将房间的 title 交给服务端，此时这个房间才会出现在大厅列表中。
+                    [strongSelf.broadcastingSemaphore signal];
+                    
+                } withFail:^(NSError * _Nullable responseError) {
+                    // TODO
+                }];
+            }
         }];
     } else {
         [self _close];

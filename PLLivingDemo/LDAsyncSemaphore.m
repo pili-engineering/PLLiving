@@ -12,8 +12,7 @@
 @property (nonatomic, assign) NSInteger value;
 @property (nonatomic, assign) BOOL isWaiting;
 @property (nonatomic, assign) BOOL didFinished;
-@property (nonatomic, weak) id target;
-@property (nonatomic, assign) SEL action;
+@property (nonatomic, strong) void (^block)();
 @end
 
 @implementation LDAsyncSemaphore
@@ -34,10 +33,9 @@
     }
 }
 
-- (void)waitWithTarget:(id)target withAction:(SEL)action
+- (void)waitWithBlock:(void (^)())block
 {
-    self.target = target;
-    self.action = action;
+    self.block = block;
     self.isWaiting = YES;
     
     if (_value <= 0) {
@@ -45,12 +43,22 @@
     }
 }
 
+- (void)waitWithTarget:(id)target withAction:(SEL)action
+{
+    __weak id weakTarget = target;
+    [self waitWithBlock:^{
+        __strong id strongTarget = weakTarget;
+        if ([strongTarget respondsToSelector:action]) {
+            [strongTarget performSelector:action];
+        }
+    }];
+}
+
 - (void)_callTarget
 {
     if (!self.didFinished) {
-        __strong id strongTarget = self.target;
-        if ([strongTarget respondsToSelector:self.action]) {
-            [strongTarget performSelector:self.action];
+        if (self.block) {
+            self.block();
         }
         self.didFinished = YES;
     }
