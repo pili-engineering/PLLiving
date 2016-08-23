@@ -22,6 +22,5 @@
 #import "WXApiObject.h"
 #import "WechatAuthSDK.h"
 
-#import "LDLayoutParameter.h"
 #import "LDBasicViewController.h"
 #import "UIColor+HexString.h"

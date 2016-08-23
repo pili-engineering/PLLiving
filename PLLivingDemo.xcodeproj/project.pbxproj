@@ -238,7 +238,6 @@
 		D2F907A11D3C9D5C006C987F /* LDRoomItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDRoomItem.m; sourceTree = "<group>"; };
 		D2F907A31D3CA066006C987F /* LDLobbyRoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDLobbyRoomView.h; sourceTree = "<group>"; };
 		D2F907A41D3CA066006C987F /* LDLobbyRoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDLobbyRoomView.m; sourceTree = "<group>"; };
-		D2F907A61D3CA65D006C987F /* LDLayoutParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDLayoutParameter.h; sourceTree = "<group>"; };
 		D2F907A91D3CB271006C987F /* LDAnchorRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDAnchorRoomViewController.h; sourceTree = "<group>"; };
 		D2F907AA1D3CB271006C987F /* LDAnchorRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDAnchorRoomViewController.m; sourceTree = "<group>"; };
 		D2F907AC1D3CB363006C987F /* LDRoomInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDRoomInfoViewController.h; sourceTree = "<group>"; };
@@ -554,7 +553,6 @@
 		D2F907A71D3CA662006C987F /* Globals */ = {
 			isa = PBXGroup;
 			children = (
-				D2F907A61D3CA65D006C987F /* LDLayoutParameter.h */,
 				D28F1AC71D6BE91600D71E27 /* LDUserDefaultsKey.h */,
 			);
 			name = Globals;
