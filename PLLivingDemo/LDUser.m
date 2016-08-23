@@ -7,7 +7,7 @@
 //
 
 #import "LDUser.h"
-#import "AppDelegate.h"
+#import "LDUserDefaultsKey.h"
 
 @implementation LDUser
 

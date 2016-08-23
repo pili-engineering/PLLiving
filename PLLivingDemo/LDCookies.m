@@ -7,7 +7,7 @@
 //
 
 #import "LDCookies.h"
-#import "AppDelegate.h"
+#import "LDUserDefaultsKey.h"
 
 @implementation LDCookies
 
