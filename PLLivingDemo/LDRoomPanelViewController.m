@@ -269,7 +269,7 @@ typedef enum {
 - (void)playCloseRoomPanelViewControllerAnimation
 {
     [self.chatTextField resignFirstResponder];
-    [self.webSocket close];
+    [self _closeWebSocket];
     
     [UIView animateWithDuration:0.65 animations:^{
         self.constraints.state = @(LayoutState_Hide);
@@ -281,6 +281,17 @@ typedef enum {
     if (self.shareViewController) {
         [self.shareViewController close];
     }
+}
+
+- (void)_closeWebSocket
+{
+    if (self.mode == LDRoomPanelViewControllerMode_Anchor) {
+        // 当主播离开房间（即销毁 room panel）时，必须通知所有观众直播结束了。
+        // 因为随后主播将结束推流。此时观众必须知道流的终端是因为主播关闭的房间，而不是意外中断。
+        NSString *json = [[LDChatParser sharedChatParser] messageJSONWithCommand:@"destroy"];
+        [self.webSocket send:json];
+    }
+    [self.webSocket close];
 }
 
 - (void)_addNotifications
@@ -408,6 +419,14 @@ typedef enum {
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.chatTableView insertRowsAtIndexPaths:@[newIndexPath]
                                   withRowAnimation:UITableViewRowAnimationLeft];
+    } else {
+        NSString *command = [[LDChatParser sharedChatParser] commandWithMessage:message];
+        if ([@"destroy" isEqualToString:command]) {
+            // 收到来自主播的 destroy 命令，表明主播离开房间了。
+            if ([self.delegate respondsToSelector:@selector(onRoomDestroy)]) {
+                [self.delegate onRoomDestroy];
+            }
+        }
     }
 }
 

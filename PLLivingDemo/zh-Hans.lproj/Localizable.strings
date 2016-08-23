@@ -50,6 +50,8 @@
 
 // Spectator
 "player-found-error-and-have-to-exit" = "播放过程中发生错误，即将退出房间！";
+"anchor-did-exit-room" = "主播已经离开房间了";
+"anchor-did-exit-room-message" = "没得神马好看的了，各位各回各家，各找各妈吧。";
 
 // Room Panel
 "chat-placeholder" = "Say somthing";

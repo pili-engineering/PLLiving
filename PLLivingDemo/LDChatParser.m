@@ -26,25 +26,14 @@ static LDChatParser *_instance;
 
 - (LDChatItem *)chatItemWithMessage:(NSString *)message
 {
-    NSError *error = nil;
-    NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *messageJSON = [NSJSONSerialization JSONObjectWithData:data
-                                                                options:NSJSONReadingMutableLeaves
-                                                                  error:&error];
-    if (error) {
-        NSLog(@"parse JSON fail : %@", error);
-        return nil;
-    }
+    NSDictionary *messageJSON = [self _extractJSONWithMessage:message];
     LDChatItem *chatItem = nil;
-    if ([@"chat" isEqualToString:messageJSON[@"Command"]]) {
-        
+    
+    if (messageJSON && [@"chat" isEqualToString:messageJSON[@"Command"]]) {
         chatItem = [[LDChatItem alloc] init];
         chatItem.username = messageJSON[@"UserName"];
         chatItem.message = messageJSON[@"Message"];
         chatItem.iconURL = messageJSON[@"IconURL"];
-        
-    } else if ([@"enter" isEqualToString:messageJSON[@"Command"]]) {
-        NSLog(@"%@ 进入了房间", messageJSON[@"UserName"]);
     }
     return chatItem;
 }
@@ -55,8 +44,41 @@ static LDChatParser *_instance;
                                   @"IconURL": [LDUser sharedUser].iconURL,
                                   @"Message": message,
                                   @"Command": @"chat"};
+    return [self _generateJSONWithDictionary:messageJSON];
+}
+
+- (NSString *)commandWithMessage:(NSString *)message
+{
+    NSDictionary *messageJSON = [self _extractJSONWithMessage:message];
+    if (messageJSON) {
+        return messageJSON[@"Command"];
+    }
+    return nil;
+}
+
+- (NSString *)messageJSONWithCommand:(NSString *)command
+{
+    return [self _generateJSONWithDictionary:@{@"Command": command}];
+}
+
+- (NSDictionary *)_extractJSONWithMessage:(NSString *)message
+{
     NSError *error = nil;
-    NSData *data = [NSJSONSerialization dataWithJSONObject:messageJSON
+    NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *messageJSON = [NSJSONSerialization JSONObjectWithData:data
+                                                                options:NSJSONReadingMutableLeaves
+                                                                  error:&error];
+    if (error) {
+        NSLog(@"parse JSON fail : %@", error);
+        return nil;
+    }
+    return messageJSON;
+}
+
+- (NSString *)_generateJSONWithDictionary:(NSDictionary *)dictionary
+{
+    NSError *error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
                                                    options:NSJSONWritingPrettyPrinted
                                                      error:&error];
     

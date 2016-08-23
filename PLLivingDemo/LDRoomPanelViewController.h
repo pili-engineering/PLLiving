@@ -22,6 +22,7 @@ typedef enum {
 
 - (void)onKeyboardWasShownWithHeight:(CGFloat)keyboardHeight withDuration:(NSTimeInterval)duration;
 - (void)onKeyboardWillBeHiddenWithDuration:(NSTimeInterval)duration;
+- (void)onRoomDestroy;
 
 @end
 

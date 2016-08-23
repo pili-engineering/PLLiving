@@ -15,5 +15,7 @@
 + (instancetype)sharedChatParser;
 - (LDChatItem *)chatItemWithMessage:(NSString *)message;
 - (NSString *)messageJSON:(NSString *)message;
+- (NSString *)commandWithMessage:(NSString *)message;
+- (NSString *)messageJSONWithCommand:(NSString *)command;
 
 @end

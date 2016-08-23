@@ -158,6 +158,22 @@ typedef enum {
     }];
 }
 
+- (void)onRoomDestroy
+{
+    // 主播离开房间了
+    if (self.player.status == PLPlayerStatusReady ||
+        self.player.status == PLPlayerStatusPlaying ||
+        self.player.status == PLPlayerStatusCaching) {
+        
+        [self _stopPlayer];
+        NSString *title = LDString("anchor-did-exit-room");
+        NSString *message = LDString("anchor-did-exit-room-message");
+        [LDAlertUtil alertParentViewController:self title:title error:message complete:^{
+            [self _closeSpectatorRoomViewController];
+        }];
+    }
+}
+
 - (void)player:(nonnull PLPlayer *)player statusDidChange:(PLPlayerStatus)state
 {
     if (state == PLPlayerStatusReady && // 播放器已经完全准备好，可以播放出第一帧了。
@@ -186,13 +202,18 @@ typedef enum {
 
 - (void)_onPressedCloseButton:(UIButton *)button
 {
+    [self _stopPlayer];
+    [self _closeSpectatorRoomViewController];
+}
+
+- (void)_stopPlayer
+{
     // PLPlayer 调用 stop 并非一瞬间可以完成。
     // 这个过程如果放在 Main 线程进行，会阻塞 UI 几百毫秒，这个操作放在另一个线程进行可以让体验好一点。
     PLPlayer *player = self.player;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [player stop];
     });
-    [self _closeSpectatorRoomViewController];
 }
 
 - (void)_closeSpectatorRoomViewController
