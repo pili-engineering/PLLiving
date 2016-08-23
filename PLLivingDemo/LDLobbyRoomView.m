@@ -45,10 +45,10 @@
                 gradientLayer.startPoint = CGPointMake(0, 0);
                 gradientLayer.endPoint = CGPointMake(0, 1);
                 gradientLayer.locations = @[@0, @0.33, @0.66, @1];
-                gradientLayer.colors = @[(__bridge id) [UIColor colorWithHexString:@"1A000000"].CGColor,
-                                         (__bridge id) [UIColor colorWithHexString:@"005A5A5A"].CGColor,
-                                         (__bridge id) [UIColor colorWithHexString:@"00282828"].CGColor,
-                                         (__bridge id) [UIColor colorWithHexString:@"AB000000"].CGColor,];
+                gradientLayer.colors = @[(__bridge id) kcolLobbyRoomCellGradient0.CGColor,
+                                         (__bridge id) kcolLobbyRoomCellGradient1.CGColor,
+                                         (__bridge id) kcolLobbyRoomCellGradient2.CGColor,
+                                         (__bridge id) kcolLobbyRoomCellGradient3.CGColor,];
                 gradientLayer;
             })];
             [self.contentView addSubview:gradientView];

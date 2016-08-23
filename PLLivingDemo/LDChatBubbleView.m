@@ -39,7 +39,7 @@
         UIView *bubbleView = ({
             UIView *view = [[UIView alloc] init];
             [self.contentView addSubview:view];
-            view.backgroundColor = [UIColor colorWithHexString:@"FFDCDCDC"];
+            view.backgroundColor = kcolBubbleBackground;
             view.layer.cornerRadius = 16;
             view.alpha = 0.85;
             [view mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -51,7 +51,7 @@
             
             UIView *cornerView = [[UIView alloc] init];
             [view addSubview:cornerView];
-            cornerView.backgroundColor = [UIColor colorWithHexString:@"FFDCDCDC"];
+            cornerView.backgroundColor = kcolBubbleBackground;
             cornerView.layer.cornerRadius = 2;
             [cornerView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.bottom.equalTo(view);

@@ -111,8 +111,8 @@ typedef enum {
             CAGradientLayer *gradientLayer = [CAGradientLayer layer];
             gradientLayer.startPoint = CGPointMake(0, 0);
             gradientLayer.endPoint = CGPointMake(0, 1);
-            gradientLayer.colors = @[(__bridge id) [UIColor colorWithHexString:@"00000000"].CGColor,
-                                     (__bridge id) [UIColor colorWithHexString:@"66000000"].CGColor,];
+            gradientLayer.colors = @[(__bridge id) kcolChatBarGradient0.CGColor,
+                                     (__bridge id) kcolChatBarGradient0.CGColor,];
             gradientLayer;
         })];
         [bar addSubview:gradientView];
@@ -121,7 +121,7 @@ typedef enum {
         }];
         UIView *line = [[UIView alloc] init];
         [bar addSubview:line];
-        [line setBackgroundColor:[UIColor colorWithHexString:@"56FFFFFF"]];
+        [line setBackgroundColor:kcolSplitLine];
         [line mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(bar).with.offset(14);
             make.right.equalTo(bar).with.offset(-14);

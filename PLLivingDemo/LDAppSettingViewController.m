@@ -35,7 +35,7 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithHexString:@"F6F6F6"];
+    self.view.backgroundColor = kcolGrayBackground;
     
     self.scrollContainer = ({
         UIView *container = [[UIView alloc] init];
@@ -51,7 +51,7 @@
     [self.navigationItem setTitleView:({
         UILabel *label = [[UILabel alloc] init];
         label.text = LDString("settings");
-        label.textColor = [UIColor colorWithHexString:@"030303"];
+        label.textColor = kcolTextButton;
         label.font = [UIFont systemFontOfSize:14];
         [label sizeToFit];
         label;
@@ -61,7 +61,7 @@
         UIBarButtonItem *button = [[UIBarButtonItem alloc] init];
         self.navigationItem.leftBarButtonItem = button;
         [button setImage:[UIImage imageNamed:@"icon-close"]];
-        [button setTintColor:[UIColor colorWithHexString:@"B8B8B8"]];
+        [button setTintColor:kcolCloseButtonIcon];
         [button setTarget:self];
         [button setAction:@selector(_pressedCloseButton)];
         button;
@@ -93,7 +93,7 @@
         UILabel *label = [[UILabel alloc] init];
         [self.scrollContainer addSubview:label];
         label.text = LDString("slogan");
-        label.textColor = [UIColor colorWithHexString:@"4E4E4E"];
+        label.textColor = kcolTextSlogan;
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(titleImageView.mas_bottom).with.offset(19);
             make.centerX.equalTo(self.scrollContainer);
@@ -136,7 +136,7 @@
         UILabel *versionLabel = [[UILabel alloc] init];
         [self.scrollContainer addSubview:versionLabel];
         versionLabel.text = LDString("version");
-        versionLabel.textColor = [UIColor colorWithHexString:@"D8D8D8"];
+        versionLabel.textColor = kcolTextVersion;
         versionLabel.font = [UIFont systemFontOfSize:12];
         [versionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.greaterThanOrEqualTo(logoutButton.mas_bottom).with.offset(56);
@@ -160,7 +160,7 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.scrollContainer addSubview:button];
     [button setBackgroundColor:[UIColor whiteColor]];
-    [button setTitleColor:[UIColor colorWithHexString:@"030303"] forState:UIControlStateNormal];
+    [button setTitleColor:kcolTextButton forState:UIControlStateNormal];
     [button setTitle:title forState:UIControlStateNormal];
     [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [button setContentEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];

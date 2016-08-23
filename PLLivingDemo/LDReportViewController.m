@@ -29,7 +29,7 @@
     UIView *container = ({
         UIView *view = [[UIView alloc] init];
         [self.view addSubview:view];
-        view.backgroundColor = [UIColor colorWithHexString:@"010101"];
+        view.backgroundColor = kcolWarnDialogBackground;
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.and.bottom.equalTo(self.view);
             make.height.mas_equalTo(153);
@@ -41,7 +41,7 @@
         [container addSubview:label];
         label.font = [UIFont systemFontOfSize:12];
         label.text = LDString("sure-to-report-this-broadcast");
-        label.textColor = [UIColor colorWithHexString:@"848484"];
+        label.textColor = kcolWarnDiscriptionBackground;
         label.textAlignment = NSTextAlignmentCenter;
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(container).with.offset(19);
@@ -55,7 +55,7 @@
         [button.layer setCornerRadius:22];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button setTitle:LDString("report-content") forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor colorWithHexString:@"ED5757"]];
+        [button setBackgroundColor:kcolLightButtonBackground];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(descriptionLabel.mas_bottom).with.offset(18);
             make.centerX.equalTo(container);
@@ -68,7 +68,7 @@
     self.cancelButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [container addSubview:button];
-        [button setTitleColor:[UIColor colorWithHexString:@"B8B8B8"] forState:UIControlStateNormal];
+        [button setTitleColor:kcolCloseButtonIcon forState:UIControlStateNormal];
         [button setTitle:LDString("cancel") forState:UIControlStateNormal];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.reportButton.mas_bottom).with.offset(5);

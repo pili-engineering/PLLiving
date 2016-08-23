@@ -83,7 +83,7 @@
     self.navigationItem.titleView = ({
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.text = self.title;
-        titleLabel.textColor = [UIColor colorWithHexString:@"030303"];
+        titleLabel.textColor = kcolTextButton;
         titleLabel.font = [UIFont systemFontOfSize:14];
         [titleLabel sizeToFit];
         titleLabel;
@@ -93,7 +93,7 @@
         self.navigationItem.leftBarButtonItem = ({
             UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] init];
             [closeButton setImage:[UIImage imageNamed:@"icon-close"]];
-            [closeButton setTintColor:[UIColor colorWithHexString:@"B8B8B8"]];
+            [closeButton setTintColor:kcolCloseButtonIcon];
             [closeButton setTarget:self];
             [closeButton setAction:@selector(_onPressedCloseButton:)];
             closeButton;
@@ -102,7 +102,7 @@
         self.navigationItem.leftBarButtonItem = ({
             UIBarButtonItem *backButton = [[UIBarButtonItem alloc] init];
             [backButton setImage:[UIImage imageNamed:@"arrows-left"]];
-            [backButton setTintColor:[UIColor colorWithHexString:@"B8B8B8"]];
+            [backButton setTintColor:kcolCloseButtonIcon];
             [backButton setTarget:self];
             [backButton setAction:@selector(_onPressedBackButton:)];
             backButton;
@@ -132,9 +132,7 @@
 
 - (void)_setEnable:(BOOL)enable withButton:(UIButton *)button
 {
-    UIColor *color = enable ? [UIColor colorWithHexString:@"000000"]
-                            : [UIColor colorWithHexString:@"B2B2B2"];
-    
+    UIColor *color = enable ? kcolButtonEnable : kcolButtonNotEnable;
     [button setTitleColor:color forState:UIControlStateNormal];
     button.layer.borderColor = color.CGColor;
     button.enabled = enable;
@@ -151,8 +149,8 @@
     self.phoneNumber = ({
         UITextField *field = [[UITextField alloc] init];
         [self.view addSubview:field];
-        field.textColor = [UIColor colorWithHexString:@"030303"];
-        field.tintColor = [UIColor colorWithHexString:@"030303"];
+        field.textColor = kcolTextButton;
+        field.tintColor = kcolTextButton;
         field.font = [UIFont systemFontOfSize:24];
         field.textAlignment = NSTextAlignmentCenter;
         field.keyboardType = UIKeyboardTypeNumberPad;
@@ -240,8 +238,8 @@
     self.confirmationField = ({
         UITextField *field = [[UITextField alloc] init];
         [self.view addSubview:field];
-        field.textColor = [UIColor colorWithHexString:@"030303"];
-        field.tintColor = [UIColor colorWithHexString:@"030303"];
+        field.textColor = kcolTextButton;
+        field.tintColor = kcolTextButton;
         field.font = [UIFont systemFontOfSize:24];
         field.textAlignment = NSTextAlignmentCenter;
         field.keyboardType = UIKeyboardTypeNumberPad;
@@ -350,7 +348,7 @@
         }];
         container.layer.cornerRadius = 40;
         container.layer.masksToBounds = YES;
-        container.backgroundColor = [UIColor colorWithHexString:@"CCCCCC"];
+        container.backgroundColor = kcolIconBackground;
         container;
     });
     

@@ -77,7 +77,7 @@
     self.userNameLabel = ({
         UILabel *label = [[UILabel alloc] init];
         [panel addSubview:label];
-        label.textColor = [UIColor colorWithHexString:@"383838"];
+        label.textColor = kcolTextNormal;
         label.font = [UIFont systemFontOfSize:16];
         label.text = [LDUser sharedUser].userName;
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -90,7 +90,7 @@
     UIView *topLine = ({
         UIView *line = [[UIView alloc] init];
         [panel addSubview:line];
-        line.backgroundColor = [UIColor colorWithHexString:@"E7E7E7"];
+        line.backgroundColor = kcolSplitLine;
         [line mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(userIconContainer.mas_bottom).with.offset(120);
             make.left.equalTo(panel).with.offset(17);
@@ -103,7 +103,7 @@
     UIView *bottomLine = ({
         UIView *line = [[UIView alloc] init];
         [panel addSubview:line];
-        line.backgroundColor = [UIColor colorWithHexString:@"E7E7E7"];
+        line.backgroundColor = kcolSplitLine;
         [line mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(topLine).with.offset(56);
             make.left.equalTo(panel).with.offset(17);
@@ -117,7 +117,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [panel addSubview:button];
         [button setTitle:LDString("setting") forState:UIControlStateNormal];
-        [button setTintColor:[UIColor colorWithHexString:@"030303"]];
+        [button setTintColor:kcolTextButton];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         button.contentEdgeInsets = UIEdgeInsetsMake(0, 24, 0, 0);
         [button addTarget:self action:@selector(_onPressedSettingButton:)

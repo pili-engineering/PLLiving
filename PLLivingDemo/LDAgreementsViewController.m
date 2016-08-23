@@ -19,12 +19,12 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithHexString:@"F6F6F6"];
+    self.view.backgroundColor = kcolGrayBackground;
     
     [self.navigationItem setTitleView:({
         UILabel *label = [[UILabel alloc] init];
         label.text = LDString("Agreements");
-        label.textColor = [UIColor colorWithHexString:@"030303"];
+        label.textColor = kcolTextButton;
         label.font = [UIFont systemFontOfSize:14];
         [label sizeToFit];
         label;
@@ -65,7 +65,7 @@
 {
     NSDictionary<NSString *, id> * attrs = @{
        NSFontAttributeName : [UIFont boldSystemFontOfSize:12],
-       NSForegroundColorAttributeName: [UIColor colorWithHexString:@"5E5E5E"]
+       NSForegroundColorAttributeName: kcolTextDescription
     };
     [text appendAttributedString:[[NSAttributedString alloc] initWithString:title attributes:attrs]];
     [text appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n" attributes:attrs]];
@@ -75,7 +75,7 @@
 {
     NSDictionary<NSString *, id> * attrs = @{
         NSFontAttributeName : [UIFont systemFontOfSize:12],
-        NSForegroundColorAttributeName: [UIColor colorWithHexString:@"5E5E5E"]
+        NSForegroundColorAttributeName: kcolTextDescription
     };
     [text appendAttributedString:[[NSAttributedString alloc] initWithString:paragraph attributes:attrs]];
     [text appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n" attributes:attrs]];

@@ -197,6 +197,7 @@
 		D27022C41D421F4A00A8B311 /* LDSpectatorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDSpectatorItem.h; sourceTree = "<group>"; };
 		D27022C51D421F4A00A8B311 /* LDSpectatorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDSpectatorItem.m; sourceTree = "<group>"; };
 		D28F1AC71D6BE91600D71E27 /* LDUserDefaultsKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LDUserDefaultsKey.h; sourceTree = "<group>"; };
+		D28F1AC81D6BEA4300D71E27 /* LDColorConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDColorConfiguration.h; sourceTree = "<group>"; };
 		D293D80D1D586A0800F8E255 /* LDCookies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDCookies.h; sourceTree = "<group>"; };
 		D293D80E1D586A0800F8E255 /* LDCookies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDCookies.m; sourceTree = "<group>"; };
 		D2AC31161D671C2600AAC7C1 /* LDChatParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDChatParser.h; sourceTree = "<group>"; };
@@ -554,6 +555,7 @@
 			isa = PBXGroup;
 			children = (
 				D28F1AC71D6BE91600D71E27 /* LDUserDefaultsKey.h */,
+				D28F1AC81D6BEA4300D71E27 /* LDColorConfiguration.h */,
 			);
 			name = Globals;
 			sourceTree = "<group>";

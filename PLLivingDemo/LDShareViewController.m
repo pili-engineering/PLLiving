@@ -42,7 +42,7 @@
     UIView *container = ({
         UIView *view = [[UIView alloc] init];
         [self.view addSubview:view];
-        view.backgroundColor = [UIColor colorWithHexString:@"010101"];
+        view.backgroundColor = kcolWarnDialogBackground;
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.and.bottom.equalTo(self.view);
             make.height.mas_equalTo(153);
@@ -107,7 +107,7 @@
     self.cancelButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [container addSubview:button];
-        [button setTitleColor:[UIColor colorWithHexString:@"B8B8B8"] forState:UIControlStateNormal];
+        [button setTitleColor:kcolCloseButtonIcon forState:UIControlStateNormal];
         [button setTitle:LDString("cancel") forState:UIControlStateNormal];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(container).with.offset(-16);

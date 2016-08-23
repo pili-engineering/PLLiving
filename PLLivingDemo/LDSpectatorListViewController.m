@@ -136,7 +136,7 @@
         
         UIView *splitLine = [[UIView alloc] init];
         [topView addSubview:splitLine];
-        [splitLine setBackgroundColor:[UIColor colorWithHexString:@"FFF3F3F3"]];
+        [splitLine setBackgroundColor:kcolSplitLine];
         [splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(topView).with.offset(30);
             make.right.equalTo(topView).with.offset(-30);
@@ -166,7 +166,7 @@
             moreViewersLabel = [[UILabel alloc] init];
             [footer addSubview:moreViewersLabel];
             [moreViewersLabel setText:[NSString stringWithFormat:LDString("x-more-viewers"), self.moreViewersCount]];
-            [moreViewersLabel setTextColor:[UIColor colorWithHexString:@"FFB3B3B3"]];
+            [moreViewersLabel setTextColor:kcolTextNotImport];
             [moreViewersLabel setFont:[UIFont systemFontOfSize:12]];
             [moreViewersLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(footer).with.offset(26);
@@ -176,7 +176,7 @@
         }
         UIView *splitLine = [[UIView alloc] init];
         [footer addSubview:splitLine];
-        [splitLine setBackgroundColor:[UIColor colorWithHexString:@"FFF3F3F3"]];
+        [splitLine setBackgroundColor:kcolSplitLine];
         [splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
             if (previousView) {
                 make.top.equalTo(previousView.mas_bottom).with.offset(48);
@@ -192,7 +192,7 @@
         if (self.enableReportBroadcast) {
             UIButton *reportButton = [UIButton buttonWithType:UIButtonTypeSystem];
             [footer addSubview:reportButton];
-            [reportButton setTitleColor:[UIColor colorWithHexString:@"ED5757"] forState:UIControlStateNormal];
+            [reportButton setTitleColor:kcolTextWarning forState:UIControlStateNormal];
             [reportButton setTitle:LDString("report-broadcast") forState:UIControlStateNormal];
             [reportButton mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(previousView.mas_bottom).with.offset(21);
@@ -319,7 +319,7 @@ typedef enum {
             UILabel *label = [[UILabel alloc] init];
             [messageContainer addSubview:label];
             [label setFont:[UIFont systemFontOfSize:16]];
-            [label setTextColor:[UIColor colorWithHexString:@"383838"]];
+            [label setTextColor:kcolTextNormal];
             label;
         });
         
@@ -327,7 +327,7 @@ typedef enum {
             UILabel *label = [[UILabel alloc] init];
             [messageContainer addSubview:label];
             [label setFont:[UIFont systemFontOfSize:12]];
-            [label setTextColor:[UIColor colorWithHexString:@"B3B3B3"]];
+            [label setTextColor:kcolTextAbstract];
             label;
         });
         

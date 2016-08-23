@@ -325,7 +325,7 @@ typedef enum {
         [self.topBar addSubview:button];
         [button setTitle:LDString("stop-broadcasting") forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        button.backgroundColor = [UIColor colorWithHexString:@"ED5757"];
+        button.backgroundColor = kcolLightButtonBackground;
         button.titleLabel.font = [UIFont systemFontOfSize:14];
         button.layer.cornerRadius = 22;
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
