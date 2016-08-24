@@ -112,8 +112,6 @@
 
 /* Begin PBXFileReference section */
 		5A4A305236244101D84161AC /* libPods-PLLivingDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PLLivingDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5AFCD06CD632ECCE56BC2242 /* Pods-PLLivingDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLLivingDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PLLivingDemo/Pods-PLLivingDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		CF0CF65ADD9F85E3E7F76D97 /* Pods-PLLivingDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLLivingDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PLLivingDemo/Pods-PLLivingDemo.release.xcconfig"; sourceTree = "<group>"; };
 		D204E5141D62B5D600E987D6 /* LDUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDUser.h; sourceTree = "<group>"; };
 		D204E5151D62B5D600E987D6 /* LDUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDUser.m; sourceTree = "<group>"; };
 		D204E51B1D62C5A400E987D6 /* LDURLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDURLImageView.h; sourceTree = "<group>"; };
@@ -263,6 +261,8 @@
 		D2FB62221D49B7070009147F /* LDLoginFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDLoginFlowViewController.m; sourceTree = "<group>"; };
 		D2FB62251D49F8640009147F /* Shape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Shape@2x.png"; path = "Assets/Shape@2x.png"; sourceTree = "<group>"; };
 		D2FB62261D49F8640009147F /* Shape@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Shape@3x.png"; path = "Assets/Shape@3x.png"; sourceTree = "<group>"; };
+		DB704B498B83AC53495BF020 /* Pods-PLLivingDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLLivingDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PLLivingDemo/Pods-PLLivingDemo.release.xcconfig"; sourceTree = "<group>"; };
+		E7FAD8ED10D655E47BEEF5F0 /* Pods-PLLivingDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLLivingDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PLLivingDemo/Pods-PLLivingDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,11 +282,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0C5C0B2A155E07182640484C /* Pods */ = {
+		2068AA74A177BB8EAD007256 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5AFCD06CD632ECCE56BC2242 /* Pods-PLLivingDemo.debug.xcconfig */,
-				CF0CF65ADD9F85E3E7F76D97 /* Pods-PLLivingDemo.release.xcconfig */,
+				E7FAD8ED10D655E47BEEF5F0 /* Pods-PLLivingDemo.debug.xcconfig */,
+				DB704B498B83AC53495BF020 /* Pods-PLLivingDemo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -440,8 +440,8 @@
 				D23162051D4AFB6900B239AA /* WechatSDK */,
 				D2F907681D3C705D006C987F /* PLLivingDemo */,
 				D2F907671D3C705D006C987F /* Products */,
-				0C5C0B2A155E07182640484C /* Pods */,
 				A2D872A8574C1CDB61E96150 /* Frameworks */,
+				2068AA74A177BB8EAD007256 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -915,7 +915,7 @@
 		};
 		D2F9077E1D3C705D006C987F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5AFCD06CD632ECCE56BC2242 /* Pods-PLLivingDemo.debug.xcconfig */;
+			baseConfigurationReference = E7FAD8ED10D655E47BEEF5F0 /* Pods-PLLivingDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -937,7 +937,7 @@
 		};
 		D2F9077F1D3C705D006C987F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CF0CF65ADD9F85E3E7F76D97 /* Pods-PLLivingDemo.release.xcconfig */;
+			baseConfigurationReference = DB704B498B83AC53495BF020 /* Pods-PLLivingDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
