@@ -21,6 +21,7 @@
 #import "LDLivingConfiguration.h"
 #import "LDShareViewController.h"
 #import "LDChatParser.h"
+#import "LDRoomItem.h"
 
 typedef enum {
     LayoutState_Hide,
@@ -305,7 +306,9 @@ typedef enum {
 
 - (void)connectToWebSocket
 {
-    NSString *webSocketURL = [LDLivingConfiguration sharedLivingConfiguration].chatRoomWebsocketURL;
+    NSString *domain = [LDLivingConfiguration sharedLivingConfiguration].chatRoomWebsocketURL;
+    NSString *webSocketURL = [NSString stringWithFormat:@"%@/chat/%@", domain, self.roomItem.authorID];
+    NSLog(@"connect to chat room %@", webSocketURL);
     self.webSocket = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:webSocketURL]];
     [self.webSocket setDelegate:self];
     [self.webSocket open];
