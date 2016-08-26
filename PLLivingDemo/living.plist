@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>HttpServerURL</key>
-	<string>http://192.168.200.103:8080</string>
+	<string>fill_your_http_server_url</string>
 	<key>ChatRoomWebsocketURL</key>
-	<string>http://192.168.200.103:8080</string>
+	<string>fill_your_chat_room_websocket_url</string>
 	<key>WechatAppID</key>
 	<string>fill_your_wechat_app_id</string>
 	<key>ImageDomain</key>
