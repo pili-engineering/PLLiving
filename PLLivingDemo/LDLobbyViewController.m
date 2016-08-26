@@ -214,22 +214,10 @@ typedef enum {
     [self _refreshRooms];
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    self.isNotEnterAnyRoom = NO;
-//}
-//
-//- (void)viewWillDisappear:(BOOL)animated
-//{
-//    [super viewWillDisappear:animated];
-//    self.isNotEnterAnyRoom = YES;
-//    [self _refreshRooms];
-//}
-
 - (void)_fireTimer:(id)sender
 {
-    if (!self.isNotEnterAnyRoom) {
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive &&
+        !self.isNotEnterAnyRoom) {
         [self _refreshRooms];
     }
 }
