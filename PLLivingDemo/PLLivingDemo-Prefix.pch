@@ -1,0 +1,27 @@
+//
+//  TaoWallet-Prefix.pch
+//  PLLivingDemo
+//
+//  Created by TaoZeyu on 16/7/18.
+//  Copyright © 2016年 com.pili-engineering. All rights reserved.
+//
+
+#define LDString(str) NSLocalizedString(@str, @"")
+
+#import "PLCameraStreamingKit.h"
+#import <PLPlayerKit/PLPlayer.h>
+#import <QiniuSDK.h>
+
+#import <RegexKitLite-NoWarning/RegexKitLite.h>
+#import <Masonry/Masonry.h>
+#import <Masonry/MASConstraint.h>
+#import <Toast/UIView+Toast.h>
+#import <SocketRocket/SocketRocket.h>
+
+#import "WXApi.h"
+#import "WXApiObject.h"
+#import "WechatAuthSDK.h"
+
+#import "LDColorConfiguration.h"
+#import "LDBasicViewController.h"
+#import "UIColor+HexString.h"
