@@ -273,10 +273,6 @@ typedef enum {
             [deleteRows addObject:indexPath];
         }
     }
-    if (deleteRows.count > 0) {
-        [self.tableView deleteRowsAtIndexPaths:deleteRows withRowAnimation:UITableViewRowAnimationRight];
-    }
-    
     for (NSUInteger i = 0; i < targetIDs.count; i++) {
         NSString *ID = targetIDs[i];
         if (![originalIDs containsObject:ID]) {
@@ -284,6 +280,10 @@ typedef enum {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             [insertRows addObject:indexPath];
         }
+    }
+    
+    if (deleteRows.count > 0) {
+        [self.tableView deleteRowsAtIndexPaths:deleteRows withRowAnimation:UITableViewRowAnimationRight];
     }
     if (insertRows.count > 0) {
         [self.tableView insertRowsAtIndexPaths:insertRows withRowAnimation:UITableViewRowAnimationLeft];
