@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>HttpServerURL</key>
+	<string>fill_your_http_server_url</string>
+	<key>ChatRoomWebsocketURL</key>
+	<string>fill_your_chat_room_websocket_url</string>
+	<key>WechatAppID</key>
+	<string>fill_your_wechat_app_id</string>
+	<key>ImageDomain</key>
+	<string>fill_your_image_domain</string>
+</dict>
+</plist>

@@ -1,0 +1,75 @@
+/* 
+  Localizable.strings
+  PLLivingDemo
+
+  Created by TaoZeyu on 16/7/18.
+  Copyright © 2016年 com.pili-engineering. All rights reserved.
+*/
+
+"slogan" = "Real life in real-time.";
+"version" = "Version 1.0.0（3672）";
+
+"login-by-wechat" = "微信登录";
+"I-see" = "知道了";
+
+// Login and Register
+"login-by-phone-number" = "Sign In with Phone Number";
+"enter-phone-number" = "Enter your mobile phone number";
+"send-confirmation-code" = "Send a confirmation code";
+"enter-confirmation-code" = "Enter your 4-digit code";
+"perfect-information" = "Perfect information";
+"user-name" = "Username";
+"create-account" = "Create Account";
+"confirm-fail" = "手机验证码错误";
+"user-name-length" = "用户名仅支持3～15位英文字母和数字";
+"start-uploading-icon" = "正在上传头像";
+"finish-uploading-icon" = "头像上传完毕";
+"failed-to-upload-icon" = "头像上传失败";
+
+// Permission Request
+"can-not-broadcasting" = "无法进行直播";
+"camera-permission-denied" = "你没有同意 app 获取摄像头，请从 iOS 设置中允许 Living 获取摄像头权限，再重新开始直播。";
+"camera-permission-did-denied" = "请从 iOS 设置中允许 Living 获取摄像头权限，再重新开始直播。";
+"microphone-permission-denied" = "你没有同意 app 获取麦克风，请从 iOS 设置中允许 Living 获取麦克风权限，再重新开始直播。";
+"microphone-permission-did-denied" = "请从 iOS 设置中允许 Living 获取麦克风权限，再重新开始直播。";
+"camera-restricted" = "摄像头设备受限，请关闭家长模式，再重新开始直播。";
+"microphone-restricted" = "麦克风设备受限，请关闭家长模式，再重新开始直播。";
+
+// Lobby
+"no-broadcasting-now" = "No broadcasting now";
+"you-can-begin-to-live" = "You can click below button to begin to live.";
+
+// Broadcasting
+"broadcasting-placeholder" = "输入直播标题……";
+"please-input-any-messages-as_broadcasting-title" = "直播内容不能为空，随便说一点吧。";
+"connected-and-is-broadcasting" = "连接成功！直播中……";
+"found-error-while-broadcasting-and-have-to-close" = "直播中发生错误，即将关闭直播！";
+"can-not-connect-to-server-when-begin-broadcasting" = "开始直播失败";
+"broadcast-disconnected-because-found-error" = "直播过程中发生错误";
+"stop-broadcasting" = "Stop Broadcasting";
+
+// Spectator
+"player-found-error-and-have-to-exit" = "播放过程中发生错误，即将退出房间！";
+"anchor-did-exit-room" = "主播已经离开房间了";
+"anchor-did-exit-room-message" = "没得神马好看的了，各位各回各家，各找各妈吧。";
+
+// Room Panel
+"chat-placeholder" = "Say somthing";
+
+// Spectator List
+"viewers" = "VIEWERS";
+"x-more-viewers" = "%li More Viewers";
+"report-broadcast" = "Report Broadcast";
+
+// Dialog
+"confirm-logout" = "确定要注销用户？";
+"logout-would-reset-username" = "你将重新登陆。";
+"sure-to-report-this-broadcast" = "Are you sure you want to report this broadcast?";
+"report-content" = "Report Inappropriate Content";
+"logout" = "Logout";
+"cancel" = "Cancel";
+"share" = "Share";
+"setting" = "Setting";
+"settings" = "Settings";
+"share-get-more-attention" = "Share, get more attention.";
+
