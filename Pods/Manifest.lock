@@ -1,0 +1,68 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - HappyDNS (0.3.10)
+  - Masonry (1.0.1)
+  - pili-librtmp (1.0.3.1)
+  - PLMediaStreamingKit (2.0.0):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.3.1)
+    - PLMediaStreamingKit/PLCameraStreamingKit (= 2.0.0)
+    - PLMediaStreamingKit/PLStreamingKit (= 2.0.0)
+  - PLMediaStreamingKit/PLCameraStreamingKit (2.0.0):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.3.1)
+  - PLMediaStreamingKit/PLStreamingKit (2.0.0):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.3.1)
+  - PLPlayerKit (2.2.2):
+    - HappyDNS
+    - pili-librtmp (= 1.0.3.1)
+    - PLPlayerKit/precompiled (= 2.2.2)
+  - PLPlayerKit/precompiled (2.2.2):
+    - HappyDNS
+    - pili-librtmp (= 1.0.3.1)
+  - Qiniu (7.1.0.1):
+    - AFNetworking (~> 3)
+    - HappyDNS (~> 0.3)
+  - RegexKitLite-NoWarning (1.1.0)
+  - SocketRocket (0.5.1)
+  - Toast (3.0)
+
+DEPENDENCIES:
+  - Masonry
+  - PLMediaStreamingKit (~> 2.0)
+  - PLPlayerKit (~> 2.2)
+  - Qiniu (~> 7.0)
+  - RegexKitLite-NoWarning
+  - SocketRocket
+  - Toast
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  pili-librtmp: 0adf2516f4b5958b3cb079a4c3d4f6a4a9f49ce9
+  PLMediaStreamingKit: f4b42bf5baeac328f1991a6024841fa789ebbb4e
+  PLPlayerKit: b5182ef942dce71678c9db07c2e1959df91e81cc
+  Qiniu: 0e92ff0d1b9afbc55275306671284e4ebeb08d03
+  RegexKitLite-NoWarning: 365d208f8187997e33d9de8baeddfc00728596d8
+  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
+  Toast: 32c59229abfcf41850162b83bb9259dc84372473
+
+PODFILE CHECKSUM: 4f358075f98b97fd2e4e1a183f8f5831fab2c02b
+
+COCOAPODS: 1.1.0.beta.1
