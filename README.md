@@ -23,7 +23,7 @@ Living 是一款基于七牛直播云 SDK 开发的直播 app。它是一个官�
 
 iPhone 扫码后安装
 
-![](https://github.com/pili-engineering/PLLiving/tree/master/screenshots/QRCode.png)
+![](https://raw.githubusercontent.com/pili-engineering/PLLiving/master/screenshots/QRCode.png)
 
 # 反馈及意见
 当你遇到任何问题时，可以通过在 GitHub 的 repo 提交 issues 来反馈问题，请尽可能的描述清楚遇到的问题，如果有错误信息也一同附带，并且在 Labels 中指明类型为 bug 或者其他。
