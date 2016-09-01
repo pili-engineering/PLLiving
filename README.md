@@ -20,15 +20,15 @@ Living 是一款基于七牛直播云 SDK 开发的直播 app。它是一个官�
     - 我个人很青睐七牛直播 SDK，通过向我的伙伴展示 Living，他们更有可能接受我的观点。
 
 # 效果展示
-![](https://raw.githubusercontent.com/pili-engineering/PLLiving/master/screenshots/demo0.png)
+![](https://raw.githubusercontent.com/pili-engineering/PLLiving/master/screenshots/demo0.PNG)
 
-![](https://raw.githubusercontent.com/pili-engineering/PLLiving/master/screenshots/demo1.png)
+![](https://raw.githubusercontent.com/pili-engineering/PLLiving/master/screenshots/demo1.PNG)
 
-![](https://raw.githubusercontent.com/pili-engineering/PLLiving/master/screenshots/demo2.png)
+![](https://raw.githubusercontent.com/pili-engineering/PLLiving/master/screenshots/demo2.PNG)
 
-![](https://raw.githubusercontent.com/pili-engineering/PLLiving/master/screenshots/demo3.png)
+![](https://raw.githubusercontent.com/pili-engineering/PLLiving/master/screenshots/demo3.PNG)
 
-![](https://raw.githubusercontent.com/pili-engineering/PLLiving/master/screenshots/demo4.png)
+![](https://raw.githubusercontent.com/pili-engineering/PLLiving/master/screenshots/demo4.PNG)
 
 # 下载地址
 
